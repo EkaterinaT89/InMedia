@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">InMedia</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="app_title">InMEDIA</string>
+    <string name="login">Введите логин</string>
+    <string name="password">Введите пароль</string>
+    <string name="sign_in_button">войти</string>
+    <string name="sign_up_button">Нет логина? Зарегистрироваться</string>
+    <string name="confirm_password">Подтвердите пароль</string>
+    <string name="sign_up">регистрация</string>
+    <string name="e_mail">Введите e-mail</string>
+    <string name="like">Like</string>
+    <string name="share">Share</string>
+    <string name="comment">Comment</string>
+    <string name="menu_button_description">Кнопка меню</string>
+    <string name="play_video_description">Просмотр видео</string>
+    <string name="avatar_description">Фото профиля</string>
+    <string name="play_audio">Воспроизведение аудио</string>
+    <string name="edit_post">Редактировать</string>
+    <string name="delete_post">Удалить</string>
+    <string name="add_new_post">Добавить новый пост</string>
+    <string name="avatar_input">Аватар пользователя</string>
+    <string name="occupation_list">Опыт работы</string>
+    <string name="job_avatar">Логотип компании</string>
+    <string name="get_job_details">Получить подробную информацию о месте работы</string>
+    <string name="event_picture_description">Картинка события</string>
+    <string name="take_a_part_button">Участвовать</string>
+    <string name="deny_button">Не участвовать</string>
+    <string name="no_network">Нет сети</string>
+    <string name="unknown_exception">Что-то пошло не так :(</string>
+    <string name="refresh">Обновить</string>
+    <string name="error_message">Что то пошло не так :(</string>
+</resources>

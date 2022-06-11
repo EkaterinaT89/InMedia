@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/margin"
+    app:cardElevation="@dimen/elevation"
+    app:cardCornerRadius="@dimen/corner_radius"
+    tools:context=".fragment.CardEventFragment">
+
+    <ImageView
+        android:id="@+id/event_picture"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="@dimen/margin"
+        android:contentDescription="@string/event_picture_description"
+        android:src="@drawable/ic_baseline_event_note_blue" />
+
+    <TextView
+        android:id="@+id/event_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="@dimen/margin"
+        android:textColor="?attr/textFillColor"
+        android:textSize="@dimen/title_text_size"
+        tools:text="sdjflskjdflsjdflsjdfljsldfjsljdfkl" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/edit_event"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_gravity="end"
+        android:layout_margin="@dimen/margin"
+        app:icon="@drawable/ic_baseline_more_horiz_24"
+        app:iconGravity="end"
+        app:iconSize="20dp"
+        app:iconTint="?attr/colorControlNormal" />
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="70dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/event_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin"
+            android:layout_marginTop="90dp"
+            android:textSize="@dimen/content_text_size"
+            tools:text="sdjflskjdflsjdflsjdfljsldfjsljdfkl" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/likes_button"
+                style="@style/Widget.AppTheme.LikeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="@dimen/margin"
+                android:background="@android:color/transparent"
+                android:checkable="true"
+                android:text="@string/like"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="@dimen/button_icon_text_size"
+                app:icon="@drawable/ic_baseline_thumb_up_off_alt_24"
+                app:iconSize="@dimen/button_icon_size" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/take_a_part_button"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="@string/take_a_part_button"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="?attr/colorControlNormal"
+                android:textSize="@dimen/button_icon_text_size"
+                app:icon="@drawable/ic_baseline_take_part"
+                app:iconSize="@dimen/button_icon_size"
+                app:iconTint="?attr/colorControlNormal" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/deny_button"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="@string/deny_button"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="?attr/colorControlNormal"
+                android:textSize="@dimen/button_icon_text_size"
+                android:visibility="gone"
+                app:icon="@drawable/ic_baseline_cancel_24"
+                app:iconSize="@dimen/button_icon_size"
+                app:iconTint="?attr/colorControlNormal" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

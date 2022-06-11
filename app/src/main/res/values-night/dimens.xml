@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="text_size_splash_screen">38sp</dimen>
+    <dimen name="elevation">15dp</dimen>
+    <dimen name="corner_radius">20dp</dimen>
+    <dimen name="margin">15dp</dimen>
+    <dimen name="padding">16dp</dimen>
+    <dimen name="icon_button_min_size">48dp</dimen>
+    <dimen name="button_icon_size">20dp</dimen>
+    <dimen name="button_icon_text_size">11sp</dimen>
+    <dimen name="title_text_size">14sp</dimen>
+    <dimen name="content_text_size">12sp</dimen>
+</resources>

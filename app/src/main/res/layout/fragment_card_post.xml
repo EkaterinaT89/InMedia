@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/margin"
+    android:padding="@dimen/padding"
+    app:cardCornerRadius="@dimen/corner_radius"
+    app:cardElevation="@dimen/elevation"
+    tools:context=".fragment.CardPostFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/avatar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="@dimen/margin"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_outline_mode_comment_24" />
+
+        <TextView
+            android:id="@+id/author_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="?attr/textFillColor"
+            android:textSize="@dimen/title_text_size"
+            app:layout_constraintEnd_toStartOf="@id/menu_button"
+            app:layout_constraintStart_toEndOf="@+id/avatar"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Имя автора" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/content_text_size"
+            app:layout_constraintStart_toEndOf="@+id/author_name"
+            app:layout_constraintStart_toStartOf="@+id/author_name"
+            app:layout_constraintTop_toBottomOf="@+id/author_name"
+            tools:text="36 часов назад" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/menu_button"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="@dimen/margin"
+            android:checkable="false"
+            android:contentDescription="@string/menu_button_description"
+            app:icon="@drawable/ic_baseline_more_horiz_24"
+            app:iconGravity="end"
+            app:iconSize="@dimen/button_icon_size"
+            app:iconTint="?attr/colorControlNormal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/post_with_media_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/date">
+
+            <TextView
+                android:id="@+id/content_post"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin"
+                android:layout_marginTop="@dimen/margin"
+                android:autoLink="web"
+                android:scrollbars="vertical"
+                android:textSize="@dimen/content_text_size"
+                tools:text="sgsdgdherrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/play_audio"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="start|center"
+                android:layout_marginTop="@dimen/margin"
+                android:autoLink="web"
+                android:background="?attr/colorControlNormal"
+                android:checkable="false"
+                android:contentDescription="@string/play_audio"
+                android:visibility="gone"
+                app:icon="@drawable/play_video"
+                app:iconSize="24dp"
+                app:iconTint="?attr/colorControlNormal" />
+
+            <ImageView
+                android:id="@+id/image_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin"
+                android:visibility="gone"
+                tools:src="@drawable/ic_outline_mode_comment_24" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/group_for_video"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                app:constraint_referenced_ids="video_link, play_video, video_container">
+
+                <TextView
+                    android:id="@+id/video_link"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autoLink="web"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    tools:text="какое то видео" />
+
+                <VideoView
+                    android:id="@+id/video_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/play_video"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:autoLink="web"
+                    android:background="?attr/colorControlNormal"
+                    android:checkable="false"
+                    android:contentDescription="@string/play_video_description"
+                    app:icon="@drawable/play_video"
+                    app:iconSize="48dp" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_marginTop="@dimen/margin"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/content_post" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/likes"
+                style="@style/Widget.AppTheme.LikeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin"
+                android:background="@android:color/transparent"
+                android:checkable="true"
+                android:text="@string/like"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="@dimen/button_icon_text_size"
+                app:icon="@drawable/ic_baseline_thumb_up_off_alt_24"
+                app:iconSize="@dimen/button_icon_size"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

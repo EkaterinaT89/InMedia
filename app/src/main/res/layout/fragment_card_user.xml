@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_user"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/margin"
+    android:padding="@dimen/padding"
+    app:cardElevation="@dimen/elevation"
+    app:cardCornerRadius="@dimen/corner_radius">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/avatar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_margin="@dimen/margin"
+        android:foregroundGravity="center"
+        app:cardCornerRadius="160dp"
+        app:cardElevation="16dp">
+
+        <ImageView
+            android:id="@+id/fpp_player_image_input"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            tools:src="@drawable/ic_outline_mode_comment_24" />
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="@dimen/margin"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textColor="?attr/textFillColor"
+        android:textSize="@dimen/title_text_size"
+        tools:text="Имя автора" />
+
+    <TextView
+        android:id="@+id/user_occupation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="35dp"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textSize="@dimen/content_text_size"
+        tools:text="Должность и место работы" />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="55dp"
+        android:textSize="@dimen/content_text_size"
+        tools:text="36 часов назад" />
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/divider"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="@dimen/margin" />
+
+    <TextView
+        android:id="@+id/user_information"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin"
+        android:layout_marginTop="110dp"
+        android:layout_marginBottom="50dp"
+        android:textSize="@dimen/content_text_size"
+        tools:text="shfkjsdhfkshghsafkhdskj" />
+
+</androidx.cardview.widget.CardView>

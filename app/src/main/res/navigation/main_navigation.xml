@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/tabsFragment">
+
+    <fragment
+        android:id="@+id/authFragment"
+        android:name="ru.netology.inmedia.fragment.AuthFragment"
+        android:label="Авторизация"
+        tools:layout="@layout/fragment_auth" >
+        <action
+            android:id="@+id/action_authFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="ru.netology.inmedia.fragment.SignUpFragment"
+        android:label="Регистрация"
+        tools:layout="@layout/fragment_sign_up" />
+    <fragment
+        android:id="@+id/userPageFragment"
+        android:name="ru.netology.inmedia.fragment.UserPageFragment"
+        tools:layout="@layout/fragment_user_page" >
+        <action
+            android:id="@+id/action_userPageFragment_to_listUserOccupationFragment"
+            app:destination="@id/listUserOccupationFragment" />
+        <action
+            android:id="@+id/action_userPageFragment_to_authFragment"
+            app:destination="@id/authFragment" />
+        <action
+            android:id="@+id/action_userPageFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/listEventsFragment"
+        android:name="ru.netology.inmedia.fragment.ListEventsFragment"
+        tools:layout="@layout/fragment_list_events" >
+        <action
+            android:id="@+id/action_listEventsFragment_to_cardEventFragment"
+            app:destination="@id/cardEventFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/listPostFragment"
+        android:name="ru.netology.inmedia.fragment.ListPostFragment"
+        tools:layout="@layout/fragment_list_post" >
+        <action
+            android:id="@+id/action_listPostFragment_to_cardPostFragment"
+            app:destination="@id/cardPostFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tabsFragment"
+        android:name="ru.netology.inmedia.fragment.TabsFragment" >
+        <action
+            android:id="@+id/action_tabsFragment_to_userPageFragment"
+            app:destination="@id/userPageFragment" />
+        <action
+            android:id="@+id/action_tabsFragment_to_listEventsFragment"
+            app:destination="@id/listEventsFragment" />
+        <action
+            android:id="@+id/action_tabsFragment_to_listPostFragment"
+            app:destination="@id/listPostFragment" />
+        <action
+            android:id="@+id/action_tabsFragment_to_listUsersFragment"
+            app:destination="@id/listUsersFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/listUsersFragment"
+        android:name="ru.netology.inmedia.fragment.ListUsersFragment"
+        tools:layout="@layout/fragment_list_users" >
+        <action
+            android:id="@+id/action_listUsersFragment_to_userPageFragment"
+            app:destination="@id/userPageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cardEventFragment"
+        android:name="ru.netology.inmedia.fragment.CardEventFragment"
+        android:label="Событие"
+        tools:layout="@layout/fragment_card_event" />
+    <fragment
+        android:id="@+id/cardPostFragment"
+        android:name="ru.netology.inmedia.fragment.CardPostFragment"
+        android:label="fragment_card_post"
+        tools:layout="@layout/fragment_card_post" />
+    <fragment
+        android:id="@+id/listUserOccupationFragment"
+        android:name="ru.netology.inmedia.fragment.ListUserOccupationFragment"
+        tools:layout="@layout/fragment_list_user_occupation" >
+        <action
+            android:id="@+id/action_listUserOccupationFragment_to_oneUserOccupationFragment"
+            app:destination="@id/oneUserOccupationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/oneUserOccupationFragment"
+        android:name="ru.netology.inmedia.fragment.OneUserOccupationFragment"
+        android:label="Место работы" />
+</navigation>
