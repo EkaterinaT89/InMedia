@@ -1,8 +1,11 @@
 package ru.netology.inmedia.dto
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 import ru.netology.inmedia.enumeration.EventType
 import java.time.Instant
 
+@Parcelize
 data class Event(
     val id: Long,
     val authorId: Long,
@@ -13,7 +16,7 @@ data class Event(
      * Дата и время проведения
      */
     val datetime: Instant? = null,
-    val published: Instant? = null,
+    var published: Instant? = null,
     /**
      * Координаты проведения
      */
@@ -21,7 +24,7 @@ data class Event(
     /**
      * Типы события
      */
-    val type: EventType,
+    val type: EventType? = null,
     /**
      * Id'шники залайкавших
      */
@@ -44,4 +47,5 @@ data class Event(
     val participatedByMe: Boolean = false,
     val attachment: Attachment? = null,
     val link: String? = null,
-)
+    val ownedByMe: Boolean = false,
+): Parcelable

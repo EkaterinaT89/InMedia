@@ -2,9 +2,11 @@ package ru.netology.inmedia.adapter
 
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.MediaController
 import android.widget.PopupMenu
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -23,7 +25,9 @@ interface OnInteractionListener {
     fun onSinglePost(post: Post)
     fun onEdit(post: Post)
     fun onRemove(post: Post)
-
+    fun onFullScreenImage(post: Post)
+    fun onPlayVideo(post: Post)
+    fun onPlayAudio(post: Post)
 }
 
 class PostAdapter
@@ -49,13 +53,13 @@ class PostViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(post: Post) {
-        val url = "https://inmediadiploma.herokuapp.com"
+        val url = "https://inmediadiploma.herokuapp.com/api"
 
         binding.apply {
             authorName.text = post.author
-            date.text = post.published.toString()
+            date.text = post.published
             contentPost.text = post.content
-            likes.text = PostService.countPresents(post.likeOwnerIds.size.toLong())
+            likes.text = PostService.countPresents(post.likeOwnerIds)
 
             likes.isChecked = post.likedByMe
 
@@ -87,7 +91,7 @@ class PostViewHolder(
                 .into(avatar)
 
             likes.setOnClickListener {
-                if(post.likedByMe) {
+                if(!post.likedByMe) {
                     onInteractionListener.onLike(post)
                     ObjectAnimator.ofPropertyValuesHolder(
                         likes,
@@ -105,21 +109,36 @@ class PostViewHolder(
 
             }
 
-//            playVideo.setOnClickListener {
-//                onInteractionListener.onPlayVideo(post)
-//            }
-//
-//            playAudio.setOnClickListener {
-//                onInteractionListener.onPlayAudio(post)
-//            }
-//
-//            imageContainer.setOnClickListener{
-//                onInteractionListener.onFullImage(post)
-//            }
+            videoContainer.apply {
+                setMediaController(MediaController(context))
+                setVideoURI(
+                    Uri.parse("$url/media/${post.attachment?.url}")
+                )
+                setOnPreparedListener {
+                    start()
+                }
+                setOnCompletionListener {
+                    stopPlayback()
+                }
+            }
+
+            videoContainer.setOnClickListener {
+                onInteractionListener.onPlayVideo(post)
+            }
+
+            playAudio.setOnClickListener {
+                onInteractionListener.onPlayAudio(post)
+            }
+
+            imageContainer.setOnClickListener{
+                onInteractionListener.onFullScreenImage(post)
+            }
 
             contentPost.setOnClickListener {
                 onInteractionListener.onSinglePost(post)
             }
+
+            menuButton.visibility = if (post.ownedByMe) View.VISIBLE else View.INVISIBLE
 
             menuButton.setOnClickListener {
                 PopupMenu(it.context, it).apply {

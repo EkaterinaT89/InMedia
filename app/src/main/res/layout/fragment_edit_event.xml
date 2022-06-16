@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.EditPostFragment">
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/tools_barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="top"
+        app:constraint_referenced_ids="save_button, edit_content" />
+
+    <FrameLayout
+        android:id="@+id/photo_container"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/audio_container"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/audio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="@dimen/margin"
+            android:src="@drawable/play_video" />
+
+        <TextView
+            android:id="@+id/load_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginBottom="@dimen/margin"
+            android:text="@string/load_ok"
+            android:textColor="?attr/textFillColor" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/video_container"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/video"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="@dimen/margin"
+            android:src="@drawable/play_video" />
+
+        <TextView
+            android:id="@+id/video_load_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginBottom="@dimen/margin"
+            android:text="@string/load_ok"
+            android:textColor="?attr/textFillColor" />
+    </FrameLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/remove_attachment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin"
+        android:layout_gravity="center_horizontal|bottom"
+        android:visibility="gone"
+        android:text="@string/delete_post"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@color/white"
+        android:contentDescription="@string/remove_photo_description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/button_panel"/>
+
+    <EditText
+        android:id="@+id/edit_content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:autofillHints="no"
+        android:background="@android:color/transparent"
+        android:inputType="textMultiLine"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/save_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tools_barrier"
+        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:constraint_referenced_ids="save_button, cancel_edit_button, pencil, edit_event_name,
+            author_name, tools_barrier_cancel_edit, edit_content,
+                 button_panel" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/tools_barrier_cancel_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="top"
+        app:constraint_referenced_ids="cancel_edit_button, pencil, edit_event_name, author_name" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/cancel_edit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:icon="@drawable/ic_baseline_edit_off_24"
+        app:iconGravity="end"
+        app:iconTint="@color/blue"
+        app:layout_constraintBottom_toTopOf="@id/tools_barrier"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tools_barrier_cancel_edit" />
+
+    <ImageView
+        android:id="@+id/pencil"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="@android:color/transparent"
+        android:scrollbarSize="48dp"
+        android:src="@drawable/ic_baseline_edit_24"
+        app:layout_constraintBottom_toTopOf="@id/tools_barrier"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tools_barrier_cancel_edit" />
+
+    <TextView
+        android:id="@+id/edit_event_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin"
+        android:layout_marginBottom="4dp"
+        android:autofillHints="no"
+        android:background="@android:color/transparent"
+        android:text="@string/edit_event_name"
+        android:textColor="?attr/textFillColor"
+        app:layout_constraintBottom_toTopOf="@id/author_name"
+        app:layout_constraintEnd_toStartOf="@+id/cancel_edit_button"
+        app:layout_constraintStart_toEndOf="@+id/pencil"
+        app:layout_constraintTop_toBottomOf="@+id/tools_barrier_cancel_edit" />
+
+    <TextView
+        android:id="@+id/author_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:autofillHints="no"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toTopOf="@id/tools_barrier"
+        app:layout_constraintEnd_toStartOf="@+id/cancel_edit_button"
+        app:layout_constraintStart_toEndOf="@+id/pencil" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/save_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:scrollbarSize="48dp"
+        app:icon="@drawable/ic_baseline_save_24"
+        app:iconGravity="end"
+        app:iconTint="@color/blue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/button_panel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tools_barrier_cancel_edit">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/pick_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:contentDescription="@string/pick_photo_description"
+            app:icon="@drawable/ic_pick_photo"
+            app:iconSize="@dimen/button_icon_size"
+            app:iconTint="@color/blue"
+            android:backgroundTint="@color/white"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/take_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin"
+            android:contentDescription="@string/take_photo_description"
+            app:icon="@drawable/ic_baseline_add_a_photo_24"
+            app:iconSize="@dimen/button_icon_size"
+            app:iconTint="@color/blue"
+            android:backgroundTint="@color/white" />
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

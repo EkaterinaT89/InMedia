@@ -32,4 +32,18 @@
     <string name="unknown_exception">Что-то пошло не так :(</string>
     <string name="refresh">Обновить</string>
     <string name="error_message">Что то пошло не так :(</string>
+    <string name="inpu_name">Введите имя</string>
+    <string name="menu_sign_in">Войти</string>
+    <string name="menu_sign_up">Зарегистрироваться</string>
+    <string name="menu_sign_out">Выйти</string>
+    <string name="take_photo_description">Сделать фото</string>
+    <string name="pick_photo_description">Выбрать фото</string>
+    <string name="remove_photo_description">Удалить фото</string>
+    <string name="menu_save">Сохранить</string>
+    <string name="edit_post_name">Редактирование поста</string>
+    <string name="download_mp3">mp3</string>
+    <string name="download_mp4">mp4</string>
+    <string name="load_ok">Успешно загружено</string>
+    <string name="edit_event">Редактирование события</string>
+    <string name="edit_event_name">Редактирование события</string>
 </resources>

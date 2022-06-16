@@ -1,14 +1,18 @@
 package ru.netology.inmedia.dto
 
-import java.time.Instant
+import android.os.Parcel
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.RawValue
 
+@Parcelize
 data class Post(
     val id: Long,
     val authorId: Long,
     val author: String,
     val authorAvatar: String?,
     val content: String,
-    val published: String,
+    var published: String,
     /**
      * Координаты
      */
@@ -40,4 +44,4 @@ data class Post(
     val likedByMe: Boolean = false,
     val attachment: Attachment? = null,
     val ownedByMe: Boolean = false,
-)
+) : Parcelable

@@ -1,5 +1,6 @@
 package ru.netology.inmedia.model
 
+import ru.netology.inmedia.dto.Event
 import ru.netology.inmedia.dto.Post
 
 data class FeedModel(

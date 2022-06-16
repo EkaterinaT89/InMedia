@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id 'kotlin-parcelize'
 }
 
 android {
@@ -23,7 +24,7 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             manifestPlaceholders.usesCleartextTraffic = false
-            buildConfigField "String", "BASE_URL", '"https://inmediadiploma.herokuapp.com"'
+            buildConfigField "String", "BASE_URL", '"https://inmediadiploma.herokuapp.com/"'
         }
     }
     compileOptions {

@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import dagger.hilt.android.AndroidEntryPoint
 import ru.netology.inmedia.databinding.FragmentOneUserOccupationBinding
 
-@AndroidEntryPoint
 class OneUserOccupationFragment: Fragment() {
 
     override fun onCreateView(

@@ -5,7 +5,8 @@ import java.text.DecimalFormat
 
 object PostService {
 
-    fun countPresents(counter: Long): String {
+    fun countPresents(set: Set<Long>): String {
+        val counter = set.size.toLong()
         return when(counter) {
             in 0..999 -> "${counter}"
 

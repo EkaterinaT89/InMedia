@@ -6,9 +6,8 @@
     <uses-permission android:name="adroid.permission.INTERNET" />
 
     <application
-        android:name=".app.InMediaApplication"
-        android:label=" "
-        android:allowBackup="false"
+        android:label="InMedia"
+        android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -16,6 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.InMedia"
+        android:name=".application.InMediaApplication"
         tools:targetApi="31">
 
         <activity
@@ -30,10 +30,16 @@
         <activity
             android:name=".MainActivity"
             android:exported="true">
+            <nav-graph android:value="@navigation/main_navigation" />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.GET_CONTENT" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.OPENABLE" />
             </intent-filter>
         </activity>
     </application>

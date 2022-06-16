@@ -3,29 +3,44 @@ package ru.netology.inmedia.api
 import okhttp3.Interceptor
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 import ru.netology.inmedia.BuildConfig
+import ru.netology.inmedia.auth.AppAuth
+import ru.netology.inmedia.auth.AuthState
+import ru.netology.inmedia.dto.Event
 import ru.netology.inmedia.dto.Media
 import ru.netology.inmedia.dto.Post
 import ru.netology.inmedia.dto.PushToken
 
 private const val BASE_URL = "https://inmediadiploma.herokuapp.com/api/"
 
-fun okhttp(vararg interceptors: Interceptor): OkHttpClient = OkHttpClient.Builder()
-    .apply {
-        interceptors.forEach {
-            this.addInterceptor(it)
+private val logging = HttpLoggingInterceptor().apply {
+    if (BuildConfig.DEBUG) {
+        level = HttpLoggingInterceptor.Level.BODY
+    }
+}
+
+private val okhttp = OkHttpClient.Builder()
+    .addInterceptor(logging)
+    .addInterceptor { chain ->
+        AppAuth.getInstance().authStateFlow.value.token?.let { token ->
+            val newRequest = chain.request().newBuilder()
+                .addHeader("Authorization", token)
+                .build()
+            return@addInterceptor chain.proceed(newRequest)
         }
+        chain.proceed(chain.request())
     }
     .build()
 
-fun retrofit(client: OkHttpClient): Retrofit = Retrofit.Builder()
+private val retrofit = Retrofit.Builder()
     .addConverterFactory(GsonConverterFactory.create())
     .baseUrl(BASE_URL)
-    .client(client)
+    .client(okhttp)
     .build()
 
 interface ApiService {
@@ -68,24 +83,59 @@ interface ApiService {
     @GET("posts/{id}")
     suspend fun getPostNotExist(@Path("id") id: Long): Response<Post>
 
+    //   Загрузка изображения, mp3, mp4
+    @Multipart
+    @POST("media")
+    suspend fun upload(@Part media: MultipartBody.Part): Response<Media>
 
-//    @Multipart
-//    @POST("media")
-//    suspend fun upload(@Part media: MultipartBody.Part): Response<Media>
+    @FormUrlEncoded
+    @POST("users/authentication")
+    suspend fun updateUser(
+        @Field("login") login: String,
+        @Field("pass") pass: String
+    ): Response<AuthState>
 
-//    @FormUrlEncoded
-//    @POST("users/authentication")
-//    suspend fun updateUser(
-//        @Field("login") login: String,
-//        @Field("pass") pass: String
-//    ): Response<AuthState>
-//
-//    @FormUrlEncoded
-//    @POST("users/registration")
-//    suspend fun registerUser(
-//        @Field("login") login: String,
-//        @Field("pass") pass: String,
-//        @Field("name") name: String
-//    ): Response<AuthState>
+    @FormUrlEncoded
+    @POST("users/registration")
+    suspend fun registerUser(
+        @Field("login") login: String,
+        @Field("pass") pass: String,
+        @Field("name") name: String
+    ): Response<AuthState>
 
+//    EVENTS
+
+    @GET("events")
+    suspend fun getAllEvents(): Response<List<Event>>
+
+    @POST("events")
+    suspend fun createNewEvent(@Body event: Event): Response<Event>
+
+    @GET("events/{id}")
+    suspend fun getEventById(@Path("id") id: Long): Response<Event>
+
+    @POST("events")
+    suspend fun editEvent(@Body event: Event): Response<Event>
+
+    @POST("events/{id}/likes")
+    suspend fun likeEventById(@Path("id") id: Long): Response<Event>
+
+    @DELETE("events/{id}/likes")
+    suspend fun disLikeEventById(@Path("id") id: Long): Response<Event>
+
+    @DELETE("events/{id}")
+    suspend fun removeEventById(@Path("id") id: Long): Response<Unit>
+
+    @POST("events/{id}/participants")
+    suspend fun takePartEvent(@Path("id") id: Long): Response<Event>
+
+    @DELETE("events/{id}/participants")
+    suspend fun unTakePartEvent(@Path("id") id: Long): Response<Event>
+
+    object Api {
+        val retrofitService: ApiService by lazy {
+            retrofit.create(ApiService::class.java)
+        }
+
+    }
 }

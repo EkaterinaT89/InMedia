@@ -1,6 +1,8 @@
 package ru.netology.inmedia.repository
 
 import kotlinx.coroutines.flow.Flow
+import ru.netology.inmedia.dto.Media
+import ru.netology.inmedia.dto.MediaUpload
 import ru.netology.inmedia.dto.Post
 
 interface PostRepository {
@@ -27,12 +29,8 @@ interface PostRepository {
 
     suspend fun getPostNotExist(id: Long)
 
-//    suspend fun saveWithAttachment(post: Post, upload: MediaUpload)
-//
-//    suspend fun upload(upload: MediaUpload): Media
+    suspend fun saveWithAttachment(post: Post, upload: MediaUpload)
 
-//    suspend fun signIn(login: String, pass: String)
-//
-//    suspend fun signUp(name: String, login: String, pass: String)
+    suspend fun upload(upload: MediaUpload): Media
 
 }

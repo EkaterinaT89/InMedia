@@ -5,7 +5,9 @@ enum class ActionType {
     DISLIKEBYID,
     SAVE,
     REMOVEBYID,
-    LOADPOSTS,
+    LOAD,
     GETBYID,
-    EDIT
+    EDIT,
+    TAKEPARTEVENT,
+    UNTAKEPARTEVENT
 }

@@ -152,21 +152,25 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/content_post" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/likes"
-                style="@style/Widget.AppTheme.LikeButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin"
-                android:background="@android:color/transparent"
-                android:checkable="true"
-                android:text="@string/like"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textSize="@dimen/button_icon_text_size"
-                app:icon="@drawable/ic_baseline_thumb_up_off_alt_24"
-                app:iconSize="@dimen/button_icon_size"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/divider" />
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/likes"
+                    style="@style/Widget.AppTheme.LikeButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin"
+                    android:background="@android:color/transparent"
+                    android:checkable="true"
+                    android:text="@string/like"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textSize="@dimen/button_icon_text_size"
+                    app:icon="@drawable/ic_baseline_thumb_up_off_alt_24"
+                    app:iconSize="@dimen/button_icon_size" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 

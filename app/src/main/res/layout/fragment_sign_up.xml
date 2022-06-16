@@ -16,11 +16,35 @@
         app:cardCornerRadius="@dimen/corner_radius">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/login"
+            android:id="@+id/name"
             android:layout_width="280dp"
             android:layout_height="60dp"
             android:layout_gravity="center_horizontal"
             android:layout_margin="@dimen/margin"
+            android:background="@color/white"
+            android:gravity="center"
+            android:hint="@string/inpu_name"
+            android:importantForAutofill="no"
+            android:inputType="text">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/name_input"
+                android:layout_width="250dp"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
+                android:background="@color/white"
+                android:inputType="text"
+                android:paddingStart="20dp"
+                tools:ignore="RtlSymmetry" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/login"
+            android:layout_width="280dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="75dp"
             android:background="@color/white"
             android:gravity="center"
             android:hint="@string/login"
@@ -44,7 +68,7 @@
             android:layout_width="280dp"
             android:layout_height="60dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="75dp"
+            android:layout_marginTop="135dp"
             android:background="@color/white"
             android:gravity="center"
             android:hint="@string/e_mail"
@@ -68,7 +92,7 @@
             android:layout_width="280dp"
             android:layout_height="60dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="190dp"
             android:background="@color/white"
             android:gravity="center"
             android:hint="@string/password"
@@ -92,7 +116,7 @@
             android:layout_width="280dp"
             android:layout_height="60dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="250dp"
             android:layout_marginBottom="@dimen/margin"
             android:background="@color/white"
             android:gravity="center_horizontal"
