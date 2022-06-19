@@ -55,14 +55,6 @@
                     android:layout_marginStart="@dimen/margin"
                     android:src="@drawable/play_video" />
 
-                <TextView
-                    android:id="@+id/load_ok"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="50dp"
-                    android:layout_marginBottom="@dimen/margin"
-                    android:text="@string/load_ok"
-                    android:textColor="?attr/textFillColor" />
             </FrameLayout>
 
             <FrameLayout
@@ -71,22 +63,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <ImageView
-                    android:id="@+id/video"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:layout_marginStart="@dimen/margin"
-                    android:src="@drawable/play_video" />
-
-                <TextView
-                    android:id="@+id/video_load_ok"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="50dp"
-                    android:layout_marginBottom="@dimen/margin"
-                    android:text="@string/load_ok"
-                    android:textColor="?attr/textFillColor" />
+                <com.google.android.exoplayer2.ui.PlayerView
+                    android:id="@+id/video_player_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:layout_gravity="center_horizontal" />
             </FrameLayout>
 
             <com.google.android.material.button.MaterialButton

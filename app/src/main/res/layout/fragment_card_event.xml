@@ -61,12 +61,21 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/event_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="90dp"
+            android:layout_marginStart="@dimen/margin"
+            tools:text="Онлайн"/>
+
+        <TextView
             android:id="@+id/event_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin"
-            android:layout_marginTop="90dp"
+            android:layout_marginTop="@dimen/margin"
             android:textSize="@dimen/content_text_size"
+            android:textColor="?attr/textFillColor"
             tools:text="sdjflskjdflsjdflsjdfljsldfjsljdfkl" />
 
         <ImageView
@@ -115,7 +124,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/deny_button"
-                style="@style/Widget.AppCompat.Button.Borderless"
+                style="@style/Widget.AppTheme.LikeButton"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:text="@string/deny_button"
@@ -124,8 +133,7 @@
                 android:textSize="@dimen/button_icon_text_size"
                 android:visibility="gone"
                 app:icon="@drawable/ic_baseline_cancel_24"
-                app:iconSize="@dimen/button_icon_size"
-                app:iconTint="?attr/colorControlNormal" />
+                app:iconSize="@dimen/button_icon_size" />
 
         </LinearLayout>
 

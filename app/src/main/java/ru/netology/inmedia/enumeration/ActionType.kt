@@ -9,5 +9,6 @@ enum class ActionType {
     GETBYID,
     EDIT,
     TAKEPARTEVENT,
-    UNTAKEPARTEVENT
+    UNTAKEPARTEVENT,
+    GETWALL
 }

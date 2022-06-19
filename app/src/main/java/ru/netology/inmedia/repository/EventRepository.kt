@@ -6,6 +6,7 @@ import ru.netology.inmedia.dto.Event
 import ru.netology.inmedia.dto.Media
 import ru.netology.inmedia.dto.MediaUpload
 import ru.netology.inmedia.dto.Post
+import ru.netology.inmedia.enumeration.EventType
 
 interface EventRepository {
 
@@ -13,7 +14,7 @@ interface EventRepository {
 
     suspend fun getAllEvents()
 
-    suspend fun createNewEvent(event: Event)
+    suspend fun createNewEvent(event: Event, eventType: EventType)
 
     suspend fun getEventById(id: Long)
 
@@ -29,7 +30,7 @@ interface EventRepository {
 
     suspend fun unTakePartEvent(id: Long)
 
-    suspend fun saveWithAttachment(event: Event, upload: MediaUpload)
+    suspend fun saveWithAttachment(event: Event, upload: MediaUpload, eventType: EventType)
 
     suspend fun upload(upload: MediaUpload): Media
 

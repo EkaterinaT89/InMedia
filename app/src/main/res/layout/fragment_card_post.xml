@@ -79,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin"
                 android:layout_marginTop="@dimen/margin"
-                android:autoLink="web"
+                android:autoLink="phone|web"
                 android:scrollbars="vertical"
                 android:textSize="@dimen/content_text_size"
                 tools:text="sgsdgdherrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr" />
@@ -107,33 +107,25 @@
                 android:visibility="gone"
                 tools:src="@drawable/ic_outline_mode_comment_24" />
 
-            <androidx.appcompat.widget.LinearLayoutCompat
+            <FrameLayout
                 android:id="@+id/group_for_video"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin"
                 android:orientation="vertical"
-                android:visibility="gone"
-                app:constraint_referenced_ids="video_link, play_video, video_container">
+                android:visibility="gone" >
 
-                <TextView
-                    android:id="@+id/video_link"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:autoLink="web"
-                    android:ellipsize="end"
-                    android:singleLine="true"
-                    tools:text="какое то видео" />
-
-                <VideoView
+                <ImageView
                     android:id="@+id/video_container"
                     android:layout_width="match_parent"
-                    android:layout_height="80dp" />
+                    android:layout_height="300dp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/play_video"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:scaleType="centerCrop"
                     android:autoLink="web"
                     android:background="?attr/colorControlNormal"
                     android:checkable="false"
@@ -141,7 +133,13 @@
                     app:icon="@drawable/play_video"
                     app:iconSize="48dp" />
 
-            </androidx.appcompat.widget.LinearLayoutCompat>
+                <ProgressBar
+                    android:id="@+id/video_progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
+
+            </FrameLayout>
 
             <com.google.android.material.divider.MaterialDivider
                 android:id="@+id/divider"

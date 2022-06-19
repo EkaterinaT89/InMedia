@@ -1,9 +1,11 @@
 package ru.netology.inmedia.fragment
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -54,11 +56,19 @@ class ListEventsFragment : Fragment() {
             }
 
             override fun onLike(event: Event) {
-                eventViewModel.likeById(event.id)
+                if(authViewModel.authenticated) {
+                    eventViewModel.likeById(event.id)
+                } else {
+                    findNavController().navigate(R.id.authFragment)
+                }
             }
 
             override fun onDisLike(event: Event) {
-                eventViewModel.disLikeById(event.id)
+                if(authViewModel.authenticated) {
+                    eventViewModel.disLikeById(event.id)
+                } else {
+                    findNavController().navigate(R.id.authFragment)
+                }
             }
 
             override fun onTakePart(event: Event) {
@@ -83,6 +93,13 @@ class ListEventsFragment : Fragment() {
 
             override fun onFullImage(event: Event) {
                 findNavController().navigate(R.id.imageFragment)
+            }
+
+            override fun onLink(url: String) {
+                CustomTabsIntent.Builder()
+                    .setShowTitle(true)
+                    .build()
+                    .launchUrl(requireContext(), Uri.parse(url))
             }
 
         })

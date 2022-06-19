@@ -1,7 +1,7 @@
 package ru.netology.inmedia.fragment
 
+import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -15,14 +15,12 @@ import com.github.dhaval2404.imagepicker.ImagePicker
 import com.github.dhaval2404.imagepicker.constant.ImageProvider
 import com.google.android.material.snackbar.Snackbar
 import ru.netology.inmedia.R
-import ru.netology.inmedia.databinding.FragmentNewPostBinding
 import ru.netology.inmedia.service.AndroidUtils
 import ru.netology.inmedia.service.StringArg
-import ru.netology.inmedia.viewmodel.PostViewModel
 import androidx.navigation.fragment.findNavController
 import ru.netology.inmedia.databinding.FragmentNewEventBinding
 import ru.netology.inmedia.enumeration.AttachmentType
-import ru.netology.inmedia.repository.PostRepositoryImpl
+import ru.netology.inmedia.enumeration.EventType
 import ru.netology.inmedia.viewmodel.EventViewModel
 
 class NewEventFragment : Fragment() {
@@ -37,6 +35,9 @@ class NewEventFragment : Fragment() {
         var Bundle.textArg: String? by StringArg
     }
 
+    var eventType: EventType? = null
+
+    @SuppressLint("ResourceType")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -70,7 +71,7 @@ class NewEventFragment : Fragment() {
                     }
                     Activity.RESULT_OK -> {
                         val uri: Uri? = it.data?.data
-                        viewModel.changeAttachment(uri, uri?.toFile())
+                        viewModel.changeAttachment(uri, uri?.toFile(), AttachmentType.IMAGE)
                     }
                 }
             }
@@ -97,22 +98,49 @@ class NewEventFragment : Fragment() {
                 .createIntent(pickPhotoLauncher::launch)
         }
 
-        binding.removeAttachment.setOnClickListener {
-            viewModel.changeAttachment(null, null)
-        }
-
-        viewModel.eventCreated.observe(viewLifecycleOwner) {
-            findNavController().navigateUp()
-        }
-
-        viewModel.photo.observe(viewLifecycleOwner) {
-            if (it.uri == null) {
+        viewModel.attachment.observe(viewLifecycleOwner) { model ->
+            if (model.uri == null) {
                 binding.photoContainer.visibility = View.GONE
-                return@observe
+
             }
-            binding.photoContainer.visibility = View.VISIBLE
-            binding.removeAttachment.visibility = View.VISIBLE
-            binding.photo.setImageURI(it.uri)
+            when (model.type) {
+                AttachmentType.IMAGE -> {
+                    binding.photoContainer.visibility = View.VISIBLE
+                    binding.photo.setImageURI(model.uri)
+                }
+                else -> binding.photoContainer.visibility = View.GONE
+            }
+        }
+
+        with(binding) {
+            onlineNotSelected.setOnClickListener {
+                onlineNotSelected.visibility = View.VISIBLE
+                onlineNotSelected.visibility = View.GONE
+                eventType = EventType.ONLINE
+            }
+
+            onlineSelected.setOnClickListener {
+                onlineNotSelected.visibility = View.GONE
+                onlineNotSelected.visibility = View.VISIBLE
+                eventType = EventType.ONLINE
+            }
+
+            offlineNotSelected.setOnClickListener {
+                offlineSelected.visibility = View.VISIBLE
+                offlineNotSelected.visibility = View.GONE
+                eventType = EventType.OFFLINE
+            }
+
+            offlineSelected.setOnClickListener {
+                offlineSelected.visibility = View.GONE
+                offlineNotSelected.visibility = View.VISIBLE
+                eventType = EventType.ONLINE
+            }
+
+            removeAttachment.setOnClickListener {
+                viewModel.changeAttachment(null, null, null)
+            }
+
         }
 
         return binding.root
@@ -128,7 +156,11 @@ class NewEventFragment : Fragment() {
             R.id.save -> {
                 bindingEvent?.let {
                     viewModel.editEventContent(it.edit.text.toString())
-                    viewModel.createNewEvent()
+                    if(eventType == null) {
+                        viewModel.createNewEvent(eventType = EventType.OFFLINE)
+                    } else {
+                        viewModel.createNewEvent(eventType!!)
+                    }
                     AndroidUtils.hideKeyboard(requireView())
                     findNavController().navigate(R.id.tabsFragment)
                 }

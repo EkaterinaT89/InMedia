@@ -1,9 +1,7 @@
 package ru.netology.inmedia.dto
 
-import android.os.Parcel
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
-import kotlinx.parcelize.RawValue
 
 @Parcelize
 data class Post(

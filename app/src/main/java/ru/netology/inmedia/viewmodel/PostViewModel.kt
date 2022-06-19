@@ -66,15 +66,8 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
     private val noAttachment = AttachmentModel()
 
     private val _attachment = MutableLiveData(noAttachment)
-    val photo: LiveData<AttachmentModel>
+    val attachment: LiveData<AttachmentModel>
         get() = _attachment
-
-
-//    val newerCount: LiveData<Int> = data.switchMap {
-//        repository.getNewerCount(it.posts.firstOrNull()?.id ?: 0L)
-//            .catch { e -> e.printStackTrace() }
-//            .asLiveData(Dispatchers.Default)
-//    }
 
     val edited = MutableLiveData(emptyPost)
 
@@ -283,8 +276,37 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
                 try {
                     when (_attachment.value) {
                         noAttachment -> repository.save(it)
-                        else -> _attachment.value?.file?.let { file ->
-                            repository.saveWithAttachment(it, MediaUpload(file))
+                        else -> {
+                            when (_attachment.value?.type) {
+                                AttachmentType.IMAGE -> {
+                                    _attachment.value?.file?.let { file ->
+                                        repository.saveWithAttachment(
+                                            it,
+                                            MediaUpload(file),
+                                            AttachmentType.IMAGE
+                                        )
+                                    }
+                                }
+                                AttachmentType.VIDEO -> {
+                                    _attachment.value?.file?.let { file ->
+                                        repository.saveWithAttachment(
+                                            it,
+                                            MediaUpload(file),
+                                            AttachmentType.VIDEO
+                                        )
+                                    }
+                                }
+                                AttachmentType.AUDIO -> {
+                                    _attachment.value?.file?.let { file ->
+                                        repository.saveWithAttachment(
+                                            it,
+                                            MediaUpload(file),
+                                            AttachmentType.AUDIO
+                                        )
+                                    }
+                                }
+                                null -> repository.save(it)
+                            }
                         }
                     }
                     _dataState.value = FeedModelState()
@@ -304,8 +326,8 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
         save()
     }
 
-    fun changeAttachment(uri: Uri?, file: File?) {
-        _attachment.value = AttachmentModel(uri, file)
+    fun changeAttachment(uri: Uri?, file: File?, type: AttachmentType?) {
+        _attachment.value = AttachmentModel(uri, file, type)
     }
 }
 

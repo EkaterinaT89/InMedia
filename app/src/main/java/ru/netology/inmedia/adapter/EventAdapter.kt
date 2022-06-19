@@ -2,6 +2,7 @@ package ru.netology.inmedia.adapter
 
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
+import android.text.util.Linkify
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,10 +11,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import me.saket.bettermovementmethod.BetterLinkMovementMethod
 import ru.netology.inmedia.R
 import ru.netology.inmedia.databinding.FragmentCardEventBinding
 import ru.netology.inmedia.dto.Event
+import ru.netology.inmedia.enumeration.EventType
 import ru.netology.inmedia.service.PostService
+import ru.netology.inmedia.util.MediaUtils
 
 interface OnEventListener {
     fun onEdit(event: Event)
@@ -24,6 +28,7 @@ interface OnEventListener {
     fun onSingleEvent(event: Event)
     fun onRemove(event: Event)
     fun onFullImage(event: Event)
+    fun onLink(url: String)
 }
 
 private const val BASE_URL = "https://inmediadiploma.herokuapp.com/api/"
@@ -56,6 +61,15 @@ class EventViewHolder(
             eventTime.text = event.published.toString()
             eventAuthor.text = event.author
             eventContent.text = event.content
+            Linkify.addLinks(eventContent, Linkify.ALL)
+            eventContent.movementMethod = BetterLinkMovementMethod.getInstance()
+            BetterLinkMovementMethod.linkify(Linkify.WEB_URLS, eventContent)
+                .setOnLinkClickListener { textView, url ->
+                    onEventListener.onLink(url)
+                    true
+                }
+
+
             likesButton.text = PostService.countPresents(event.likeOwnerIds)
 
             likesButton.isChecked = event.likedByMe
@@ -64,14 +78,14 @@ class EventViewHolder(
                 imageContainer.visibility = View.GONE
             } else {
                 imageContainer.visibility = View.VISIBLE
+                MediaUtils.loadEventImage(imageContainer, url, event)
             }
 
-            Glide.with(imageContainer)
-                .load("$url/media/${event.attachment?.url}")
-                .error(R.drawable.ic_error)
-                .placeholder(R.drawable.ic_loading)
-                .timeout(10_000)
-                .into(imageContainer)
+            when(event.type) {
+                EventType.ONLINE -> eventType.text = ((R.string.online).toString())
+                EventType.OFFLINE -> eventType.text = ((R.string.offline).toString())
+                else -> eventType.text = ((R.string.type_unknown).toString())
+            }
 
             imageContainer.setOnClickListener {
                 onEventListener.onFullImage(event)
@@ -111,6 +125,8 @@ class EventViewHolder(
                 takeAPartButton.visibility = View.VISIBLE
                 denyButton.visibility = View.GONE
             }
+
+            menuButton.visibility = if (event.ownedByMe) View.VISIBLE else View.INVISIBLE
 
             menuButton.setOnClickListener {
                 PopupMenu(it.context, it).apply {

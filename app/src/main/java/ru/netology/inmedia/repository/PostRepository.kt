@@ -4,6 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import ru.netology.inmedia.dto.Media
 import ru.netology.inmedia.dto.MediaUpload
 import ru.netology.inmedia.dto.Post
+import ru.netology.inmedia.enumeration.AttachmentType
 
 interface PostRepository {
 
@@ -29,7 +30,7 @@ interface PostRepository {
 
     suspend fun getPostNotExist(id: Long)
 
-    suspend fun saveWithAttachment(post: Post, upload: MediaUpload)
+    suspend fun saveWithAttachment(post: Post, upload: MediaUpload, type: AttachmentType)
 
     suspend fun upload(upload: MediaUpload): Media
 

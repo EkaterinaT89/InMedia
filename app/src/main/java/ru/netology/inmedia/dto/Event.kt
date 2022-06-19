@@ -24,7 +24,7 @@ data class Event(
     /**
      * Типы события
      */
-    val type: EventType? = null,
+    var type: EventType? = null,
     /**
      * Id'шники залайкавших
      */

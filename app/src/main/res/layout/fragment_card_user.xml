@@ -22,7 +22,7 @@
         app:cardElevation="16dp">
 
         <ImageView
-            android:id="@+id/fpp_player_image_input"
+            android:id="@+id/avatar_input"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
@@ -52,15 +52,6 @@
         android:singleLine="true"
         android:textSize="@dimen/content_text_size"
         tools:text="Должность и место работы" />
-
-    <TextView
-        android:id="@+id/date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="55dp"
-        android:textSize="@dimen/content_text_size"
-        tools:text="36 часов назад" />
 
     <com.google.android.material.divider.MaterialDivider
         android:id="@+id/divider"

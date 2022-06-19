@@ -14,6 +14,7 @@ import ru.netology.inmedia.auth.AppAuth
 import ru.netology.inmedia.database.AppDataBase
 import ru.netology.inmedia.dto.*
 import ru.netology.inmedia.enumeration.ActionType
+import ru.netology.inmedia.enumeration.AttachmentType
 import ru.netology.inmedia.enumeration.EventType
 import ru.netology.inmedia.model.AttachmentModel
 import ru.netology.inmedia.model.FeedEventModel
@@ -69,7 +70,7 @@ class EventViewModel() : ViewModel() {
     private val noAttachment = AttachmentModel()
 
     private val _attachment = MutableLiveData(noAttachment)
-    val photo: LiveData<AttachmentModel>
+    val attachment: LiveData<AttachmentModel>
         get() = _attachment
 
     @ExperimentalCoroutinesApi
@@ -119,7 +120,7 @@ class EventViewModel() : ViewModel() {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun createNewEvent() {
+    fun createNewEvent(eventType: EventType) {
         lastAction = ActionType.SAVE
         edited.value?.let {
             _eventCreated.value = Unit
@@ -127,9 +128,9 @@ class EventViewModel() : ViewModel() {
             viewModelScope.launch {
                 try {
                     when (_attachment.value) {
-                        noAttachment -> repository.createNewEvent(it)
+                        noAttachment -> repository.createNewEvent(it, eventType)
                         else -> _attachment.value?.file?.let { file ->
-                            repository.saveWithAttachment(it, MediaUpload(file))
+                            repository.saveWithAttachment(it, MediaUpload(file), eventType)
                         }
                     }
                     _dataState.value = FeedModelState()
@@ -302,8 +303,8 @@ class EventViewModel() : ViewModel() {
         }
     }
 
-    fun changeAttachment(uri: Uri?, file: File?) {
-        _attachment.value = AttachmentModel(uri, file)
+    fun changeAttachment(uri: Uri?, file: File?, attachmentType: AttachmentType?) {
+        _attachment.value = AttachmentModel(uri, file, attachmentType)
     }
 
 }

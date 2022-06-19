@@ -11,6 +11,7 @@ import ru.netology.inmedia.dto.*
 import ru.netology.inmedia.entity.PostEntity
 import ru.netology.inmedia.entity.toDto
 import ru.netology.inmedia.enumeration.AttachmentType
+import ru.netology.inmedia.enumeration.EventType
 import ru.netology.inmedia.error.ApiException
 import ru.netology.inmedia.error.AppError
 import ru.netology.inmedia.error.NetWorkException
@@ -40,7 +41,7 @@ class EventRepositoryImpl() : EventRepository {
         }
     }
 
-    override suspend fun createNewEvent(event: Event) {
+    override suspend fun createNewEvent(event: Event, eventType: EventType) {
         try {
             val response = ApiService.Api.retrofitService.createNewEvent(event)
             if (!response.isSuccessful) {
@@ -48,7 +49,8 @@ class EventRepositoryImpl() : EventRepository {
             }
             val eventBody =
                 response.body() ?: throw ApiException(response.code(), response.message())
-            listData.add(eventBody)
+            val newEvent = eventBody.copy(type = eventType)
+            listData.add(newEvent)
             _events.value = listData
         } catch (e: IOException) {
             throw NetWorkException
@@ -148,12 +150,16 @@ class EventRepositoryImpl() : EventRepository {
         }
     }
 
-    override suspend fun saveWithAttachment(event: Event, upload: MediaUpload) {
+    override suspend fun saveWithAttachment(
+        event: Event,
+        upload: MediaUpload,
+        eventType: EventType
+    ) {
         try {
             val media = upload(upload)
             val eventWithAttachment =
                 event.copy(attachment = Attachment(media.url, AttachmentType.IMAGE))
-            createNewEvent(eventWithAttachment)
+            createNewEvent(eventWithAttachment, eventType)
         } catch (e: AppError) {
             throw e
         } catch (e: IOException) {

@@ -1,6 +1,6 @@
 package ru.netology.inmedia.fragment
 
-import android.media.MediaPlayer
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,8 +10,6 @@ import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.bumptech.glide.Glide.init
-import dagger.hilt.android.AndroidEntryPoint
 import ru.netology.inmedia.R
 import ru.netology.inmedia.adapter.OnInteractionListener
 import ru.netology.inmedia.adapter.PostAdapter
@@ -21,13 +19,17 @@ import ru.netology.inmedia.viewmodel.AuthViewModel
 import ru.netology.inmedia.viewmodel.PostViewModel
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import ru.netology.inmedia.adapter.PostRecyclerView
 import ru.netology.inmedia.fragment.CardPostFragment.Companion.showPost
 import ru.netology.inmedia.fragment.NewPostFragment.Companion.textArg
 import ru.netology.inmedia.service.MediaLifecycleObserver
+import androidx.browser.customtabs.CustomTabsIntent
 
 private const val BASE_URL = "https://inmediadiploma.herokuapp.com/api/media"
 
 class ListPostFragment : Fragment() {
+
+    private lateinit var recyclerView: PostRecyclerView
 
     @RequiresApi(Build.VERSION_CODES.O)
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -57,11 +59,19 @@ class ListPostFragment : Fragment() {
 
         val postAdapter = PostAdapter(object : OnInteractionListener {
             override fun onLike(post: Post) {
-                postViewModel.likeById(post.id)
+                if (authViewModel.authenticated) {
+                    postViewModel.likeById(post.id)
+                } else {
+                    findNavController().navigate(R.id.authFragment)
+                }
             }
 
             override fun onDisLike(post: Post) {
-                postViewModel.disLikeById(post.id)
+                if(authViewModel.authenticated) {
+                    postViewModel.disLikeById(post.id)
+                } else {
+                    findNavController().navigate(R.id.authFragment)
+                }
             }
 
             override fun onSinglePost(post: Post) {
@@ -97,8 +107,11 @@ class ListPostFragment : Fragment() {
                 }.play()
             }
 
-            override fun onPlayVideo(post: Post) {
-
+            override fun onLink(url: String) {
+                CustomTabsIntent.Builder()
+                    .setShowTitle(true)
+                    .build()
+                    .launchUrl(requireContext(), Uri.parse(url))
             }
 
         })
@@ -137,9 +150,23 @@ class ListPostFragment : Fragment() {
             }
         }
 
-
-
         return binding.root
+    }
+
+    override fun onResume() {
+        if (::recyclerView.isInitialized) recyclerView.createPlayer()
+        super.onResume()
+    }
+
+    override fun onPause() {
+        if (::recyclerView.isInitialized) recyclerView.releasePlayer()
+        super.onPause()
+    }
+
+
+    override fun onStop() {
+        if (::recyclerView.isInitialized) recyclerView.releasePlayer()
+        super.onStop()
     }
 
 }

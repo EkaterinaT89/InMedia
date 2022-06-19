@@ -179,10 +179,10 @@ class PostRepositoryImpl (
         }
     }
 
-    override suspend fun saveWithAttachment(post: Post, upload: MediaUpload) {
+    override suspend fun saveWithAttachment(post: Post, upload: MediaUpload, type: AttachmentType) {
         try {
             val media = upload(upload)
-            val postWithAttachment = post.copy(attachment = Attachment(media.url, AttachmentType.IMAGE))
+            val postWithAttachment = post.copy(attachment = Attachment(media.url, type = type))
             save(postWithAttachment)
         } catch (e: AppError) {
             throw e
@@ -202,7 +202,6 @@ class PostRepositoryImpl (
             if (!response.isSuccessful) {
                 throw ApiException(response.code(), response.message())
             }
-
             return response.body() ?: throw ApiException(response.code(), response.message())
         } catch (e: IOException) {
             throw NetWorkException

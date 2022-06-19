@@ -65,7 +65,13 @@ dependencies {
     def coroutines_version = "1.6.0"
     def imagepicker_version = "2.1"
     def play_services_base_version = "18.0.1"
+    def exoplayer_version = "2.17.1"
+    def link_movement_version = "2.2.0"
+    def browser_version = "1.4.0"
 
+    implementation "androidx.browser:browser:$browser_version"
+    implementation "me.saket:better-link-movement-method:$link_movement_version"
+    implementation "com.google.android.exoplayer:exoplayer:$exoplayer_version"
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "androidx.core:core-ktx:$core_version"
     implementation "androidx.appcompat:appcompat:$appcompat_version"

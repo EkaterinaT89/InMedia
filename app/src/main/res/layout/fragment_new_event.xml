@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".fragment.NewEventFragment">
 
     <ScrollView
         android:id="@+id/scrollView"
@@ -47,10 +48,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|bottom"
                 android:contentDescription="@string/remove_photo_description"
-                android:visibility="gone"
                 android:text="@string/delete_post"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:visibility="gone" />
         </LinearLayout>
     </ScrollView>
 
@@ -92,6 +93,60 @@
             app:icon="@drawable/ic_baseline_add_a_photo_24"
             app:iconSize="@dimen/button_icon_size"
             app:iconTint="@color/white" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin"
+            android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/online_selected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:text="@string/online"
+            android:textColor="@color/white"
+            android:clickable="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:focusable="true" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/offline_selected"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_marginStart="@dimen/margin"
+                android:text="@string/offline"
+                android:textColor="@color/white"
+                android:clickable="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:focusable="true" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/online_not_selected"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:text="@string/online"
+                android:textColor="@color/light_blue"
+                android:clickable="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:focusable="true" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/offline_not_selected"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:layout_marginStart="@dimen/margin"
+                android:text="@string/offline"
+                android:textColor="@color/light_blue"
+                android:clickable="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:focusable="true" />
+
+        </LinearLayout>
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

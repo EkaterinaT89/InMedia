@@ -42,4 +42,13 @@
     <string name="load_ok">Успешно загружено</string>
     <string name="edit_event">Редактирование события</string>
     <string name="edit_event_name">Редактирование события</string>
+    <string name="permissions_needed_title">Приложению нужно разрешение</string>
+    <string name="permissions_needed_message">Нужны следующие разрешения:</string>
+    <string name="everything_fine">OK</string>
+    <string name="grant_storage_permissions_dialog_message">Нужен доступ к файлам!</string>
+    <string name="online">Онлайн</string>
+    <string name="offline">Офлайн</string>
+    <string name="type_unknown">Способы участия уточняйте у организатора.</string>
+    <string name="choose_event_type">Выберите тип</string>
+    <string name="choose_event_type_description">Выбор типа мероприятия</string>
 </resources>

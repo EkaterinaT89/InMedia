@@ -11,10 +11,7 @@ import retrofit2.http.*
 import ru.netology.inmedia.BuildConfig
 import ru.netology.inmedia.auth.AppAuth
 import ru.netology.inmedia.auth.AuthState
-import ru.netology.inmedia.dto.Event
-import ru.netology.inmedia.dto.Media
-import ru.netology.inmedia.dto.Post
-import ru.netology.inmedia.dto.PushToken
+import ru.netology.inmedia.dto.*
 
 private const val BASE_URL = "https://inmediadiploma.herokuapp.com/api/"
 
@@ -131,6 +128,25 @@ interface ApiService {
 
     @DELETE("events/{id}/participants")
     suspend fun unTakePartEvent(@Path("id") id: Long): Response<Event>
+
+//    USER
+
+    @GET("users")
+    suspend fun getAllUsers(): Response<List<User>>
+
+    @GET("users/{id}")
+    suspend fun getUserById(@Path("id") id: Long): Response<User>
+
+    @GET("{authorId}/wall")
+    suspend fun getWall(
+        @Path("authorId") authorId: Long
+    ): Response<List<Post>>
+
+    @GET("{authorId}/wall/{postId}/likes")
+    suspend fun likePostOnWall(
+        @Path("authorId") authorId: Long,
+        @Path("postId") postId: Long
+    ): Response<List<Post>>
 
     object Api {
         val retrofitService: ApiService by lazy {
