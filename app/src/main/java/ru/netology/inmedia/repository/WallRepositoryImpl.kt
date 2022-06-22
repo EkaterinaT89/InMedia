@@ -13,7 +13,7 @@ import ru.netology.inmedia.error.NetWorkException
 import ru.netology.inmedia.error.UnknownException
 import java.io.IOException
 
-class WallRepositoryImpl: WallRepository {
+class WallRepositoryImpl : WallRepository {
 
     val wallList = mutableListOf<Post>()
 
@@ -39,10 +39,21 @@ class WallRepositoryImpl: WallRepository {
     override suspend fun likePostsOnWall(authorId: Long, postId: Long) {
         try {
             val response = ApiService.Api.retrofitService.likePostOnWall(authorId, postId)
-            val posts = response.body() ?: throw ApiException(response.code(), response.message())
-            for (post in posts) {
-                wallList.add(post)
-            }
+            val post = response.body() ?: throw ApiException(response.code(), response.message())
+            wallList.add(post)
+            _wall.value = wallList
+        } catch (e: IOException) {
+            throw NetWorkException
+        } catch (e: Exception) {
+            throw UnknownException
+        }
+    }
+
+    override suspend fun disLikePostsOnWall(authorId: Long, postId: Long) {
+        try {
+            val response = ApiService.Api.retrofitService.likePostOnWall(authorId, postId)
+            val post = response.body() ?: throw ApiException(response.code(), response.message())
+            wallList.add(post)
             _wall.value = wallList
         } catch (e: IOException) {
             throw NetWorkException

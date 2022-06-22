@@ -114,13 +114,9 @@
         android:name="ru.netology.inmedia.fragment.ListUserOccupationFragment"
         tools:layout="@layout/fragment_list_user_occupation" >
         <action
-            android:id="@+id/action_listUserOccupationFragment_to_oneUserOccupationFragment"
-            app:destination="@id/oneUserOccupationFragment" />
+            android:id="@+id/action_listUserOccupationFragment_to_userOccupationDetailsFragment"
+            app:destination="@id/userOccupationDetailsFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/oneUserOccupationFragment"
-        android:name="ru.netology.inmedia.fragment.OneUserOccupationFragment"
-        android:label="Место работы" />
     <fragment
         android:id="@+id/newPostFragment"
         android:name="ru.netology.inmedia.fragment.NewPostFragment"
@@ -143,4 +139,9 @@
         android:id="@+id/newEventFragment"
         android:name="ru.netology.inmedia.fragment.NewEventFragment"
         android:label="NewEventFragment" />
+    <fragment
+        android:id="@+id/userOccupationDetailsFragment"
+        android:name="ru.netology.inmedia.fragment.UserOccupationDetailsFragment"
+        android:label="fragment_user_occupation_details"
+        tools:layout="@layout/fragment_user_occupation_details" />
 </navigation>

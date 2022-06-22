@@ -15,8 +15,8 @@ data class Event(
     /**
      * Дата и время проведения
      */
-    val datetime: Instant? = null,
-    var published: Instant? = null,
+    var datetime: String,
+    var published: String,
     /**
      * Координаты проведения
      */

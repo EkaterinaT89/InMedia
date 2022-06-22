@@ -16,6 +16,7 @@ import ru.netology.inmedia.R
 import ru.netology.inmedia.databinding.FragmentCardEventBinding
 import ru.netology.inmedia.dto.Event
 import ru.netology.inmedia.dto.Post
+import ru.netology.inmedia.enumeration.EventType
 import ru.netology.inmedia.fragment.NewPostFragment.Companion.textArg
 import ru.netology.inmedia.service.EventArg
 import ru.netology.inmedia.service.PostArg
@@ -48,17 +49,23 @@ class CardEventFragment: Fragment() {
             with(binding) {
                 val url = "https://inmediadiploma.herokuapp.com"
 
-                eventTime.text = event.published.toString()
+                eventTime.text = event.published
                 eventAuthor.text = event.author
                 eventContent.text = event.content
                 likesButton.text = PostService.countPresents(event.likeOwnerIds)
-
+                eventDate.text = event.datetime
                 likesButton.isChecked = event.likedByMe
 
                 if (event.attachment == null) {
                     imageContainer.visibility = View.GONE
                 } else {
                     imageContainer.visibility = View.VISIBLE
+                }
+
+                if(event.type == EventType.ONLINE) {
+                    eventType.text = getString(R.string.online)
+                } else {
+                    eventType.text = getString(R.string.offline)
                 }
 
                 Glide.with(imageContainer)

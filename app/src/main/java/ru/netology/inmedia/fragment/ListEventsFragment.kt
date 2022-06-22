@@ -132,6 +132,9 @@ class ListEventsFragment : Fragment() {
                     findNavController().navigate(R.id.authFragment)
                 }
             }
+            swiperefresh.setOnRefreshListener {
+                eventViewModel.getAllEvents()
+            }
         }
 
         return binding.root

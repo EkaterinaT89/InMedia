@@ -29,6 +29,7 @@ class WallViewModel() : ViewModel() {
         when (lastAction) {
             ActionType.GETWALL -> retryGetWall()
             ActionType.LIKEBYID -> retryLike()
+            ActionType.DISLIKEBYID -> retryDisLike()
             else -> retryGetWall()
         }
     }
@@ -69,11 +70,35 @@ class WallViewModel() : ViewModel() {
             }
             lastAction = null
             lastId = null
+            lastAuthorId = null
         }
     }
 
     fun retryLike() {
         lastAuthorId?.let { lastId?.let { it1 -> likePostsOnWall(it, it1) } }
     }
+
+    fun disLikePostsOnWall(authorId: Long, postId: Long) {
+        viewModelScope.launch {
+            lastAction = ActionType.LIKEBYID
+            lastId = postId
+            lastAuthorId = authorId
+            try {
+                _dataState.postValue(FeedModelState(loading = true))
+                wallRepository.likePostsOnWall(authorId, postId)
+                _dataState.value = FeedModelState()
+            } catch (e: Exception) {
+                _dataState.value = FeedModelState(error = true)
+            }
+            lastAction = null
+            lastId = null
+            lastAuthorId = null
+        }
+    }
+
+    fun retryDisLike() {
+        lastAuthorId?.let { lastId?.let { it1 -> likePostsOnWall(it, it1) } }
+    }
+
 
 }

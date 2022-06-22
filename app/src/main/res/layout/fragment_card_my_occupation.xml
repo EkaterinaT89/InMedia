@@ -5,6 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/padding"
+    android:layout_margin="@dimen/margin"
+    app:cardCornerRadius="@dimen/corner_radius"
+    app:cardElevation="@dimen/elevation"
     tools:context=".fragment.CardUserOccupationFragment">
 
     <LinearLayout
@@ -17,8 +20,9 @@
             android:id="@+id/job_avatar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin"
             android:contentDescription="@string/job_avatar"
-            tools:src="@drawable/ic_outline_mode_comment_24" />
+            tools:src="@drawable/ic_outline_work_history_24" />
 
         <LinearLayout
             android:layout_width="250dp"
@@ -28,6 +32,7 @@
 
             <TextView
                 android:id="@+id/position"
+                android:layout_marginTop="@dimen/margin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="?attr/textFillColor"
@@ -42,18 +47,10 @@
                 tools:text="Название фирмы" />
 
             <TextView
-                android:id="@+id/company_location"
+                android:id="@+id/start"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                tools:text="Россия" />
-
-            <TextView
-                android:id="@+id/company_city_location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                tools:text="Москва, Россия" />
+                android:textSize="14sp" />
 
             <com.google.android.material.divider.MaterialDivider
                 android:layout_width="match_parent"
@@ -76,6 +73,16 @@
                 app:icon="@drawable/ic_baseline_more_horiz_24"
                 app:iconGravity="end"
                 app:iconSize="24dp"
+                app:iconTint="?attr/colorControlNormal" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/get_job_details"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:contentDescription="@string/get_job_details"
+                app:icon="@drawable/ic_baseline_chevron_right_24"
+                app:iconGravity="end"
                 app:iconTint="?attr/colorControlNormal" />
 
         </LinearLayout>

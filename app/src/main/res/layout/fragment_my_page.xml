@@ -40,6 +40,18 @@
         app:layout_constraintStart_toStartOf="@id/avatar"
         app:layout_constraintTop_toTopOf="parent">
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/edit_button"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_gravity="end"
+            android:contentDescription="@string/edit_post"
+            app:icon="@drawable/ic_baseline_more_horiz_24"
+            app:iconGravity="end"
+            app:iconSize="24dp"
+            app:iconTint="?attr/colorControlNormal" />
+
         <TextView
             android:id="@+id/user_name"
             android:layout_width="wrap_content"
@@ -68,6 +80,17 @@
             android:layout_marginTop="150dp"
             android:layout_marginBottom="@dimen/margin"
             android:text="@string/occupation_list"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@color/white" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/add_new_occupation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center"
+            android:layout_marginTop="200dp"
+            android:layout_marginBottom="@dimen/margin"
+            android:text="@string/add_new_occupation"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="@color/white" />
 

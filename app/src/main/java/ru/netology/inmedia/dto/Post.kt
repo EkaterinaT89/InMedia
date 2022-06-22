@@ -41,5 +41,5 @@ data class Post(
      */
     val likedByMe: Boolean = false,
     val attachment: Attachment? = null,
-    val ownedByMe: Boolean = false,
+    val ownedByMe: Boolean = false
 ) : Parcelable

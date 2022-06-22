@@ -12,4 +12,6 @@ interface WallRepository {
 
     suspend fun likePostsOnWall(authorId: Long, postId: Long)
 
+    suspend fun disLikePostsOnWall(authorId: Long, postId: Long)
+
 }

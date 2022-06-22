@@ -15,6 +15,7 @@ import ru.netology.inmedia.R
 import ru.netology.inmedia.adapter.OnInteractionListener
 import ru.netology.inmedia.adapter.PostAdapter
 import ru.netology.inmedia.adapter.PostRecyclerView
+import ru.netology.inmedia.databinding.FragmentMyPageBinding
 import ru.netology.inmedia.databinding.FragmentUserPageBinding
 import ru.netology.inmedia.dto.Post
 import ru.netology.inmedia.dto.User
@@ -29,7 +30,7 @@ import ru.netology.inmedia.viewmodel.WallViewModel
 
 private const val BASE_URL = "https://inmediadiploma.herokuapp.com/api/media"
 
-class UserPageFragment : Fragment() {
+class MyPageFragment : Fragment() {
 
     private lateinit var recyclerView: PostRecyclerView
 
@@ -43,7 +44,7 @@ class UserPageFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        val binding = FragmentUserPageBinding.inflate(
+        val binding = FragmentMyPageBinding.inflate(
             inflater,
             container,
             false
@@ -144,16 +145,11 @@ class UserPageFragment : Fragment() {
                     wallViewModel.getWall(user.id)
                 }
 
-                getOccupationList.setOnClickListener {
-                    findNavController().navigate(R.id.listUserOccupationFragment,
-                        Bundle().apply {
-                            showUser = user
-                        })
-                }
-
             }
 
         }
+
+
 
         return binding.root
     }

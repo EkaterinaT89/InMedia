@@ -65,6 +65,37 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <View
+        android:id="@+id/group_pick_event_date"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="?android:attr/selectableItemBackground"
+        app:layout_constraintBottom_toBottomOf="@id/pick_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/pick_date" />
+
+    <ImageView
+        android:id="@+id/pick_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:src="@drawable/ic_calendar_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/divider" />
+
+    <TextView
+        android:id="@+id/date_time_pick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:hint="@string/date_time_pick"
+        android:textColor="?attr/textFillColor"
+        android:textSize="@dimen/content_text_size"
+        app:layout_constraintBottom_toBottomOf="@id/pick_date"
+        app:layout_constraintStart_toEndOf="@id/pick_date"
+        app:layout_constraintTop_toTopOf="@id/pick_date" />
+
     <LinearLayout
         android:id="@+id/button_panel"
         android:layout_width="0dp"

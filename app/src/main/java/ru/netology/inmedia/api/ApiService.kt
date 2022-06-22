@@ -137,6 +137,8 @@ interface ApiService {
     @GET("users/{id}")
     suspend fun getUserById(@Path("id") id: Long): Response<User>
 
+    //    WALL
+
     @GET("{authorId}/wall")
     suspend fun getWall(
         @Path("authorId") authorId: Long
@@ -146,7 +148,35 @@ interface ApiService {
     suspend fun likePostOnWall(
         @Path("authorId") authorId: Long,
         @Path("postId") postId: Long
-    ): Response<List<Post>>
+    ): Response<Post>
+
+    @DELETE("{authorId}/wall/{postId}/likes")
+    suspend fun disLikePostOnWall(
+        @Path("authorId") authorId: Long,
+        @Path("postId") postId: Long
+    ): Response<Post>
+
+//    JOB
+
+    @GET("{userId}/jobs")
+    suspend fun getAllJobs(@Path("userId") userId: Long): Response<List<Job>>
+
+    @POST("{userId}/jobs")
+    suspend fun createNewJob(
+        @Body job: Job,
+        @Path("userId") userId: Long
+    ): Response<Job>
+
+    @DELETE("jobs/{id}")
+    suspend fun removeJobById(
+        @Path("id") id: Long
+    ): Response<Unit>
+
+    @POST("{userId}/jobs")
+    suspend fun editJob(
+        @Body job: Job,
+        @Path("userId") id: Long
+    ): Response<Job>
 
     object Api {
         val retrofitService: ApiService by lazy {

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
+import androidx.compose.ui.res.stringResource
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -58,7 +59,8 @@ class EventViewHolder(
         val url = "https://inmediadiploma.herokuapp.com"
 
         binding.apply {
-            eventTime.text = event.published.toString()
+            eventTime.text = event.published
+            eventDate.text = event.datetime
             eventAuthor.text = event.author
             eventContent.text = event.content
             Linkify.addLinks(eventContent, Linkify.ALL)
@@ -81,10 +83,10 @@ class EventViewHolder(
                 MediaUtils.loadEventImage(imageContainer, url, event)
             }
 
-            when(event.type) {
-                EventType.ONLINE -> eventType.text = ((R.string.online).toString())
-                EventType.OFFLINE -> eventType.text = ((R.string.offline).toString())
-                else -> eventType.text = ((R.string.type_unknown).toString())
+            if(event.type == EventType.ONLINE) {
+                eventType.text = itemView.context.getString(R.string.online)
+            } else {
+                eventType.text = itemView.context.getString(R.string.offline)
             }
 
             imageContainer.setOnClickListener {

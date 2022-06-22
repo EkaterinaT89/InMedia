@@ -14,7 +14,7 @@ interface EventRepository {
 
     suspend fun getAllEvents()
 
-    suspend fun createNewEvent(event: Event, eventType: EventType)
+    suspend fun createNewEvent(event: Event)
 
     suspend fun getEventById(id: Long)
 
@@ -30,7 +30,7 @@ interface EventRepository {
 
     suspend fun unTakePartEvent(id: Long)
 
-    suspend fun saveWithAttachment(event: Event, upload: MediaUpload, eventType: EventType)
+    suspend fun saveWithAttachment(event: Event, upload: MediaUpload)
 
     suspend fun upload(upload: MediaUpload): Media
 

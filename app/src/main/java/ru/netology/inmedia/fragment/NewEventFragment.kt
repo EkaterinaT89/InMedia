@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.*
+import java.util.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.core.net.toFile
@@ -21,6 +22,7 @@ import androidx.navigation.fragment.findNavController
 import ru.netology.inmedia.databinding.FragmentNewEventBinding
 import ru.netology.inmedia.enumeration.AttachmentType
 import ru.netology.inmedia.enumeration.EventType
+import ru.netology.inmedia.util.DateFormatter
 import ru.netology.inmedia.viewmodel.EventViewModel
 
 class NewEventFragment : Fragment() {
@@ -98,6 +100,12 @@ class NewEventFragment : Fragment() {
                 .createIntent(pickPhotoLauncher::launch)
         }
 
+        viewModel.eventDateTime.observe(viewLifecycleOwner) { dateTime ->
+            dateTime?.let {
+                binding.dateTimePick.text = it
+            }
+        }
+
         viewModel.attachment.observe(viewLifecycleOwner) { model ->
             if (model.uri == null) {
                 binding.photoContainer.visibility = View.GONE
@@ -114,13 +122,13 @@ class NewEventFragment : Fragment() {
 
         with(binding) {
             onlineNotSelected.setOnClickListener {
-                onlineNotSelected.visibility = View.VISIBLE
+                onlineSelected.visibility = View.VISIBLE
                 onlineNotSelected.visibility = View.GONE
-                eventType = EventType.ONLINE
+                eventType = EventType.OFFLINE
             }
 
             onlineSelected.setOnClickListener {
-                onlineNotSelected.visibility = View.GONE
+                onlineSelected.visibility = View.GONE
                 onlineNotSelected.visibility = View.VISIBLE
                 eventType = EventType.ONLINE
             }
@@ -128,17 +136,21 @@ class NewEventFragment : Fragment() {
             offlineNotSelected.setOnClickListener {
                 offlineSelected.visibility = View.VISIBLE
                 offlineNotSelected.visibility = View.GONE
-                eventType = EventType.OFFLINE
+                eventType = EventType.ONLINE
             }
 
             offlineSelected.setOnClickListener {
                 offlineSelected.visibility = View.GONE
                 offlineNotSelected.visibility = View.VISIBLE
-                eventType = EventType.ONLINE
+                eventType = EventType.OFFLINE
             }
 
             removeAttachment.setOnClickListener {
                 viewModel.changeAttachment(null, null, null)
+            }
+
+            groupPickEventDate.setOnClickListener {
+                showDateTimePicker()
             }
 
         }
@@ -156,11 +168,8 @@ class NewEventFragment : Fragment() {
             R.id.save -> {
                 bindingEvent?.let {
                     viewModel.editEventContent(it.edit.text.toString())
-                    if(eventType == null) {
-                        viewModel.createNewEvent(eventType = EventType.OFFLINE)
-                    } else {
-                        viewModel.createNewEvent(eventType!!)
-                    }
+                    viewModel.createNewEvent()
+
                     AndroidUtils.hideKeyboard(requireView())
                     findNavController().navigate(R.id.tabsFragment)
                 }
@@ -168,6 +177,26 @@ class NewEventFragment : Fragment() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun showDateTimePicker() {
+        val calendar = Calendar.getInstance()
+
+        DatePickerFragment(calendar) { _, year, month, dayOfMonth ->
+            // set data to calendar value once user selects the date
+            calendar.set(year, month, dayOfMonth)
+
+            // call timePicker after user picks the date
+            TimePickerFragment(calendar) { _, hourOfDay, minute ->
+                // set data to calendar value once user selects the time
+                calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                calendar.set(Calendar.MINUTE, minute)
+
+                viewModel.setEventDateTime(
+                    DateFormatter.formatDateToDateTimeString(calendar.time)
+                )
+            }.show(childFragmentManager, "timePicker")
+        }.show(childFragmentManager, "datePicker")
     }
 
 }

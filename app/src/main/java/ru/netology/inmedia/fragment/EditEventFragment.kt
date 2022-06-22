@@ -110,11 +110,7 @@ class EditEventFragment : Fragment() {
 
             saveButton.setOnClickListener {
                 viewModel.editEventContent(editContent.text.toString())
-                if (eventType == null) {
-                    viewModel.createNewEvent(eventType = EventType.OFFLINE)
-                } else {
-                    viewModel.createNewEvent(eventType!!)
-                }
+                viewModel.createNewEvent()
                 AndroidUtils.hideKeyboard(requireView())
                 binding.group.visibility = View.GONE
                 findNavController().navigate(R.id.tabsFragment)

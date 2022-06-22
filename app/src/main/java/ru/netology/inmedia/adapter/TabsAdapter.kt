@@ -35,7 +35,7 @@ class TabsAdapter(fm: FragmentManager, lifecycle: Lifecycle, private var numberO
             3 -> {
                 // # MyPage
                 val bundle = Bundle()
-                val myPageFragment = UserPageFragment()
+                val myPageFragment = MyPageFragment()
                 myPageFragment.arguments = bundle
                 return myPageFragment
             }

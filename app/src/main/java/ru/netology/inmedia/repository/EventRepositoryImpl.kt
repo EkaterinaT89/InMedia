@@ -41,17 +41,12 @@ class EventRepositoryImpl() : EventRepository {
         }
     }
 
-    override suspend fun createNewEvent(event: Event, eventType: EventType) {
+    override suspend fun createNewEvent(event: Event) {
         try {
             val response = ApiService.Api.retrofitService.createNewEvent(event)
             if (!response.isSuccessful) {
                 throw ApiException(response.code(), response.message())
             }
-            val eventBody =
-                response.body() ?: throw ApiException(response.code(), response.message())
-            val newEvent = eventBody.copy(type = eventType)
-            listData.add(newEvent)
-            _events.value = listData
         } catch (e: IOException) {
             throw NetWorkException
         } catch (e: Exception) {
@@ -152,14 +147,13 @@ class EventRepositoryImpl() : EventRepository {
 
     override suspend fun saveWithAttachment(
         event: Event,
-        upload: MediaUpload,
-        eventType: EventType
+        upload: MediaUpload
     ) {
         try {
             val media = upload(upload)
             val eventWithAttachment =
                 event.copy(attachment = Attachment(media.url, AttachmentType.IMAGE))
-            createNewEvent(eventWithAttachment, eventType)
+            createNewEvent(eventWithAttachment)
         } catch (e: AppError) {
             throw e
         } catch (e: IOException) {

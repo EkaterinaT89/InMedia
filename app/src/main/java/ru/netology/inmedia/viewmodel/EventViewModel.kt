@@ -34,10 +34,10 @@ private val emptyEvent = Event(
     author = "",
     authorAvatar = "",
     content = "",
-    datetime = null,
-    published = null,
+    datetime = "",
+    published = " ",
     coords = null,
-    type = null,
+    type = EventType.ONLINE,
     likeOwnerIds = emptySet(),
     speakerIds = emptySet(),
     participantsIds = emptySet(),
@@ -86,6 +86,10 @@ class EventViewModel() : ViewModel() {
                 }
         }.asLiveData(Dispatchers.Default)
 
+    private val _eventDateTime = MutableLiveData<String?>()
+    val eventDateTime: LiveData<String?>
+        get() = _eventDateTime
+
     fun tryAgain() {
         when (lastAction) {
             ActionType.LOAD -> retryGetAllEvents()
@@ -101,6 +105,14 @@ class EventViewModel() : ViewModel() {
 
     init {
         getAllEvents()
+    }
+
+    fun invalidateEventDateTime() {
+        _eventDateTime.value = null
+    }
+
+    fun setEventDateTime(dateTime: String) {
+        _eventDateTime.value = dateTime
     }
 
     fun getAllEvents() = viewModelScope.launch {
@@ -120,17 +132,17 @@ class EventViewModel() : ViewModel() {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun createNewEvent(eventType: EventType) {
+    fun createNewEvent() {
         lastAction = ActionType.SAVE
         edited.value?.let {
             _eventCreated.value = Unit
-            it.published = Instant.now()
+            it.published = Instant.now().toString()
             viewModelScope.launch {
                 try {
                     when (_attachment.value) {
-                        noAttachment -> repository.createNewEvent(it, eventType)
+                        noAttachment -> repository.createNewEvent(it)
                         else -> _attachment.value?.file?.let { file ->
-                            repository.saveWithAttachment(it, MediaUpload(file), eventType)
+                            repository.saveWithAttachment(it, MediaUpload(file))
                         }
                     }
                     _dataState.value = FeedModelState()
@@ -243,7 +255,7 @@ class EventViewModel() : ViewModel() {
         viewModelScope.launch {
             try {
                 _dataState.value = FeedModelState(loading = true)
-                repository.disLikeEventById(id)
+                repository.removeEventById(id)
                 _dataState.value = FeedModelState()
             } catch (e: Exception) {
                 _dataState.value = FeedModelState(error = true)

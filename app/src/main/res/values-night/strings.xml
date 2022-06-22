@@ -51,4 +51,8 @@
     <string name="type_unknown">Способы участия уточняйте у организатора.</string>
     <string name="choose_event_type">Выберите тип</string>
     <string name="choose_event_type_description">Выбор типа мероприятия</string>
+    <string name="add_new_occupation">Добавить место работы</string>
+    <string name="period_of_work">Период работы здесь</string>
+    <string name="till_now">По настоящее время</string>
+    <string name="date_time_pick">Выбор даты и времени мероприятия</string>
 </resources>
