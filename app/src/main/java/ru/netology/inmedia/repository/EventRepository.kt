@@ -14,6 +14,8 @@ interface EventRepository {
 
     suspend fun getAllEvents()
 
+    suspend fun retryGetAllEvents()
+
     suspend fun createNewEvent(event: Event)
 
     suspend fun getEventById(id: Long)

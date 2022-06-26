@@ -133,7 +133,7 @@ class ListEventsFragment : Fragment() {
                 }
             }
             swiperefresh.setOnRefreshListener {
-                eventViewModel.getAllEvents()
+                eventViewModel.getEventsRefresh()
             }
         }
 

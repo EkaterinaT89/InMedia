@@ -161,22 +161,14 @@ interface ApiService {
     @GET("{userId}/jobs")
     suspend fun getAllJobs(@Path("userId") userId: Long): Response<List<Job>>
 
-    @POST("{userId}/jobs")
-    suspend fun createNewJob(
-        @Body job: Job,
-        @Path("userId") userId: Long
-    ): Response<Job>
+    @POST("my/jobs")
+    suspend fun createNewJob(@Body job: Job): Response<Job>
 
-    @DELETE("jobs/{id}")
-    suspend fun removeJobById(
-        @Path("id") id: Long
-    ): Response<Unit>
+    @DELETE("my/jobs/{id}")
+    suspend fun removeJobById(@Path("id") id: Long): Response<Unit>
 
-    @POST("{userId}/jobs")
-    suspend fun editJob(
-        @Body job: Job,
-        @Path("userId") id: Long
-    ): Response<Job>
+    @POST("my/jobs")
+    suspend fun editJob(@Body job: Job): Response<Job>
 
     object Api {
         val retrofitService: ApiService by lazy {

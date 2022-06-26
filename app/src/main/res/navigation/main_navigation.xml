@@ -68,9 +68,6 @@
         android:id="@+id/tabsFragment"
         android:name="ru.netology.inmedia.fragment.TabsFragment" >
         <action
-            android:id="@+id/action_tabsFragment_to_userPageFragment"
-            app:destination="@id/userPageFragment" />
-        <action
             android:id="@+id/action_tabsFragment_to_listEventsFragment"
             app:destination="@id/listEventsFragment" />
         <action
@@ -79,6 +76,9 @@
         <action
             android:id="@+id/action_tabsFragment_to_listUsersFragment"
             app:destination="@id/listUsersFragment" />
+        <action
+            android:id="@+id/action_tabsFragment_to_myPageFragment"
+            app:destination="@id/myPageFragment" />
     </fragment>
     <fragment
         android:id="@+id/listUsersFragment"
@@ -100,7 +100,7 @@
     <fragment
         android:id="@+id/cardPostFragment"
         android:name="ru.netology.inmedia.fragment.CardPostFragment"
-        android:label="fragment_card_post"
+        android:label="Пост"
         tools:layout="@layout/fragment_card_post" >
         <action
             android:id="@+id/action_cardPostFragment_to_editPostFragment"
@@ -120,28 +120,58 @@
     <fragment
         android:id="@+id/newPostFragment"
         android:name="ru.netology.inmedia.fragment.NewPostFragment"
-        android:label="NewPostFragment" />
+        android:label="Создание нового поста" />
     <fragment
         android:id="@+id/editPostFragment"
         android:name="ru.netology.inmedia.fragment.EditPostFragment"
-        android:label="fragment_edit_post"
+        android:label="Редактирование поста"
         tools:layout="@layout/fragment_edit_post" />
     <fragment
         android:id="@+id/imageFragment"
         android:name="ru.netology.inmedia.fragment.ImageFragment"
-        android:label="fragment_image"
+        android:label="Изображение"
         tools:layout="@layout/fragment_image" />
     <fragment
         android:id="@+id/editEventFragment"
         android:name="ru.netology.inmedia.fragment.EditEventFragment"
-        android:label="EditEventFragment" />
+        android:label="Редактирование события" />
     <fragment
         android:id="@+id/newEventFragment"
         android:name="ru.netology.inmedia.fragment.NewEventFragment"
-        android:label="NewEventFragment" />
+        android:label="Создание нового события" />
     <fragment
         android:id="@+id/userOccupationDetailsFragment"
         android:name="ru.netology.inmedia.fragment.UserOccupationDetailsFragment"
-        android:label="fragment_user_occupation_details"
+        android:label="Место работы"
         tools:layout="@layout/fragment_user_occupation_details" />
+    <fragment
+        android:id="@+id/newJobFragment"
+        android:name="ru.netology.inmedia.fragment.NewJobFragment"
+        android:label="Добавление нового места работы" />
+    <fragment
+        android:id="@+id/myPageFragment"
+        android:name="ru.netology.inmedia.fragment.MyPageFragment"
+        android:label="Мой профиль" >
+        <action
+            android:id="@+id/action_myPageFragment_to_newJobFragment"
+            app:destination="@id/newJobFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cardMyOccupationFragment"
+        android:name="ru.netology.inmedia.fragment.CardMyOccupationFragment"
+        android:label="Место работы"
+        tools:layout="@layout/fragment_card_user_occupation" />
+    <fragment
+        android:id="@+id/editMyJobFragment"
+        android:name="ru.netology.inmedia.fragment.EditMyJobFragment"
+        android:label="Редактирование места работы" />
+    <fragment
+        android:id="@+id/listMyOccupationFragment"
+        android:name="ru.netology.inmedia.fragment.ListMyOccupationFragment"
+        android:label="Опыт работы"
+        tools:layout="@layout/fragment_list_my_occupation" >
+        <action
+            android:id="@+id/action_listMyOccupationFragment_to_cardMyOccupationFragment"
+            app:destination="@id/cardMyOccupationFragment" />
+    </fragment>
 </navigation>

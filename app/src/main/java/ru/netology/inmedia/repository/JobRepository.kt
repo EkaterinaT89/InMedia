@@ -7,12 +7,14 @@ interface JobRepository {
 
     val data: Flow<List<Job>>
 
+    val listData: MutableList<Job>
+
     suspend fun getAllJobs(id: Long)
 
-    suspend fun createNewJob(id: Long, job: Job)
+    suspend fun createNewJob(job: Job)
 
     suspend fun removeJobById(id: Long)
 
-    suspend fun editJob(job: Job, id: Long)
+    suspend fun editJob(job: Job)
 
 }

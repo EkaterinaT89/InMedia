@@ -127,16 +127,56 @@ class EventViewModel() : ViewModel() {
         lastAction = null
     }
 
+    fun getEventsRefresh() = viewModelScope.launch {
+        lastAction = ActionType.LOAD
+        try {
+            _dataState.postValue(FeedModelState(loading = true))
+            repository.retryGetAllEvents()
+            _dataState.value = FeedModelState()
+        } catch (e: Exception) {
+            _dataState.value = FeedModelState(error = true)
+        }
+        lastAction = null
+    }
+
     fun retryGetAllEvents() {
-        getAllEvents()
+        getEventsRefresh()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun createNewEvent() {
+    fun createNewEventOnLine() {
         lastAction = ActionType.SAVE
         edited.value?.let {
             _eventCreated.value = Unit
             it.published = Instant.now().toString()
+            it.datetime = Instant.now().toString()
+            viewModelScope.launch {
+                try {
+                    when (_attachment.value) {
+                        noAttachment -> repository.createNewEvent(it)
+                        else -> _attachment.value?.file?.let { file ->
+                            repository.saveWithAttachment(it, MediaUpload(file))
+                        }
+                    }
+                    _dataState.value = FeedModelState()
+                } catch (e: Exception) {
+                    _dataState.value = FeedModelState(error = true)
+                }
+            }
+        }
+        edited.value = emptyEvent
+        _attachment.value = noAttachment
+        lastAction = null
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun createNewEventOffLine() {
+        lastAction = ActionType.SAVE
+        edited.value?.let {
+            _eventCreated.value = Unit
+            it.published = Instant.now().toString()
+            it.datetime = Instant.now().toString()
+            it.type = EventType.OFFLINE
             viewModelScope.launch {
                 try {
                     when (_attachment.value) {
@@ -249,6 +289,7 @@ class EventViewModel() : ViewModel() {
         }
     }
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     fun removeEventById(id: Long) {
         lastAction = ActionType.REMOVEBYID
         currentId = id
@@ -260,6 +301,7 @@ class EventViewModel() : ViewModel() {
             } catch (e: Exception) {
                 _dataState.value = FeedModelState(error = true)
             }
+            data.value?.events?.filter { it.id != id }
         }
         lastAction = null
         currentId = null

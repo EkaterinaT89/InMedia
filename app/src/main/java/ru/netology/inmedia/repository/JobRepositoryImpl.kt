@@ -15,7 +15,7 @@ import java.io.IOException
 
 class JobRepositoryImpl : JobRepository {
 
-    val listData = mutableListOf<Job>()
+    override val listData = mutableListOf<Job>()
 
     private val _jobs = MutableLiveData<List<Job>>()
 
@@ -36,9 +36,9 @@ class JobRepositoryImpl : JobRepository {
         }
     }
 
-    override suspend fun createNewJob(id: Long, job: Job) {
+    override suspend fun createNewJob(job: Job) {
         try {
-            val response = ApiService.Api.retrofitService.createNewJob(job, id)
+            val response = ApiService.Api.retrofitService.createNewJob(job)
             if (!response.isSuccessful) {
                 throw ApiException(response.code(), response.message())
             }
@@ -67,9 +67,9 @@ class JobRepositoryImpl : JobRepository {
         }
     }
 
-    override suspend fun editJob(job: Job, id: Long) {
+    override suspend fun editJob(job: Job) {
         try {
-            val response = ApiService.Api.retrofitService.editJob(job, id)
+            val response = ApiService.Api.retrofitService.editJob(job)
             if (!response.isSuccessful) {
                 throw ApiException(response.code(), response.message())
             }
@@ -79,6 +79,5 @@ class JobRepositoryImpl : JobRepository {
             throw UnknownException
         }
     }
-
 
 }

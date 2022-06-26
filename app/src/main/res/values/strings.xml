@@ -59,5 +59,12 @@
     <string name="period_of_work">Период работы здесь</string>
     <string name="till_now">По настоящее время</string>
     <string name="date_time_pick">Выбор даты и времени мероприятия</string>
+    <string name="load_avatar">Загрузить аватар</string>
+    <string name="name_company">Название фирмы</string>
+    <string name="position">Должность</string>
+    <string name="start">Год начала</string>
+    <string name="end">Год окончания</string>
+    <string name="save_button">Сохранить</string>
+    <string name="cancel_button">Отменить</string>
 
 </resources>

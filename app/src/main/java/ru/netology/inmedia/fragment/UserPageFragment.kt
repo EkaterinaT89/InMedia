@@ -68,7 +68,6 @@ class UserPageFragment : Fragment() {
         arguments?.showUser?.let { user: User ->
             with(binding) {
                 userName.text = user.name
-                userOccupation.text = jobViewModel.getLastOccupation(user.id)?.name
 
                 val wallAdapter = PostAdapter(object : OnInteractionListener {
                     override fun onLike(post: Post) {

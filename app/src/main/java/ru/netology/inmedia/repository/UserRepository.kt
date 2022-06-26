@@ -1,9 +1,7 @@
 package ru.netology.inmedia.repository
 
 import kotlinx.coroutines.flow.Flow
-import ru.netology.inmedia.dto.Event
-import ru.netology.inmedia.dto.Post
-import ru.netology.inmedia.dto.User
+import ru.netology.inmedia.dto.*
 
 interface UserRepository {
 
@@ -13,8 +11,9 @@ interface UserRepository {
 
     suspend fun getAllUsers()
 
-    suspend fun getUserById(id: Long)
+    suspend fun getUserById(id: Long): User
 
+    suspend fun upload(upload: MediaUpload): Media
 
-
+    suspend fun saveUserAvatar(user: User, upload: MediaUpload)
 }

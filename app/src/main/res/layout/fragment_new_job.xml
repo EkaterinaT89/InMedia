@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/company_name"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="@string/name_company"
+        android:layout_marginLeft="@dimen/margin"
+        android:layout_marginRight="@dimen/margin"
+        android:layout_marginTop="40dp"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:clickable="true"
+        android:focusable="true" >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/company_name_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_corners"
+            android:clickable="true"
+            android:focusable="true"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/position"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="@string/position"
+        android:layout_margin="@dimen/margin"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:clickable="true"
+        android:focusable="true" >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/position_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_corners"
+            android:clickable="true"
+            android:focusable="true"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/start"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="@string/start"
+        android:layout_marginStart="@dimen/margin"
+        android:layout_marginEnd="@dimen/margin"
+        android:layout_marginBottom="@dimen/margin"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:clickable="true"
+        android:focusable="true" >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/start_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_corners"
+            android:clickable="true"
+            android:focusable="true"
+            android:inputType="numberDecimal" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/end"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="@string/end"
+        android:layout_marginStart="@dimen/margin"
+        android:layout_marginEnd="@dimen/margin"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:clickable="true"
+        android:focusable="true" >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/end_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_corners"
+            android:clickable="true"
+            android:focusable="true"
+            android:inputType="numberDecimal" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/save_button"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_margin="@dimen/margin"
+        android:text="@string/save_button"
+        android:textColor="@color/white"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        app:cornerRadius="15dp"
+        />
+
+</LinearLayout>

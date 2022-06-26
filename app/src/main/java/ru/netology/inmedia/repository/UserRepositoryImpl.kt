@@ -5,11 +5,13 @@ import androidx.lifecycle.asFlow
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import ru.netology.inmedia.api.ApiService
-import ru.netology.inmedia.dto.Event
-import ru.netology.inmedia.dto.Post
-import ru.netology.inmedia.dto.User
+import ru.netology.inmedia.dto.*
+import ru.netology.inmedia.enumeration.AttachmentType
 import ru.netology.inmedia.error.ApiException
+import ru.netology.inmedia.error.AppError
 import ru.netology.inmedia.error.NetWorkException
 import ru.netology.inmedia.error.UnknownException
 import java.io.IOException
@@ -22,13 +24,9 @@ class UserRepositoryImpl : UserRepository {
 
     override val data = _users.asFlow().flowOn(Dispatchers.Default)
 
-
-    val wallList = mutableListOf<Post>()
-
     private val _wall = MutableLiveData<List<Post>>()
 
     override val wall = _wall.asFlow().flowOn(Dispatchers.Default)
-
 
     override suspend fun getAllUsers() {
         try {
@@ -45,12 +43,13 @@ class UserRepositoryImpl : UserRepository {
         }
     }
 
-    override suspend fun getUserById(id: Long) {
+    override suspend fun getUserById(id: Long): User {
         try {
             val response = ApiService.Api.retrofitService.getUserById(id)
             val user = response.body() ?: throw ApiException(response.code(), response.message())
             listData.add(user)
             _users.value = listData
+            return user
         } catch (e: IOException) {
             throw NetWorkException
         } catch (e: Exception) {
@@ -58,6 +57,35 @@ class UserRepositoryImpl : UserRepository {
         }
     }
 
+    override suspend fun upload(upload: MediaUpload): Media {
+        try {
+            val media = MultipartBody.Part.createFormData(
+                "file", upload.file.name, upload.file.asRequestBody()
+            )
+            val response = ApiService.Api.retrofitService.upload(media)
+            if (!response.isSuccessful) {
+                throw ApiException(response.code(), response.message())
+            }
+            return response.body() ?: throw ApiException(response.code(), response.message())
+        } catch (e: IOException) {
+            throw NetWorkException
+        } catch (e: Exception) {
+            throw UnknownException
+        }
+    }
+
+    override suspend fun saveUserAvatar(user: User, upload: MediaUpload) {
+        try {
+            val media = upload(upload)
+            user.avatar = (media.url)
+        } catch (e: AppError) {
+            throw e
+        } catch (e: IOException) {
+            throw NetWorkException
+        } catch (e: Exception) {
+            throw UnknownException
+        }
+    }
 
 
 }

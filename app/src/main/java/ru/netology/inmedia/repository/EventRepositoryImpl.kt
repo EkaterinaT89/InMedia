@@ -41,12 +41,28 @@ class EventRepositoryImpl() : EventRepository {
         }
     }
 
+    override suspend fun retryGetAllEvents() {
+        try {
+            val response = ApiService.Api.retrofitService.getAllEvents()
+            if (!response.isSuccessful) {
+                throw ApiException(response.code(), response.message())
+            }
+        } catch (e: IOException) {
+            throw NetWorkException
+        } catch (e: Exception) {
+            throw UnknownException
+        }
+    }
+
     override suspend fun createNewEvent(event: Event) {
         try {
             val response = ApiService.Api.retrofitService.createNewEvent(event)
             if (!response.isSuccessful) {
                 throw ApiException(response.code(), response.message())
             }
+            val newEvent = response.body() ?: throw ApiException(response.code(), response.message())
+            listData.add(newEvent)
+            _events.value = listData
         } catch (e: IOException) {
             throw NetWorkException
         } catch (e: Exception) {

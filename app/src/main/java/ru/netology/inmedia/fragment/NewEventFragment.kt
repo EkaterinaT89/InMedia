@@ -20,8 +20,10 @@ import ru.netology.inmedia.service.AndroidUtils
 import ru.netology.inmedia.service.StringArg
 import androidx.navigation.fragment.findNavController
 import ru.netology.inmedia.databinding.FragmentNewEventBinding
+import ru.netology.inmedia.dto.User
 import ru.netology.inmedia.enumeration.AttachmentType
 import ru.netology.inmedia.enumeration.EventType
+import ru.netology.inmedia.service.UserArg
 import ru.netology.inmedia.util.DateFormatter
 import ru.netology.inmedia.viewmodel.EventViewModel
 
@@ -36,8 +38,6 @@ class NewEventFragment : Fragment() {
     companion object {
         var Bundle.textArg: String? by StringArg
     }
-
-    var eventType: EventType? = null
 
     @SuppressLint("ResourceType")
     override fun onCreateView(
@@ -121,30 +121,6 @@ class NewEventFragment : Fragment() {
         }
 
         with(binding) {
-            onlineNotSelected.setOnClickListener {
-                onlineSelected.visibility = View.VISIBLE
-                onlineNotSelected.visibility = View.GONE
-                eventType = EventType.OFFLINE
-            }
-
-            onlineSelected.setOnClickListener {
-                onlineSelected.visibility = View.GONE
-                onlineNotSelected.visibility = View.VISIBLE
-                eventType = EventType.ONLINE
-            }
-
-            offlineNotSelected.setOnClickListener {
-                offlineSelected.visibility = View.VISIBLE
-                offlineNotSelected.visibility = View.GONE
-                eventType = EventType.ONLINE
-            }
-
-            offlineSelected.setOnClickListener {
-                offlineSelected.visibility = View.GONE
-                offlineNotSelected.visibility = View.VISIBLE
-                eventType = EventType.OFFLINE
-            }
-
             removeAttachment.setOnClickListener {
                 viewModel.changeAttachment(null, null, null)
             }
@@ -168,7 +144,14 @@ class NewEventFragment : Fragment() {
             R.id.save -> {
                 bindingEvent?.let {
                     viewModel.editEventContent(it.edit.text.toString())
-                    viewModel.createNewEvent()
+
+                    when (it.typeOptions.checkedRadioButtonId) {
+                        R.id.option_online -> viewModel.createNewEventOnLine()
+                        R.id.option_offline -> viewModel.createNewEventOffLine()
+                        else -> viewModel.createNewEventOnLine()
+                    }
+
+                    viewModel.createNewEventOnLine()
 
                     AndroidUtils.hideKeyboard(requireView())
                     findNavController().navigate(R.id.tabsFragment)

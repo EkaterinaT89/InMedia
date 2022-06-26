@@ -1,5 +1,6 @@
 package ru.netology.inmedia.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +18,7 @@ class UserOccupationDetailsFragment : Fragment() {
         var Bundle.showOneJob: Job? by JobArg
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -33,12 +35,12 @@ class UserOccupationDetailsFragment : Fragment() {
             with(binding) {
                 position.text = job.position
                 company.text = job.name
-                start.text = DateFormatter.getCurrentDate(start, job.start)
+                start.text = "С " + job.start.toString()
 
-                if (job.finish == null) {
-                    end.text = getString(R.string.till_now)
+                if(job.finish != null) {
+                    end.text = "По " + job.finish.toString()
                 } else {
-                    end.text = DateFormatter.getCurrentDate(end, job.finish)
+                    end.visibility = View.GONE
                 }
             }
         }

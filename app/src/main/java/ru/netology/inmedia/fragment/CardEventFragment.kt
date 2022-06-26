@@ -122,8 +122,6 @@ class CardEventFragment: Fragment() {
             }
         }
 
-
-
         return binding.root
     }
 

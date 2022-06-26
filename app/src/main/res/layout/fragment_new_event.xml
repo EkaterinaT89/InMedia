@@ -125,59 +125,33 @@
             app:iconSize="@dimen/button_icon_size"
             app:iconTint="@color/white" />
 
-        <LinearLayout
+        <RadioGroup
+            android:id="@+id/type_options"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin"
-            android:orientation="horizontal">
+            android:checkedButton="@id/option_online"
+            android:orientation="horizontal"
+            android:paddingEnd="@dimen/padding"
+            app:layout_constraintStart_toStartOf="@+id/how_was_the_service"
+            app:layout_constraintTop_toBottomOf="@id/how_was_the_service"
+            tools:ignore="RtlSymmetry">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/online_selected"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:text="@string/online"
-            android:textColor="@color/white"
-            android:clickable="true"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:focusable="true" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/offline_selected"
+            <RadioButton
+                android:id="@+id/option_online"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:layout_marginStart="@dimen/margin"
-                android:text="@string/offline"
-                android:textColor="@color/white"
-                android:clickable="true"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:focusable="true" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/online_not_selected"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/white"
                 android:text="@string/online"
-                android:textColor="@color/light_blue"
-                android:clickable="true"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:focusable="true" />
+                android:textSize="@dimen/content_text_size" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/offline_not_selected"
+            <RadioButton
+                android:id="@+id/option_offline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/white"
                 android:layout_marginStart="@dimen/margin"
                 android:text="@string/offline"
-                android:textColor="@color/light_blue"
-                android:clickable="true"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:focusable="true" />
+                android:textSize="@dimen/content_text_size" />
 
-        </LinearLayout>
+        </RadioGroup>
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,7 +8,7 @@
     android:layout_margin="@dimen/margin"
     app:cardCornerRadius="@dimen/corner_radius"
     app:cardElevation="@dimen/elevation"
-    tools:context=".fragment.CardUserOccupationFragment">
+    tools:context=".fragment.CardMyOccupationFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin"
             android:contentDescription="@string/job_avatar"
-            tools:src="@drawable/ic_outline_work_history_24" />
+            android:src="@drawable/ic_outline_work_history_24" />
 
         <LinearLayout
             android:layout_width="250dp"
@@ -72,7 +72,8 @@
                 android:contentDescription="@string/get_job_details"
                 app:icon="@drawable/ic_baseline_chevron_right_24"
                 app:iconGravity="end"
-                app:iconTint="?attr/colorControlNormal" />
+                app:iconTint="?attr/colorControlNormal"
+                tools:ignore="TouchTargetSizeCheck" />
 
         </LinearLayout>
 

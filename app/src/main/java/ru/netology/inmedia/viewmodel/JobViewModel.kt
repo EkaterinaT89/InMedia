@@ -25,7 +25,8 @@ private val emptyJob = Job(
     position = "",
     start = 0,
     finish = null,
-    link = null
+    link = null,
+    userId = 0
 )
 
 class JobViewModel() : ViewModel() {
@@ -50,22 +51,6 @@ class JobViewModel() : ViewModel() {
     var currentJob: Job? = null
 
     var lastAction: ActionType? = null
-
-    @SuppressLint("SimpleDateFormat")
-    fun getLastOccupation(userId: Long): Job? {
-        val job = data.value
-        var currentJob: Job? = null
-        viewModelScope.launch {
-            try {
-                _dataState.postValue(FeedModelState(loading = true))
-                currentJob = job?.last()
-                _dataState.value = FeedModelState()
-            } catch (e: Exception) {
-                _dataState.value = FeedModelState(error = true)
-            }
-        }
-        return currentJob
-    }
 
     fun tryAgain() {
         when (lastAction) {
@@ -96,16 +81,16 @@ class JobViewModel() : ViewModel() {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun createNewJob(id: Long, job: Job) {
+    fun createNewJob(userId: Long) {
         lastAction = ActionType.SAVE
-        currentId = id
-        currentJob = job
+        currentId = userId
         edited.value?.let {
+            it.userId = userId
             _jobCreated.value = Unit
             viewModelScope.launch {
                 try {
                     _dataState.postValue(FeedModelState(loading = true))
-                    repository.createNewJob(id, job)
+                    repository.createNewJob(it)
                     _dataState.value = FeedModelState()
                 } catch (e: Exception) {
                     _dataState.value = FeedModelState(error = true)
@@ -115,17 +100,28 @@ class JobViewModel() : ViewModel() {
         edited.value = emptyJob
         lastAction = null
         currentId = null
-        currentJob = null
     }
 
-    fun editJob(job: Job, id: Long) {
+    fun editJobContent(companyName: String, position: String, start: String, end: String) {
+        val getCompanyName = companyName.trim()
+        val getPosition = position.trim()
+        val getStart = start.trim().toLong()
+        val getEnd = end.trim().toLong()
+        if (edited.value?.name == getCompanyName && edited.value?.position == getPosition
+                    && edited.value?.start == getStart && edited.value?.finish == getEnd) {
+            return
+        }
+        edited.value = edited.value?.copy(name = getCompanyName, position = getPosition,
+                start = getStart, finish = getEnd)
+    }
+
+    fun editJob(job: Job) {
         lastAction = ActionType.EDIT
         currentJob = job
-        currentId = id
         viewModelScope.launch {
             try {
                 _dataState.value = FeedModelState(loading = true)
-                repository.editJob(job, id)
+                repository.editJob(job)
                 edited.value = job
                 _dataState.value = FeedModelState()
             } catch (e: Exception) {
@@ -134,13 +130,12 @@ class JobViewModel() : ViewModel() {
         }
         lastAction = null
         currentJob = null
-        currentId = null
     }
 
     fun retryEditJob() {
         currentId?.let { id ->
             currentJob?.let { job ->
-                editJob(job, id)
+                editJob(job)
             }
         }
     }
