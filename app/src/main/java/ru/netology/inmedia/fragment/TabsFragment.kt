@@ -13,6 +13,7 @@ import ru.netology.inmedia.R
 import ru.netology.inmedia.adapter.TabsAdapter
 import ru.netology.inmedia.databinding.FragmentTabsBinding
 
+@AndroidEntryPoint
 class TabsFragment : Fragment() {
 
     override fun onCreateView(

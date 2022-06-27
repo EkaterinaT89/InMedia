@@ -24,6 +24,7 @@ import com.github.dhaval2404.imagepicker.ImagePicker
 import com.github.dhaval2404.imagepicker.constant.ImageProvider
 import com.github.dhaval2404.imagepicker.util.ImageUtil
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import ru.netology.inmedia.MainActivity
 import ru.netology.inmedia.R
 import ru.netology.inmedia.adapter.OnInteractionListener
@@ -45,12 +46,17 @@ import ru.netology.inmedia.viewmodel.JobViewModel
 import ru.netology.inmedia.viewmodel.PostViewModel
 import ru.netology.inmedia.viewmodel.UserViewModel
 import ru.netology.inmedia.viewmodel.WallViewModel
+import javax.inject.Inject
 
 private const val BASE_URL = "https://inmediadiploma.herokuapp.com/api/media"
 
+@AndroidEntryPoint
 class MyPageFragment : Fragment() {
 
     private lateinit var recyclerView: PostRecyclerView
+
+    @Inject
+    lateinit var auth: AppAuth
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -69,10 +75,6 @@ class MyPageFragment : Fragment() {
         )
 
         val postViewModel: PostViewModel by viewModels(
-            ownerProducer = ::requireParentFragment
-        )
-
-        val jobViewModel: JobViewModel by viewModels(
             ownerProducer = ::requireParentFragment
         )
 
@@ -195,7 +197,7 @@ class MyPageFragment : Fragment() {
                                     AlertDialog.Builder(requireContext()).setMessage("Уверены?")
                                         .setPositiveButton("Выйти"
                                         ) { dialogInterface, i ->
-                                            AppAuth.getInstance().removeAuth()
+                                            auth.removeAuth()
                                             findNavController().navigate(R.id.tabsFragment)
                                         }
                                         .setNegativeButton("Остаться"

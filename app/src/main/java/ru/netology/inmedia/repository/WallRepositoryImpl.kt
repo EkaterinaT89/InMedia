@@ -12,8 +12,13 @@ import ru.netology.inmedia.error.ApiException
 import ru.netology.inmedia.error.NetWorkException
 import ru.netology.inmedia.error.UnknownException
 import java.io.IOException
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class WallRepositoryImpl : WallRepository {
+@Singleton
+class WallRepositoryImpl @Inject constructor(
+    private val apiService: ApiService
+): WallRepository {
 
     val wallList = mutableListOf<Post>()
 
@@ -23,7 +28,7 @@ class WallRepositoryImpl : WallRepository {
 
     override suspend fun getUserWall(id: Long) {
         try {
-            val response = ApiService.Api.retrofitService.getWall(id)
+            val response = apiService.getWall(id)
             val posts = response.body() ?: throw ApiException(response.code(), response.message())
             for (post in posts) {
                 wallList.add(post)
@@ -38,7 +43,7 @@ class WallRepositoryImpl : WallRepository {
 
     override suspend fun likePostsOnWall(authorId: Long, postId: Long) {
         try {
-            val response = ApiService.Api.retrofitService.likePostOnWall(authorId, postId)
+            val response = apiService.likePostOnWall(authorId, postId)
             val post = response.body() ?: throw ApiException(response.code(), response.message())
             wallList.add(post)
             _wall.value = wallList
@@ -51,7 +56,7 @@ class WallRepositoryImpl : WallRepository {
 
     override suspend fun disLikePostsOnWall(authorId: Long, postId: Long) {
         try {
-            val response = ApiService.Api.retrofitService.likePostOnWall(authorId, postId)
+            val response = apiService.likePostOnWall(authorId, postId)
             val post = response.body() ?: throw ApiException(response.code(), response.message())
             wallList.add(post)
             _wall.value = wallList

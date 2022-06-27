@@ -3,17 +3,20 @@ package ru.netology.inmedia.repository
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asFlow
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import ru.netology.inmedia.api.ApiService
-import ru.netology.inmedia.dto.Event
 import ru.netology.inmedia.dto.Job
 import ru.netology.inmedia.error.ApiException
 import ru.netology.inmedia.error.NetWorkException
 import ru.netology.inmedia.error.UnknownException
 import java.io.IOException
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class JobRepositoryImpl : JobRepository {
+@Singleton
+class JobRepositoryImpl @Inject constructor(
+    private val apiService: ApiService
+) : JobRepository {
 
     override val listData = mutableListOf<Job>()
 
@@ -23,7 +26,7 @@ class JobRepositoryImpl : JobRepository {
 
     override suspend fun getAllJobs(id: Long) {
         try {
-            val response = ApiService.Api.retrofitService.getAllJobs(id)
+            val response = apiService.getAllJobs(id)
             val jobs = response.body() ?: throw ApiException(response.code(), response.message())
             for (job in jobs) {
                 listData.add(job)
@@ -38,7 +41,7 @@ class JobRepositoryImpl : JobRepository {
 
     override suspend fun createNewJob(job: Job) {
         try {
-            val response = ApiService.Api.retrofitService.createNewJob(job)
+            val response = apiService.createNewJob(job)
             if (!response.isSuccessful) {
                 throw ApiException(response.code(), response.message())
             }
@@ -56,7 +59,7 @@ class JobRepositoryImpl : JobRepository {
 
     override suspend fun removeJobById(id: Long) {
         try {
-            val response = ApiService.Api.retrofitService.removeJobById(id)
+            val response = apiService.removeJobById(id)
             if (!response.isSuccessful) {
                 throw ApiException(response.code(), response.message())
             }
@@ -69,7 +72,7 @@ class JobRepositoryImpl : JobRepository {
 
     override suspend fun editJob(job: Job) {
         try {
-            val response = ApiService.Api.retrofitService.editJob(job)
+            val response = apiService.editJob(job)
             if (!response.isSuccessful) {
                 throw ApiException(response.code(), response.message())
             }

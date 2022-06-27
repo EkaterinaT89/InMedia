@@ -12,6 +12,7 @@ import ru.netology.inmedia.R
 import ru.netology.inmedia.databinding.FragmentSignUpBinding
 import ru.netology.inmedia.viewmodel.SignUpViewModel
 
+@AndroidEntryPoint
 class SignUpFragment: Fragment() {
 
     override fun onCreateView(

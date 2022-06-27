@@ -9,12 +9,14 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import ru.netology.inmedia.R
 import ru.netology.inmedia.databinding.FragmentNewJobBinding
 import ru.netology.inmedia.dto.User
 import ru.netology.inmedia.service.UserArg
 import ru.netology.inmedia.viewmodel.JobViewModel
 
+@AndroidEntryPoint
 class NewJobFragment: Fragment() {
 
     private val viewModel: JobViewModel by viewModels(

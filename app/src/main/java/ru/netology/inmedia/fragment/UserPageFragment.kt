@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import ru.netology.inmedia.R
 import ru.netology.inmedia.adapter.OnInteractionListener
 import ru.netology.inmedia.adapter.PostAdapter
@@ -29,6 +30,7 @@ import ru.netology.inmedia.viewmodel.WallViewModel
 
 private const val BASE_URL = "https://inmediadiploma.herokuapp.com/api/media"
 
+@AndroidEntryPoint
 class UserPageFragment : Fragment() {
 
     private lateinit var recyclerView: PostRecyclerView

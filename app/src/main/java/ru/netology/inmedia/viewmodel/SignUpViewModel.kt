@@ -1,10 +1,9 @@
 package ru.netology.inmedia.viewmodel
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
+import android.view.View
+import androidx.lifecycle.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.netology.inmedia.auth.AppAuth
@@ -14,18 +13,17 @@ import ru.netology.inmedia.repository.AuthRepository
 import ru.netology.inmedia.repository.AuthRepositoryImpl
 import ru.netology.inmedia.repository.PostRepository
 import ru.netology.inmedia.repository.PostRepositoryImpl
+import javax.inject.Inject
 
-class SignUpViewModel(application: Application) : AndroidViewModel(application) {
+@HiltViewModel
+class SignUpViewModel @Inject constructor(
+    private val repository: AuthRepository,
+    auth: AppAuth
+) : ViewModel() {
 
-    private val repository: AuthRepository =
-        AuthRepositoryImpl()
-
-    val data: LiveData<AuthState> = AppAuth.getInstance()
+    val data: LiveData<AuthState> = auth
         .authStateFlow
         .asLiveData(Dispatchers.Default)
-
-    val authenticated: Boolean
-        get() = AppAuth.getInstance().authStateFlow.value.id != 0L
 
     fun signeUp(name: String, login: String, pass: String) {
         viewModelScope.launch {

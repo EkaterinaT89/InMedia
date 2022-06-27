@@ -6,13 +6,14 @@ import android.app.TimePickerDialog
 import android.os.Bundle
 import android.text.format.DateFormat
 import androidx.fragment.app.DialogFragment
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
+@AndroidEntryPoint
 class TimePickerFragment(
     private val calendar: Calendar,
     private val listener: TimePickerDialog.OnTimeSetListener
 ) : DialogFragment() {
-
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val hour = calendar.get(Calendar.HOUR_OF_DAY)

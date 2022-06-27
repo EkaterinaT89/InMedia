@@ -23,6 +23,7 @@ import ru.netology.inmedia.service.PostArg
 import ru.netology.inmedia.service.PostService
 import ru.netology.inmedia.viewmodel.EventViewModel
 
+@AndroidEntryPoint
 class CardEventFragment: Fragment() {
 
     companion object {

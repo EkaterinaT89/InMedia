@@ -5,12 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import dagger.hilt.android.AndroidEntryPoint
 import ru.netology.inmedia.databinding.FragmentImageBinding
 import ru.netology.inmedia.fragment.NewPostFragment.Companion.textArg
 import ru.netology.inmedia.service.imageLoad
 
 private const val BASE_URL = "https://inmediadiploma.herokuapp.com/api/"
 
+@AndroidEntryPoint
 class ImageFragment: Fragment() {
 
     override fun onCreateView(

@@ -6,12 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import dagger.hilt.android.AndroidEntryPoint
 import ru.netology.inmedia.R
 import ru.netology.inmedia.databinding.FragmentUserOccupationDetailsBinding
 import ru.netology.inmedia.dto.Job
 import ru.netology.inmedia.service.JobArg
 import ru.netology.inmedia.util.DateFormatter
 
+@AndroidEntryPoint
 class UserOccupationDetailsFragment : Fragment() {
 
     companion object {

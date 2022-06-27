@@ -8,6 +8,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.netology.inmedia.R
 import ru.netology.inmedia.adapter.OnUserListener
@@ -16,6 +17,7 @@ import ru.netology.inmedia.dto.User
 import ru.netology.inmedia.fragment.UserPageFragment.Companion.showUser
 import ru.netology.inmedia.viewmodel.UserViewModel
 
+@AndroidEntryPoint
 class ListUsersFragment : Fragment() {
 
     @OptIn(ExperimentalCoroutinesApi::class)

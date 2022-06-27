@@ -17,8 +17,13 @@ import ru.netology.inmedia.error.AppError
 import ru.netology.inmedia.error.NetWorkException
 import ru.netology.inmedia.error.UnknownException
 import java.io.IOException
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class EventRepositoryImpl() : EventRepository {
+@Singleton
+class EventRepositoryImpl @Inject constructor(
+    private val apiService: ApiService
+) : EventRepository {
 
     val listData = mutableListOf<Event>()
 
@@ -28,7 +33,7 @@ class EventRepositoryImpl() : EventRepository {
 
     override suspend fun getAllEvents() {
         try {
-            val response = ApiService.Api.retrofitService.getAllEvents()
+            val response = apiService.getAllEvents()
             val events = response.body() ?: throw ApiException(response.code(), response.message())
             for (event in events) {
                 listData.add(event)
@@ -43,7 +48,7 @@ class EventRepositoryImpl() : EventRepository {
 
     override suspend fun retryGetAllEvents() {
         try {
-            val response = ApiService.Api.retrofitService.getAllEvents()
+            val response = apiService.getAllEvents()
             if (!response.isSuccessful) {
                 throw ApiException(response.code(), response.message())
             }
@@ -56,7 +61,7 @@ class EventRepositoryImpl() : EventRepository {
 
     override suspend fun createNewEvent(event: Event) {
         try {
-            val response = ApiService.Api.retrofitService.createNewEvent(event)
+            val response = apiService.createNewEvent(event)
             if (!response.isSuccessful) {
                 throw ApiException(response.code(), response.message())
             }
@@ -72,7 +77,7 @@ class EventRepositoryImpl() : EventRepository {
 
     override suspend fun getEventById(id: Long) {
         try {
-            val response = ApiService.Api.retrofitService.getEventById(id)
+            val response = apiService.getEventById(id)
             if (!response.isSuccessful) {
                 throw ApiException(response.code(), response.message())
             }
@@ -85,7 +90,7 @@ class EventRepositoryImpl() : EventRepository {
 
     override suspend fun editEvent(event: Event) {
         try {
-            val response = ApiService.Api.retrofitService.editEvent(event)
+            val response = apiService.editEvent(event)
             if (!response.isSuccessful) {
                 throw ApiException(response.code(), response.message())
             }
@@ -98,7 +103,7 @@ class EventRepositoryImpl() : EventRepository {
 
     override suspend fun likeEventById(id: Long) {
         try {
-            val response = ApiService.Api.retrofitService.likeEventById(id)
+            val response = apiService.likeEventById(id)
             if (!response.isSuccessful) {
                 throw ApiException(response.code(), response.message())
             }
@@ -111,7 +116,7 @@ class EventRepositoryImpl() : EventRepository {
 
     override suspend fun disLikeEventById(id: Long) {
         try {
-            val response = ApiService.Api.retrofitService.disLikeEventById(id)
+            val response = apiService.disLikeEventById(id)
             if (!response.isSuccessful) {
                 throw ApiException(response.code(), response.message())
             }
@@ -124,7 +129,7 @@ class EventRepositoryImpl() : EventRepository {
 
     override suspend fun removeEventById(id: Long) {
         try {
-            val response = ApiService.Api.retrofitService.removeEventById(id)
+            val response = apiService.removeEventById(id)
             if (!response.isSuccessful) {
                 throw ApiException(response.code(), response.message())
             }
@@ -137,7 +142,7 @@ class EventRepositoryImpl() : EventRepository {
 
     override suspend fun takePartEvent(id: Long) {
         try {
-            val response = ApiService.Api.retrofitService.takePartEvent(id)
+            val response = apiService.takePartEvent(id)
             if (!response.isSuccessful) {
                 throw ApiException(response.code(), response.message())
             }
@@ -150,7 +155,7 @@ class EventRepositoryImpl() : EventRepository {
 
     override suspend fun unTakePartEvent(id: Long) {
         try {
-            val response = ApiService.Api.retrofitService.unTakePartEvent(id)
+            val response = apiService.unTakePartEvent(id)
             if (!response.isSuccessful) {
                 throw ApiException(response.code(), response.message())
             }
@@ -184,7 +189,7 @@ class EventRepositoryImpl() : EventRepository {
             val media = MultipartBody.Part.createFormData(
                 "file", upload.file.name, upload.file.asRequestBody()
             )
-            val response = ApiService.Api.retrofitService.upload(media)
+            val response = apiService.upload(media)
             if (!response.isSuccessful) {
                 throw ApiException(response.code(), response.message())
             }

@@ -24,11 +24,13 @@ import ru.netology.inmedia.viewmodel.PostViewModel
 import androidx.navigation.fragment.findNavController
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
+import dagger.hilt.android.AndroidEntryPoint
 import ru.netology.inmedia.enumeration.AttachmentType
 import ru.netology.inmedia.util.MediaUtils
 import ru.netology.inmedia.util.PermissionsManager
 import java.io.File
 
+@AndroidEntryPoint
 class NewPostFragment : Fragment() {
 
     private val viewModel: PostViewModel by viewModels(

@@ -16,6 +16,7 @@ import androidx.navigation.fragment.findNavController
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.github.dhaval2404.imagepicker.constant.ImageProvider
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import ru.netology.inmedia.R
 import ru.netology.inmedia.databinding.FragmentEditEventBinding
 import ru.netology.inmedia.enumeration.AttachmentType
@@ -24,6 +25,7 @@ import ru.netology.inmedia.service.AndroidUtils
 import ru.netology.inmedia.service.StringArg
 import ru.netology.inmedia.viewmodel.EventViewModel
 
+@AndroidEntryPoint
 class EditEventFragment : Fragment() {
 
     companion object {

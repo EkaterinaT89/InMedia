@@ -17,12 +17,17 @@ import dagger.hilt.android.AndroidEntryPoint
 import ru.netology.inmedia.auth.AppAuth
 import ru.netology.inmedia.databinding.ActivityMainBinding
 import ru.netology.inmedia.viewmodel.AuthViewModel
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     private val viewModel: AuthViewModel by viewModels()
 
     private lateinit var navController: NavController
+
+    @Inject
+    lateinit var auth: AppAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,7 +71,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                 AlertDialog.Builder(this).setMessage("Уверены?")
                     .setPositiveButton("Выйти"
                     ) { dialogInterface, i ->
-                        AppAuth.getInstance().removeAuth()
+                        auth.removeAuth()
                         findNavController(R.id.nav_host_fragment).navigateUp()
                     }
                     .setNegativeButton("Остаться"

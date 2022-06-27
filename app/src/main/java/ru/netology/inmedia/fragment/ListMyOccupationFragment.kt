@@ -28,6 +28,7 @@ import ru.netology.inmedia.service.PostArg
 import ru.netology.inmedia.service.UserArg
 import ru.netology.inmedia.viewmodel.JobViewModel
 
+@AndroidEntryPoint
 class ListMyOccupationFragment: Fragment() {
 
     companion object {

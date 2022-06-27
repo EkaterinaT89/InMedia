@@ -13,6 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.google.android.exoplayer2.MediaItem
+import dagger.hilt.android.AndroidEntryPoint
 import me.saket.bettermovementmethod.BetterLinkMovementMethod
 import ru.netology.inmedia.R
 import ru.netology.inmedia.databinding.FragmentCardPostBinding
@@ -26,6 +27,7 @@ import ru.netology.inmedia.util.MediaUtils
 import ru.netology.inmedia.viewmodel.AuthViewModel
 import ru.netology.inmedia.viewmodel.PostViewModel
 
+@AndroidEntryPoint
 class CardPostFragment : Fragment() {
 
     companion object {

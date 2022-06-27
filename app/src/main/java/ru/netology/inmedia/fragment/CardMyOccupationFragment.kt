@@ -21,6 +21,7 @@ import ru.netology.inmedia.service.JobArg
 import ru.netology.inmedia.util.DateFormatter
 import ru.netology.inmedia.viewmodel.JobViewModel
 
+@AndroidEntryPoint
 class CardMyOccupationFragment: Fragment() {
 
     companion object {

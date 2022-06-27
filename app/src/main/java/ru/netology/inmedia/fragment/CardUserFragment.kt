@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import dagger.hilt.android.AndroidEntryPoint
 import ru.netology.inmedia.databinding.FragmentCardUserBinding
 
+@AndroidEntryPoint
 class CardUserFragment: Fragment() {
 
     override fun onCreateView(

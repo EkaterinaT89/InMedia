@@ -19,6 +19,7 @@ import ru.netology.inmedia.R
 import ru.netology.inmedia.service.AndroidUtils
 import ru.netology.inmedia.service.StringArg
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import ru.netology.inmedia.databinding.FragmentNewEventBinding
 import ru.netology.inmedia.dto.User
 import ru.netology.inmedia.enumeration.AttachmentType
@@ -27,6 +28,7 @@ import ru.netology.inmedia.service.UserArg
 import ru.netology.inmedia.util.DateFormatter
 import ru.netology.inmedia.viewmodel.EventViewModel
 
+@AndroidEntryPoint
 class NewEventFragment : Fragment() {
 
     private val viewModel: EventViewModel by viewModels(

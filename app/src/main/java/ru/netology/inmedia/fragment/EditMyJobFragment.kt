@@ -9,6 +9,7 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import ru.netology.inmedia.R
 import ru.netology.inmedia.databinding.FragmentEditJobBinding
 import ru.netology.inmedia.dto.Job
@@ -19,6 +20,7 @@ import ru.netology.inmedia.service.JobArg
 import ru.netology.inmedia.service.UserArg
 import ru.netology.inmedia.viewmodel.JobViewModel
 
+@AndroidEntryPoint
 class EditMyJobFragment : Fragment() {
 
     companion object {

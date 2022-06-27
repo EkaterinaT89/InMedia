@@ -2,7 +2,9 @@ package ru.netology.inmedia.viewmodel
 
 import android.net.Uri
 import androidx.lifecycle.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 import ru.netology.inmedia.auth.AppAuth
 import ru.netology.inmedia.dto.MediaUpload
@@ -15,10 +17,13 @@ import ru.netology.inmedia.model.FeedModelState
 import ru.netology.inmedia.repository.UserRepository
 import ru.netology.inmedia.repository.UserRepositoryImpl
 import java.io.File
+import javax.inject.Inject
 
-class UserViewModel() : ViewModel() {
-
-    val repository: UserRepository = UserRepositoryImpl()
+@HiltViewModel
+class UserViewModel @Inject constructor(
+    val repository: UserRepository,
+    auth: AppAuth
+) : ViewModel() {
 
     private val _dataState = MutableLiveData<FeedModelState>()
     val dataState: LiveData<FeedModelState>
@@ -46,7 +51,7 @@ class UserViewModel() : ViewModel() {
         }
     }
 
-    private var profileId = AppAuth.getInstance().authStateFlow.value.id
+    private var profileId = auth.authStateFlow.value.id
 
     init {
         getUserById(profileId)
