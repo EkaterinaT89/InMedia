@@ -35,7 +35,7 @@ class TabsFragment : Fragment() {
 
             tabLayout.tabMode = TabLayout.MODE_FIXED
 
-            val adapter = TabsAdapter(getParentFragmentManager(), lifecycle, numberOfTabs)
+            val adapter = TabsAdapter(childFragmentManager, lifecycle, numberOfTabs)
             tabsViewpager.adapter = adapter
 
             tabsViewpager.isUserInputEnabled = true

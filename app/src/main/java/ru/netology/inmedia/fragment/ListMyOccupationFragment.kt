@@ -11,25 +11,19 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ru.netology.inmedia.R
-import ru.netology.inmedia.adapter.JobAdapter
-import ru.netology.inmedia.adapter.JobListener
 import ru.netology.inmedia.adapter.MyJobAdapter
 import ru.netology.inmedia.adapter.MyJobListener
 import ru.netology.inmedia.databinding.FragmentListMyOccupationBinding
-import ru.netology.inmedia.databinding.FragmentListUserOccupationBinding
 import ru.netology.inmedia.dto.Job
-import ru.netology.inmedia.dto.Post
 import ru.netology.inmedia.dto.User
-import ru.netology.inmedia.fragment.CardEventFragment.Companion.showEvent
 import ru.netology.inmedia.fragment.EditMyJobFragment.Companion.jobArg
 import ru.netology.inmedia.fragment.EditMyJobFragment.Companion.userArg
 import ru.netology.inmedia.fragment.UserOccupationDetailsFragment.Companion.showOneJob
-import ru.netology.inmedia.service.PostArg
 import ru.netology.inmedia.service.UserArg
 import ru.netology.inmedia.viewmodel.JobViewModel
 
 @AndroidEntryPoint
-class ListMyOccupationFragment: Fragment() {
+class ListMyOccupationFragment : Fragment() {
 
     companion object {
         var Bundle.showUser: User? by UserArg

@@ -29,7 +29,9 @@ class JobRepositoryImpl @Inject constructor(
             val response = apiService.getAllJobs(id)
             val jobs = response.body() ?: throw ApiException(response.code(), response.message())
             for (job in jobs) {
-                listData.add(job)
+                if(!listData.contains(job)) {
+                    listData.add(job)
+                }
             }
             _jobs.value = listData
         } catch (e: IOException) {

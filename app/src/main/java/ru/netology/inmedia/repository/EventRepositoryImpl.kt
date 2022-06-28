@@ -8,10 +8,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import ru.netology.inmedia.api.ApiService
 import ru.netology.inmedia.dto.*
-import ru.netology.inmedia.entity.PostEntity
-import ru.netology.inmedia.entity.toDto
 import ru.netology.inmedia.enumeration.AttachmentType
-import ru.netology.inmedia.enumeration.EventType
 import ru.netology.inmedia.error.ApiException
 import ru.netology.inmedia.error.AppError
 import ru.netology.inmedia.error.NetWorkException
@@ -36,22 +33,11 @@ class EventRepositoryImpl @Inject constructor(
             val response = apiService.getAllEvents()
             val events = response.body() ?: throw ApiException(response.code(), response.message())
             for (event in events) {
-                listData.add(event)
+                if(!listData.contains(event)) {
+                    listData.add(event)
+                }
             }
             _events.value = listData
-        } catch (e: IOException) {
-            throw NetWorkException
-        } catch (e: Exception) {
-            throw UnknownException
-        }
-    }
-
-    override suspend fun retryGetAllEvents() {
-        try {
-            val response = apiService.getAllEvents()
-            if (!response.isSuccessful) {
-                throw ApiException(response.code(), response.message())
-            }
         } catch (e: IOException) {
             throw NetWorkException
         } catch (e: Exception) {
@@ -65,7 +51,8 @@ class EventRepositoryImpl @Inject constructor(
             if (!response.isSuccessful) {
                 throw ApiException(response.code(), response.message())
             }
-            val newEvent = response.body() ?: throw ApiException(response.code(), response.message())
+            val newEvent =
+                response.body() ?: throw ApiException(response.code(), response.message())
             listData.add(newEvent)
             _events.value = listData
         } catch (e: IOException) {

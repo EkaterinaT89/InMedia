@@ -58,7 +58,7 @@ class ListEventsFragment : Fragment() {
             }
 
             override fun onLike(event: Event) {
-                if(authViewModel.authenticated) {
+                if (authViewModel.authenticated) {
                     eventViewModel.likeById(event.id)
                 } else {
                     findNavController().navigate(R.id.authFragment)
@@ -66,7 +66,7 @@ class ListEventsFragment : Fragment() {
             }
 
             override fun onDisLike(event: Event) {
-                if(authViewModel.authenticated) {
+                if (authViewModel.authenticated) {
                     eventViewModel.disLikeById(event.id)
                 } else {
                     findNavController().navigate(R.id.authFragment)
@@ -135,7 +135,7 @@ class ListEventsFragment : Fragment() {
                 }
             }
             swiperefresh.setOnRefreshListener {
-                eventViewModel.getEventsRefresh()
+                eventViewModel.getAllEvents()
             }
         }
 

@@ -12,13 +12,9 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ru.netology.inmedia.R
 import ru.netology.inmedia.databinding.FragmentCardMyOccupationBinding
-import ru.netology.inmedia.databinding.FragmentCardUserOccupationBinding
 import ru.netology.inmedia.dto.Job
 import ru.netology.inmedia.fragment.EditMyJobFragment.Companion.jobArg
-import ru.netology.inmedia.fragment.EditMyJobFragment.Companion.userArg
-import ru.netology.inmedia.fragment.UserOccupationDetailsFragment.Companion.showOneJob
 import ru.netology.inmedia.service.JobArg
-import ru.netology.inmedia.util.DateFormatter
 import ru.netology.inmedia.viewmodel.JobViewModel
 
 @AndroidEntryPoint
@@ -81,7 +77,6 @@ class CardMyOccupationFragment: Fragment() {
                     }.show()
                 }
             }
-
 
         }
 

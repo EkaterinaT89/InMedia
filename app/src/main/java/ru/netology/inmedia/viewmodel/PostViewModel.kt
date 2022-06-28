@@ -44,7 +44,8 @@ private val emptyPost = Post(
 @HiltViewModel
 class PostViewModel @Inject constructor(
     private val repository: PostRepository,
-    auth: AppAuth) : ViewModel() {
+    auth: AppAuth
+) : ViewModel() {
 
     @ExperimentalCoroutinesApi
     val data: LiveData<FeedModel> = auth

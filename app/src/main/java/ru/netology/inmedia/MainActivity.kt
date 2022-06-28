@@ -5,17 +5,13 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ru.netology.inmedia.auth.AppAuth
-import ru.netology.inmedia.databinding.ActivityMainBinding
 import ru.netology.inmedia.viewmodel.AuthViewModel
 import javax.inject.Inject
 
@@ -69,12 +65,14 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             }
             R.id.sign_out -> {
                 AlertDialog.Builder(this).setMessage("Уверены?")
-                    .setPositiveButton("Выйти"
+                    .setPositiveButton(
+                        "Выйти"
                     ) { dialogInterface, i ->
                         auth.removeAuth()
                         findNavController(R.id.nav_host_fragment).navigateUp()
                     }
-                    .setNegativeButton("Остаться"
+                    .setNegativeButton(
+                        "Остаться"
                     ) { dialogInterface, i ->
                         return@setNegativeButton
                     }

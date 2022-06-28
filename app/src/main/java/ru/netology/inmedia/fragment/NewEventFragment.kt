@@ -21,10 +21,7 @@ import ru.netology.inmedia.service.StringArg
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ru.netology.inmedia.databinding.FragmentNewEventBinding
-import ru.netology.inmedia.dto.User
 import ru.netology.inmedia.enumeration.AttachmentType
-import ru.netology.inmedia.enumeration.EventType
-import ru.netology.inmedia.service.UserArg
 import ru.netology.inmedia.util.DateFormatter
 import ru.netology.inmedia.viewmodel.EventViewModel
 
@@ -166,14 +163,9 @@ class NewEventFragment : Fragment() {
 
     private fun showDateTimePicker() {
         val calendar = Calendar.getInstance()
-
         DatePickerFragment(calendar) { _, year, month, dayOfMonth ->
-            // set data to calendar value once user selects the date
             calendar.set(year, month, dayOfMonth)
-
-            // call timePicker after user picks the date
             TimePickerFragment(calendar) { _, hourOfDay, minute ->
-                // set data to calendar value once user selects the time
                 calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
                 calendar.set(Calendar.MINUTE, minute)
 

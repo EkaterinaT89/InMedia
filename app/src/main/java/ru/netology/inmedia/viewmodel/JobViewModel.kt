@@ -1,9 +1,6 @@
 package ru.netology.inmedia.viewmodel
 
-import android.annotation.SuppressLint
-import android.net.Uri
 import android.os.Build
-import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,12 +10,7 @@ import ru.netology.inmedia.dto.Job
 import ru.netology.inmedia.enumeration.ActionType
 import ru.netology.inmedia.model.FeedModelState
 import ru.netology.inmedia.repository.JobRepository
-import ru.netology.inmedia.repository.JobRepositoryImpl
 import ru.netology.inmedia.service.SingleLiveEvent
-import ru.netology.inmedia.util.DateFormatter
-import java.io.File
-import java.text.SimpleDateFormat
-import java.time.Instant
 import javax.inject.Inject
 
 private val emptyJob = Job(

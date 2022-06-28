@@ -7,7 +7,6 @@ import ru.netology.inmedia.dto.Attachment
 import ru.netology.inmedia.dto.Coordinates
 import ru.netology.inmedia.dto.Post
 import ru.netology.inmedia.enumeration.AttachmentType
-import java.time.Instant
 
 @Entity
 data class PostEntity(

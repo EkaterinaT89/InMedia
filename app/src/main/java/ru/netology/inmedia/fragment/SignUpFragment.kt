@@ -37,7 +37,7 @@ class SignUpFragment: Fragment() {
                 val name = nameInput.text?.trim().toString()
                 val password = passwordInput.text?.trim().toString()
                 signUpViewModel.signeUp(name, login, password)
-                findNavController().navigate(R.id.listPostFragment)
+                findNavController().navigate(R.id.tabsFragment)
             }
         }
 

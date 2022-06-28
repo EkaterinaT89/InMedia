@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.netology.inmedia.R
 import ru.netology.inmedia.adapter.OnUserListener
 import ru.netology.inmedia.adapter.UserAdapter
@@ -20,7 +19,6 @@ import ru.netology.inmedia.viewmodel.UserViewModel
 @AndroidEntryPoint
 class ListUsersFragment : Fragment() {
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

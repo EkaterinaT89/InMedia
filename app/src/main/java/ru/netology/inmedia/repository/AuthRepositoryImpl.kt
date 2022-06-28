@@ -12,7 +12,7 @@ import javax.inject.Singleton
 @Singleton
 class AuthRepositoryImpl @Inject constructor(
     private val apiService: ApiService
-): AuthRepository {
+) : AuthRepository {
 
     @Inject
     lateinit var auth: AppAuth
@@ -23,7 +23,8 @@ class AuthRepositoryImpl @Inject constructor(
             if (!response.isSuccessful) {
                 throw ApiException(response.code(), response.message())
             }
-            val authState = response.body() ?: throw ApiException(response.code(), response.message())
+            val authState =
+                response.body() ?: throw ApiException(response.code(), response.message())
             authState.token?.let { auth.setAuth(authState.id, it) }
 
         } catch (e: IOException) {
@@ -40,7 +41,8 @@ class AuthRepositoryImpl @Inject constructor(
             if (!response.isSuccessful) {
                 throw ApiException(response.code(), response.message())
             }
-            val authState = response.body() ?: throw ApiException(response.code(), response.message())
+            val authState =
+                response.body() ?: throw ApiException(response.code(), response.message())
             authState.token?.let { auth.setAuth(authState.id, it) }
 
         } catch (e: IOException) {

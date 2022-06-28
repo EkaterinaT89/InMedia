@@ -17,7 +17,7 @@ import ru.netology.inmedia.service.UserArg
 import ru.netology.inmedia.viewmodel.JobViewModel
 
 @AndroidEntryPoint
-class NewJobFragment: Fragment() {
+class NewJobFragment : Fragment() {
 
     private val viewModel: JobViewModel by viewModels(
         ownerProducer = ::requireParentFragment
@@ -44,21 +44,21 @@ class NewJobFragment: Fragment() {
             with(binding) {
 
                 saveButton.setOnClickListener {
-                    viewModel.editJobContent(companyName = companyNameInput.text.toString(),
-                        position = positionInput.text.toString(), start = startInput.text.toString(),
-                        end = endInput.text.toString())
+                    viewModel.editJobContent(
+                        companyName = companyNameInput.text.toString(),
+                        position = positionInput.text.toString(),
+                        start = startInput.text.toString(),
+                        end = endInput.text.toString()
+                    )
 
                     viewModel.createNewJob(user.id)
 
                     findNavController().navigate(R.id.tabsFragment)
                 }
 
-
             }
 
         }
-
-
 
         return binding.root
     }

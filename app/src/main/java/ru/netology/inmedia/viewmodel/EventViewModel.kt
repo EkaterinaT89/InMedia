@@ -125,20 +125,8 @@ class EventViewModel @Inject constructor(
         lastAction = null
     }
 
-    fun getEventsRefresh() = viewModelScope.launch {
-        lastAction = ActionType.LOAD
-        try {
-            _dataState.postValue(FeedModelState(loading = true))
-            repository.retryGetAllEvents()
-            _dataState.value = FeedModelState()
-        } catch (e: Exception) {
-            _dataState.value = FeedModelState(error = true)
-        }
-        lastAction = null
-    }
-
     fun retryGetAllEvents() {
-        getEventsRefresh()
+        getAllEvents()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

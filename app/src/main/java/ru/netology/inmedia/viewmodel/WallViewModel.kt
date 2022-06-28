@@ -4,11 +4,9 @@ import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import okhttp3.Dispatcher
 import ru.netology.inmedia.enumeration.ActionType
 import ru.netology.inmedia.model.FeedModelState
 import ru.netology.inmedia.repository.WallRepository
-import ru.netology.inmedia.repository.WallRepositoryImpl
 import javax.inject.Inject
 
 @HiltViewModel

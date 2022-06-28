@@ -6,10 +6,7 @@ import kotlinx.coroutines.flow.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import ru.netology.inmedia.api.ApiService
-import ru.netology.inmedia.auth.AppAuth
 import ru.netology.inmedia.dao.PostDao
-import ru.netology.inmedia.dao.PostRemoteKeyDao
-import ru.netology.inmedia.database.AppDataBase
 import ru.netology.inmedia.dto.Attachment
 import ru.netology.inmedia.dto.Media
 import ru.netology.inmedia.dto.MediaUpload
@@ -22,13 +19,12 @@ import ru.netology.inmedia.error.ApiException
 import ru.netology.inmedia.error.AppError
 import ru.netology.inmedia.error.NetWorkException
 import ru.netology.inmedia.error.UnknownException
-import ru.netology.inmedia.model.AttachmentModel
 import java.io.IOException
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class PostRepositoryImpl @Inject constructor (
+class PostRepositoryImpl @Inject constructor(
     private val dao: PostDao,
     private val apiService: ApiService
 ) : PostRepository {
@@ -188,7 +184,7 @@ class PostRepositoryImpl @Inject constructor (
             save(postWithAttachment)
         } catch (e: AppError) {
             throw e
-        }  catch (e: IOException) {
+        } catch (e: IOException) {
             throw NetWorkException
         } catch (e: Exception) {
             throw UnknownException
@@ -211,7 +207,6 @@ class PostRepositoryImpl @Inject constructor (
             throw UnknownException
         }
     }
-
 
 
 }

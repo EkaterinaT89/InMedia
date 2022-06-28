@@ -1,20 +1,15 @@
 package ru.netology.inmedia.repository
 
 import kotlinx.coroutines.flow.Flow
-import retrofit2.http.*
 import ru.netology.inmedia.dto.Event
 import ru.netology.inmedia.dto.Media
 import ru.netology.inmedia.dto.MediaUpload
-import ru.netology.inmedia.dto.Post
-import ru.netology.inmedia.enumeration.EventType
 
 interface EventRepository {
 
     val data: Flow<List<Event>>
 
     suspend fun getAllEvents()
-
-    suspend fun retryGetAllEvents()
 
     suspend fun createNewEvent(event: Event)
 

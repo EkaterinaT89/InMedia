@@ -36,7 +36,9 @@ class UserRepositoryImpl @Inject constructor(
             val response = apiService.getAllUsers()
             val users = response.body() ?: throw ApiException(response.code(), response.message())
             for (user in users) {
-                listData.add(user)
+                if (!listData.contains(user)) {
+                    listData.add(user)
+                }
             }
             _users.value = listData
         } catch (e: IOException) {

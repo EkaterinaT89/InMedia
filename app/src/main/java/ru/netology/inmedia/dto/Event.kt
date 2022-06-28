@@ -3,7 +3,6 @@ package ru.netology.inmedia.dto
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 import ru.netology.inmedia.enumeration.EventType
-import java.time.Instant
 
 @Parcelize
 data class Event(
