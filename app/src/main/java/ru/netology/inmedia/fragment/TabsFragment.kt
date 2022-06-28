@@ -13,6 +13,7 @@ import ru.netology.inmedia.R
 import ru.netology.inmedia.adapter.TabsAdapter
 import ru.netology.inmedia.databinding.FragmentTabsBinding
 
+@AndroidEntryPoint
 class TabsFragment : Fragment() {
 
     override fun onCreateView(
@@ -34,7 +35,7 @@ class TabsFragment : Fragment() {
 
             tabLayout.tabMode = TabLayout.MODE_FIXED
 
-            val adapter = TabsAdapter(getParentFragmentManager(), lifecycle, numberOfTabs)
+            val adapter = TabsAdapter(childFragmentManager, lifecycle, numberOfTabs)
             tabsViewpager.adapter = adapter
 
             tabsViewpager.isUserInputEnabled = true

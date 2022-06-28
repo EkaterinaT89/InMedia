@@ -12,6 +12,7 @@ import ru.netology.inmedia.R
 import ru.netology.inmedia.databinding.FragmentSignUpBinding
 import ru.netology.inmedia.viewmodel.SignUpViewModel
 
+@AndroidEntryPoint
 class SignUpFragment: Fragment() {
 
     override fun onCreateView(
@@ -36,7 +37,7 @@ class SignUpFragment: Fragment() {
                 val name = nameInput.text?.trim().toString()
                 val password = passwordInput.text?.trim().toString()
                 signUpViewModel.signeUp(name, login, password)
-                findNavController().navigate(R.id.listPostFragment)
+                findNavController().navigate(R.id.tabsFragment)
             }
         }
 

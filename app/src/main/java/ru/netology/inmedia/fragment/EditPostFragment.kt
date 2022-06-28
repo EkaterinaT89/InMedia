@@ -24,6 +24,7 @@ import com.github.dhaval2404.imagepicker.constant.ImageProvider
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import ru.netology.inmedia.R
 import ru.netology.inmedia.databinding.FragmentEditPostBinding
 import ru.netology.inmedia.databinding.FragmentNewPostBinding
@@ -35,6 +36,7 @@ import ru.netology.inmedia.util.PermissionsManager
 import ru.netology.inmedia.viewmodel.PostViewModel
 import java.io.File
 
+@AndroidEntryPoint
 class EditPostFragment : Fragment() {
 
     companion object {

@@ -10,6 +10,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.netology.inmedia.R
 import ru.netology.inmedia.adapter.EventAdapter
@@ -21,6 +22,7 @@ import ru.netology.inmedia.fragment.NewPostFragment.Companion.textArg
 import ru.netology.inmedia.viewmodel.AuthViewModel
 import ru.netology.inmedia.viewmodel.EventViewModel
 
+@AndroidEntryPoint
 class ListEventsFragment : Fragment() {
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -56,7 +58,7 @@ class ListEventsFragment : Fragment() {
             }
 
             override fun onLike(event: Event) {
-                if(authViewModel.authenticated) {
+                if (authViewModel.authenticated) {
                     eventViewModel.likeById(event.id)
                 } else {
                     findNavController().navigate(R.id.authFragment)
@@ -64,7 +66,7 @@ class ListEventsFragment : Fragment() {
             }
 
             override fun onDisLike(event: Event) {
-                if(authViewModel.authenticated) {
+                if (authViewModel.authenticated) {
                     eventViewModel.disLikeById(event.id)
                 } else {
                     findNavController().navigate(R.id.authFragment)
@@ -133,7 +135,7 @@ class ListEventsFragment : Fragment() {
                 }
             }
             swiperefresh.setOnRefreshListener {
-                eventViewModel.getEventsRefresh()
+                eventViewModel.getAllEvents()
             }
         }
 

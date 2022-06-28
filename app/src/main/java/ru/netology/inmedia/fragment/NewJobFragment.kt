@@ -9,13 +9,15 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import ru.netology.inmedia.R
 import ru.netology.inmedia.databinding.FragmentNewJobBinding
 import ru.netology.inmedia.dto.User
 import ru.netology.inmedia.service.UserArg
 import ru.netology.inmedia.viewmodel.JobViewModel
 
-class NewJobFragment: Fragment() {
+@AndroidEntryPoint
+class NewJobFragment : Fragment() {
 
     private val viewModel: JobViewModel by viewModels(
         ownerProducer = ::requireParentFragment
@@ -42,21 +44,21 @@ class NewJobFragment: Fragment() {
             with(binding) {
 
                 saveButton.setOnClickListener {
-                    viewModel.editJobContent(companyName = companyNameInput.text.toString(),
-                        position = positionInput.text.toString(), start = startInput.text.toString(),
-                        end = endInput.text.toString())
+                    viewModel.editJobContent(
+                        companyName = companyNameInput.text.toString(),
+                        position = positionInput.text.toString(),
+                        start = startInput.text.toString(),
+                        end = endInput.text.toString()
+                    )
 
                     viewModel.createNewJob(user.id)
 
                     findNavController().navigate(R.id.tabsFragment)
                 }
 
-
             }
 
         }
-
-
 
         return binding.root
     }

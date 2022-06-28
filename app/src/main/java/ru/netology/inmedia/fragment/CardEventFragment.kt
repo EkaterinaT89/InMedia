@@ -1,7 +1,5 @@
 package ru.netology.inmedia.fragment
 
-import android.animation.ObjectAnimator
-import android.animation.PropertyValuesHolder
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,15 +13,14 @@ import dagger.hilt.android.AndroidEntryPoint
 import ru.netology.inmedia.R
 import ru.netology.inmedia.databinding.FragmentCardEventBinding
 import ru.netology.inmedia.dto.Event
-import ru.netology.inmedia.dto.Post
 import ru.netology.inmedia.enumeration.EventType
 import ru.netology.inmedia.fragment.NewPostFragment.Companion.textArg
 import ru.netology.inmedia.service.EventArg
-import ru.netology.inmedia.service.PostArg
 import ru.netology.inmedia.service.PostService
 import ru.netology.inmedia.viewmodel.EventViewModel
 
-class CardEventFragment: Fragment() {
+@AndroidEntryPoint
+class CardEventFragment : Fragment() {
 
     companion object {
         var Bundle.showEvent: Event? by EventArg
@@ -62,7 +59,7 @@ class CardEventFragment: Fragment() {
                     imageContainer.visibility = View.VISIBLE
                 }
 
-                if(event.type == EventType.ONLINE) {
+                if (event.type == EventType.ONLINE) {
                     eventType.text = getString(R.string.online)
                 } else {
                     eventType.text = getString(R.string.offline)

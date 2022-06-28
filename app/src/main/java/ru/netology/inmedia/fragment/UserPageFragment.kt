@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import ru.netology.inmedia.R
 import ru.netology.inmedia.adapter.OnInteractionListener
 import ru.netology.inmedia.adapter.PostAdapter
@@ -22,13 +23,14 @@ import ru.netology.inmedia.fragment.CardPostFragment.Companion.showPost
 import ru.netology.inmedia.fragment.NewPostFragment.Companion.textArg
 import ru.netology.inmedia.service.MediaLifecycleObserver
 import ru.netology.inmedia.service.UserArg
+import ru.netology.inmedia.util.MediaUtils
 import ru.netology.inmedia.viewmodel.JobViewModel
 import ru.netology.inmedia.viewmodel.PostViewModel
-import ru.netology.inmedia.viewmodel.UserViewModel
 import ru.netology.inmedia.viewmodel.WallViewModel
 
 private const val BASE_URL = "https://inmediadiploma.herokuapp.com/api/media"
 
+@AndroidEntryPoint
 class UserPageFragment : Fragment() {
 
     private lateinit var recyclerView: PostRecyclerView
@@ -67,7 +69,15 @@ class UserPageFragment : Fragment() {
 
         arguments?.showUser?.let { user: User ->
             with(binding) {
+                val url = "https://inmediadiploma.herokuapp.com/api"
+
                 userName.text = user.name
+
+                if (user.avatar == null) {
+                    avatarInput.setImageResource(R.drawable.ic_baseline_person_pin_24)
+                } else {
+                    MediaUtils.loadUserAvatar(avatarInput, url, user)
+                }
 
                 val wallAdapter = PostAdapter(object : OnInteractionListener {
                     override fun onLike(post: Post) {

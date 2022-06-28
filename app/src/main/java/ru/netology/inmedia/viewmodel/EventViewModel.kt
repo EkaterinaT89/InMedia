@@ -1,32 +1,28 @@
 package ru.netology.inmedia.viewmodel
 
-import android.app.Application
 import android.net.Uri
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import ru.netology.inmedia.auth.AppAuth
-import ru.netology.inmedia.database.AppDataBase
 import ru.netology.inmedia.dto.*
 import ru.netology.inmedia.enumeration.ActionType
 import ru.netology.inmedia.enumeration.AttachmentType
 import ru.netology.inmedia.enumeration.EventType
 import ru.netology.inmedia.model.AttachmentModel
 import ru.netology.inmedia.model.FeedEventModel
-import ru.netology.inmedia.model.FeedModel
 import ru.netology.inmedia.model.FeedModelState
 import ru.netology.inmedia.repository.EventRepository
-import ru.netology.inmedia.repository.EventRepositoryImpl
-import ru.netology.inmedia.repository.PostRepository
-import ru.netology.inmedia.repository.PostRepositoryImpl
 import ru.netology.inmedia.service.SingleLiveEvent
 import java.io.File
 import java.time.Instant
+import javax.inject.Inject
 
 private val emptyEvent = Event(
     id = 0,
@@ -46,10 +42,12 @@ private val emptyEvent = Event(
     link = null
 )
 
-class EventViewModel() : ViewModel() {
-
-    private val repository: EventRepository =
-        EventRepositoryImpl()
+@OptIn(ExperimentalCoroutinesApi::class)
+@HiltViewModel
+class EventViewModel @Inject constructor(
+    private val repository: EventRepository,
+    auth: AppAuth
+) : ViewModel() {
 
     private val _dataState = MutableLiveData<FeedModelState>()
     val dataState: LiveData<FeedModelState>
@@ -74,7 +72,7 @@ class EventViewModel() : ViewModel() {
         get() = _attachment
 
     @ExperimentalCoroutinesApi
-    val data: LiveData<FeedEventModel> = AppAuth.getInstance()
+    val data: LiveData<FeedEventModel> = auth
         .authStateFlow
         .flatMapLatest { (myId, _) ->
             repository.data
@@ -127,20 +125,8 @@ class EventViewModel() : ViewModel() {
         lastAction = null
     }
 
-    fun getEventsRefresh() = viewModelScope.launch {
-        lastAction = ActionType.LOAD
-        try {
-            _dataState.postValue(FeedModelState(loading = true))
-            repository.retryGetAllEvents()
-            _dataState.value = FeedModelState()
-        } catch (e: Exception) {
-            _dataState.value = FeedModelState(error = true)
-        }
-        lastAction = null
-    }
-
     fun retryGetAllEvents() {
-        getEventsRefresh()
+        getAllEvents()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

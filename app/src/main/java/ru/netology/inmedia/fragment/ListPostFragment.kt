@@ -24,12 +24,22 @@ import ru.netology.inmedia.fragment.CardPostFragment.Companion.showPost
 import ru.netology.inmedia.fragment.NewPostFragment.Companion.textArg
 import ru.netology.inmedia.service.MediaLifecycleObserver
 import androidx.browser.customtabs.CustomTabsIntent
+import dagger.hilt.android.AndroidEntryPoint
 
 private const val BASE_URL = "https://inmediadiploma.herokuapp.com/api/media"
 
+@AndroidEntryPoint
 class ListPostFragment : Fragment() {
 
     private lateinit var recyclerView: PostRecyclerView
+
+    private val postViewModel: PostViewModel by viewModels(
+        ownerProducer = ::requireParentFragment
+    )
+
+    private val authViewModel: AuthViewModel by viewModels(
+        ownerProducer = ::requireParentFragment
+    )
 
     @RequiresApi(Build.VERSION_CODES.O)
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -43,14 +53,6 @@ class ListPostFragment : Fragment() {
             inflater,
             container,
             false
-        )
-
-        val postViewModel: PostViewModel by viewModels(
-            ownerProducer = ::requireParentFragment
-        )
-
-        val authViewModel: AuthViewModel by viewModels(
-            ownerProducer = ::requireParentFragment
         )
 
         val mediaObserver = MediaLifecycleObserver()
@@ -67,7 +69,7 @@ class ListPostFragment : Fragment() {
             }
 
             override fun onDisLike(post: Post) {
-                if(authViewModel.authenticated) {
+                if (authViewModel.authenticated) {
                     postViewModel.disLikeById(post.id)
                 } else {
                     findNavController().navigate(R.id.authFragment)

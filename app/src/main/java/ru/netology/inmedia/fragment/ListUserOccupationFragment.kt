@@ -15,14 +15,12 @@ import ru.netology.inmedia.adapter.JobAdapter
 import ru.netology.inmedia.adapter.JobListener
 import ru.netology.inmedia.databinding.FragmentListUserOccupationBinding
 import ru.netology.inmedia.dto.Job
-import ru.netology.inmedia.dto.Post
 import ru.netology.inmedia.dto.User
-import ru.netology.inmedia.fragment.CardEventFragment.Companion.showEvent
 import ru.netology.inmedia.fragment.UserOccupationDetailsFragment.Companion.showOneJob
-import ru.netology.inmedia.service.PostArg
 import ru.netology.inmedia.service.UserArg
 import ru.netology.inmedia.viewmodel.JobViewModel
 
+@AndroidEntryPoint
 class ListUserOccupationFragment: Fragment() {
 
     companion object {

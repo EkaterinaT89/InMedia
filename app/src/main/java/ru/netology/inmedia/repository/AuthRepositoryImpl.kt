@@ -1,21 +1,31 @@
 package ru.netology.inmedia.repository
 
 import ru.netology.inmedia.api.ApiService
-import ru.netology.inmedia.auth.AppAuth.Companion.getInstance
+import ru.netology.inmedia.auth.AppAuth
 import ru.netology.inmedia.error.ApiException
 import ru.netology.inmedia.error.NetWorkException
 import ru.netology.inmedia.error.UnknownException
 import java.io.IOException
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class AuthRepositoryImpl: AuthRepository {
+@Singleton
+class AuthRepositoryImpl @Inject constructor(
+    private val apiService: ApiService
+) : AuthRepository {
+
+    @Inject
+    lateinit var auth: AppAuth
+
     override suspend fun signIn(login: String, pass: String) {
         try {
-            val response = ApiService.Api.retrofitService.updateUser(login, pass)
+            val response = apiService.updateUser(login, pass)
             if (!response.isSuccessful) {
                 throw ApiException(response.code(), response.message())
             }
-            val authState = response.body() ?: throw ApiException(response.code(), response.message())
-            authState.token?.let { getInstance().setAuth(authState.id, it) }
+            val authState =
+                response.body() ?: throw ApiException(response.code(), response.message())
+            authState.token?.let { auth.setAuth(authState.id, it) }
 
         } catch (e: IOException) {
             throw NetWorkException
@@ -27,12 +37,13 @@ class AuthRepositoryImpl: AuthRepository {
 
     override suspend fun signUp(name: String, login: String, pass: String) {
         try {
-            val response = ApiService.Api.retrofitService.registerUser(name, login, pass)
+            val response = apiService.registerUser(name, login, pass)
             if (!response.isSuccessful) {
                 throw ApiException(response.code(), response.message())
             }
-            val authState = response.body() ?: throw ApiException(response.code(), response.message())
-            authState.token?.let { getInstance().setAuth(authState.id, it) }
+            val authState =
+                response.body() ?: throw ApiException(response.code(), response.message())
+            authState.token?.let { auth.setAuth(authState.id, it) }
 
         } catch (e: IOException) {
             throw NetWorkException

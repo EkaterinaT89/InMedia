@@ -2,7 +2,6 @@ package ru.netology.inmedia.service
 
 import android.os.Bundle
 import ru.netology.inmedia.dto.Event
-import ru.netology.inmedia.dto.Post
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 

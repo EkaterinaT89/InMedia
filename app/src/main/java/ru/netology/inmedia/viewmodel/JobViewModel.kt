@@ -1,23 +1,17 @@
 package ru.netology.inmedia.viewmodel
 
-import android.annotation.SuppressLint
-import android.net.Uri
 import android.os.Build
-import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.netology.inmedia.dto.Job
 import ru.netology.inmedia.enumeration.ActionType
 import ru.netology.inmedia.model.FeedModelState
 import ru.netology.inmedia.repository.JobRepository
-import ru.netology.inmedia.repository.JobRepositoryImpl
 import ru.netology.inmedia.service.SingleLiveEvent
-import ru.netology.inmedia.util.DateFormatter
-import java.io.File
-import java.text.SimpleDateFormat
-import java.time.Instant
+import javax.inject.Inject
 
 private val emptyJob = Job(
     id = 0,
@@ -29,10 +23,10 @@ private val emptyJob = Job(
     userId = 0
 )
 
-class JobViewModel() : ViewModel() {
-
-    private val repository: JobRepository =
-        JobRepositoryImpl()
+@HiltViewModel
+class JobViewModel @Inject constructor(
+    private val repository: JobRepository
+) : ViewModel() {
 
     private val _dataState = MutableLiveData<FeedModelState>()
     val dataState: LiveData<FeedModelState>

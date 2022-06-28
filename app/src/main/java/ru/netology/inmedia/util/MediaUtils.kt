@@ -1,6 +1,5 @@
 package ru.netology.inmedia.util
 
-import android.app.Activity
 import android.database.Cursor
 import android.net.Uri
 import android.provider.MediaStore

@@ -6,12 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import ru.netology.inmedia.R
+import dagger.hilt.android.AndroidEntryPoint
 import ru.netology.inmedia.databinding.FragmentUserOccupationDetailsBinding
 import ru.netology.inmedia.dto.Job
 import ru.netology.inmedia.service.JobArg
-import ru.netology.inmedia.util.DateFormatter
 
+@AndroidEntryPoint
 class UserOccupationDetailsFragment : Fragment() {
 
     companion object {
@@ -37,7 +37,7 @@ class UserOccupationDetailsFragment : Fragment() {
                 company.text = job.name
                 start.text = "С " + job.start.toString()
 
-                if(job.finish != null) {
+                if (job.finish != null) {
                     end.text = "По " + job.finish.toString()
                 } else {
                     end.visibility = View.GONE

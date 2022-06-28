@@ -12,7 +12,8 @@ import ru.netology.inmedia.R
 import ru.netology.inmedia.databinding.FragmentAuthBinding
 import ru.netology.inmedia.viewmodel.SignInViewModel
 
-class AuthFragment: Fragment() {
+@AndroidEntryPoint
+class AuthFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
