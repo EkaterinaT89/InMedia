@@ -25,7 +25,7 @@
 
 IDE – Android Studio, Database – SQLite, Библиотеки и технологии: Core, AppCompat, Android Jetpack: Recycle View, View model, Paging; 
 Lifecycle, Material Design, Navigation, Room, Retrofit, OkHttp, Glide, Coroutines, Imagepicker, View, Hilt Dagger, Google Play, Layouts, 
-Activities, Fragments, Dialogs, Material Design, Coroutines, Kotlin collections, View Binding, Flow, LiveData, MVVM, Exoplayer, Simple Player, Heroku (развернута серверная часть)
+Activities, Fragments, Dialogs, Tabs Layout, Material Design, Coroutines, Kotlin collections, View Binding, Flow, LiveData, MVVM, Exoplayer, Simple Player, Heroku (развернута серверная часть)
 
 Авторизация:  
 
