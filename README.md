@@ -77,7 +77,7 @@ Activities, Fragments, Dialogs, Tabs Layout, Material Design, Coroutines, Kotlin
 
 Список постов с разными авторами (авторизация - Anna):
 
-<img src="https://user-images.githubusercontent.com/88279403/177938455-140e3fb0-c2b4-49da-8a0d-91f36aa1a739.png" width="30%" height="30%">
+<img src="https://user-images.githubusercontent.com/88279403/177939526-faa96441-b728-482b-a1d9-1d5faab409a5.png" width="30%" height="30%">
 
 Список постов: 
 
@@ -108,6 +108,7 @@ Activities, Fragments, Dialogs, Tabs Layout, Material Design, Coroutines, Kotlin
 <img src="https://user-images.githubusercontent.com/88279403/177938970-12db7aea-f51a-49f4-9d38-23d147f8ae26.png" width="30%" height="30%">
 
 Создание нового события: 
+
 <img src="https://user-images.githubusercontent.com/88279403/177939033-5f3ff287-6ffa-4a78-a6a2-7c2e47a5c6f3.png" width="30%" height="30%">
 
 
