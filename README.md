@@ -29,84 +29,85 @@ Activities, Fragments, Dialogs, Tabs Layout, Material Design, Coroutines, Kotlin
 
 Авторизация:  
 
-<img src="https://user-images.githubusercontent.com/88279403/177933642-cbd6aeab-dc8c-4f5c-9294-69265e579658.png" width="30%" height="30%">
-<img src="https://user-images.githubusercontent.com/88279403/177933645-6183eb10-fa9c-45d2-b0dc-90b14d4674e1.png" width="30%" height="30%">
-<img src="https://user-images.githubusercontent.com/88279403/177933648-d65e2564-0f43-453a-bf48-738bdd7965ee.png" width="30%" height="30%">
+<img src="https://user-images.githubusercontent.com/88279403/177937593-b98647f0-c131-494a-ad01-2bbbdd5c2cc7.png" width="30%" height="30%">
+<img src="https://user-images.githubusercontent.com/88279403/177937601-7c7c5400-a651-402d-8cc6-bfc32757fd1c.png" width="30%" height="30%">
+<img src="https://user-images.githubusercontent.com/88279403/177937603-83a03e6a-442e-423c-88af-1b4d7c2fb58f.png" width="30%" height="30%">
 
 Детализация опыт работы:
 
 Мой опыт работы: 
 
-<img src="https://user-images.githubusercontent.com/88279403/177933650-9aade167-19e9-40e5-b4f8-23f59d6abc63.png" width="30%" height="30%">
+<img src="https://user-images.githubusercontent.com/88279403/177937716-f7970fd0-a887-429b-ae01-7acdcc52fdb8.png" width="30%" height="30%">
 
 Чужой опыт работы: 
 
-<img src="https://user-images.githubusercontent.com/88279403/177933653-79382bde-dfa6-4099-a333-019a69b3692f.png" width="30%" height="30%">
+<img src="https://user-images.githubusercontent.com/88279403/177937793-350afa74-7afc-4f4d-a706-238876899ce2.png" width="30%" height="30%">
 
 Список мой опыт работы: 
 
-<img src="https://user-images.githubusercontent.com/88279403/177933663-d8a2764e-3485-4d50-9682-02a2a1cb6f5f.png" width="30%" height="30%">
+<img src="https://user-images.githubusercontent.com/88279403/177937870-1bcbfb98-cccc-4312-adb4-2e108ef0a9eb.png" width="30%" height="30%">
 
 Добавление места работы:
 
-<img src="https://user-images.githubusercontent.com/88279403/177933655-71d5c8d5-f255-4b80-a680-017b7c32a447.png" width="30%" height="30%">
+<img src="https://user-images.githubusercontent.com/88279403/177937948-9d35e2b0-9412-4734-b806-8cd9f0eb2659.png" width="30%" height="30%">
 
 Детализация поста: 
 
-<img src="https://user-images.githubusercontent.com/88279403/177933658-3c8ae1ea-8a05-4a31-8b2c-1c18d58ce725.png" width="30%" height="30%">
+<img src="https://user-images.githubusercontent.com/88279403/177938007-b02c660e-0d43-499b-8614-60fe30361273.png" width="30%" height="30%">
 
 Детализация события: 
 
-<img src="https://user-images.githubusercontent.com/88279403/177933661-72e61de0-10fc-4005-8a63-803e260865ee.png" width="30%" height="30%">
+<img src="https://user-images.githubusercontent.com/88279403/177938078-c91603af-f2c2-4143-a6cb-499164fdce15.png" width="30%" height="30%">
 
 Мой профиль: 
 
-<img src="https://user-images.githubusercontent.com/88279403/177933667-95989bb7-8105-4322-93fb-cc280f26439e.png" width="30%" height="30%">
+<img src="https://user-images.githubusercontent.com/88279403/177938171-514da96f-e0b9-4fc7-ba77-4fdf4a476dc1.png" width="30%" height="30%">
 
 Чужой профиль: 
 
-<img src="https://user-images.githubusercontent.com/88279403/177933683-963df4a8-fa7e-4158-9e9e-55c4dd4e52ae.png" width="30%" height="30%">
+<img src="https://user-images.githubusercontent.com/88279403/177938246-f8354bca-25b7-4cc8-9d23-045ecc29e792.png" width="30%" height="30%">
 
 Чужой опыт работы: 
 
-<img src="https://user-images.githubusercontent.com/88279403/177933670-13ff9461-89e8-4205-8dbc-21e151d13b06.png" width="30%" height="30%">
+<img src="https://user-images.githubusercontent.com/88279403/177938324-de4d2be8-2c44-4340-9a86-bed8d7eb943f.png" width="30%" height="30%">
 
 Пользователи (список): 
 
-<img src="https://user-images.githubusercontent.com/88279403/177933671-3fb845f9-d852-4c0b-8a98-2a2208eb5bc4.png" width="30%" height="30%">
+<img src="https://user-images.githubusercontent.com/88279403/177938384-1981f70a-5ea8-4571-8dec-98078472fc51.png" width="30%" height="30%">
 
 Список постов с разными авторами (авторизация - Anna):
 
-<img src="https://user-images.githubusercontent.com/88279403/177933676-ceb6f52c-dadb-4955-b12d-113a460f30b8.png" width="30%" height="30%">
+<img src="https://user-images.githubusercontent.com/88279403/177938455-140e3fb0-c2b4-49da-8a0d-91f36aa1a739.png" width="30%" height="30%">
 
 Список постов: 
 
-<img src="https://user-images.githubusercontent.com/88279403/177933678-219994c9-3088-4130-963a-476ba33d94e7.png" width="30%" height="30%">
+<img src="https://user-images.githubusercontent.com/88279403/177938513-5b9faba1-305f-4261-b8fa-31fe204a772b.png" width="30%" height="30%">
 
 Список событий: 
 
-<img src="https://user-images.githubusercontent.com/88279403/177933702-f453fdfc-fb21-4124-af07-c66c55aac2f4.png" width="30%" height="30%">
+<img src="https://user-images.githubusercontent.com/88279403/177938610-74a81b1e-1edc-4bf7-b038-1a79865bd3c2.png" width="30%" height="30%">
 
 Регистрация: 
 
-<img src="https://user-images.githubusercontent.com/88279403/177933689-5173640c-5147-4af9-8502-749337902ac0.png" width="30%" height="30%">
+<img src="https://user-images.githubusercontent.com/88279403/177938683-c3b37aee-eec3-442f-a84c-2cd664ff2a5c.png" width="30%" height="30%">
 
 Редактирование места работы: 
 
-<img src="https://user-images.githubusercontent.com/88279403/177933690-5cbf2095-8192-40b9-a753-caf2831fe578.png" width="30%" height="30%">
+<img src="https://user-images.githubusercontent.com/88279403/177938756-7eb862af-30d7-4d08-ac0b-476f8063243f.png" width="30%" height="30%">
 
 Редактирование поста: 
 
-<img src="https://user-images.githubusercontent.com/88279403/177933694-20853b9b-5875-4bc3-a587-3b281a891182.png" width="30%" height="30%">
+<img src="https://user-images.githubusercontent.com/88279403/177938816-ecdfd5c0-4d57-4b56-bf27-8bfd34be0056.png" width="30%" height="30%">
 
 Редактирование события: 
 
-<img src="https://user-images.githubusercontent.com/88279403/177933700-602e6ce1-dace-478a-9894-6bdc8ed9f2bd.png" width="30%" height="30%">
+<img src="https://user-images.githubusercontent.com/88279403/177938878-62ffebad-7f69-471a-abd7-55e96a77bec7.png" width="30%" height="30%">
 
 Создание нового поста: 
 
-<img src="https://user-images.githubusercontent.com/88279403/177933704-9236d09c-3c2c-471f-91fa-689c516a290e.png" width="30%" height="30%">
+<img src="https://user-images.githubusercontent.com/88279403/177938970-12db7aea-f51a-49f4-9d38-23d147f8ae26.png" width="30%" height="30%">
 
 Создание нового события: 
+<img src="https://user-images.githubusercontent.com/88279403/177939033-5f3ff287-6ffa-4a78-a6a2-7c2e47a5c6f3.png" width="30%" height="30%">
 
-<img src="https://user-images.githubusercontent.com/88279403/177933708-4dd59bf5-02f6-4ebd-a2ac-079f0e8088c6.png" width="30%" height="30%">
+
