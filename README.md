@@ -25,8 +25,7 @@
 
 IDE – Android Studio, Database – SQLite, Библиотеки и технологии: Core, AppCompat, Android Jetpack: Recycle View, View model, Paging; 
 Lifecycle, Material Design, Navigation, Room, Retrofit, OkHttp, Glide, Coroutines, Imagepicker, View, Hilt Dagger, Google Play, Layouts, 
-Activities, ![создание нового события](https://user-images.githubusercontent.com/88279403/177933708-4dd59bf5-02f6-4ebd-a2ac-079f0e8088c6.png)
-Fragments, Dialogs, Material Design, Coroutines, Kotlin collections, View Binding, Flow, LiveData, MVVM, Exoplayer, Simple Player, Heroku (развернута серверная часть)
+Activities, Fragments, Dialogs, Material Design, Coroutines, Kotlin collections, View Binding, Flow, LiveData, MVVM, Exoplayer, Simple Player, Heroku (развернута серверная часть)
 
 Авторизация:  
 
@@ -107,3 +106,7 @@ Fragments, Dialogs, Material Design, Coroutines, Kotlin collections, View Bindin
 Создание нового поста: 
 
 <img src="https://user-images.githubusercontent.com/88279403/177933704-9236d09c-3c2c-471f-91fa-689c516a290e.png" width="30%" height="30%">
+
+Создание нового события: 
+
+<img src="https://user-images.githubusercontent.com/88279403/177933708-4dd59bf5-02f6-4ebd-a2ac-079f0e8088c6.png" width="30%" height="30%">
