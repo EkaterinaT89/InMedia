@@ -11,10 +11,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import ru.netology.inmedia.R
 import ru.netology.inmedia.databinding.FragmentEditJobBinding
 import ru.netology.inmedia.dto.Job
-import ru.netology.inmedia.dto.User
 import ru.netology.inmedia.service.AndroidUtils
 import ru.netology.inmedia.service.JobArg
-import ru.netology.inmedia.service.UserArg
 import ru.netology.inmedia.viewmodel.JobViewModel
 import ru.netology.inmedia.viewmodel.UserViewModel
 
@@ -23,7 +21,6 @@ class EditMyJobFragment : Fragment() {
 
     companion object {
         var Bundle.jobArg: Job? by JobArg
-        var Bundle.userArg: User? by UserArg
     }
 
     private val viewModel: JobViewModel by viewModels(
@@ -46,9 +43,8 @@ class EditMyJobFragment : Fragment() {
             ownerProducer = ::requireParentFragment
         )
 
-        val userId = userViewModel.getCurrentUser().toLong()
-
-        arguments?.jobArg?.let {
+        userViewModel.user.observe(viewLifecycleOwner) { user ->
+            arguments?.jobArg?.let {
 
                 with(binding) {
 
@@ -60,7 +56,7 @@ class EditMyJobFragment : Fragment() {
                             end = endInput.text.toString()
                         )
 
-                        viewModel.createNewJob(userId)
+                        viewModel.createNewJob(user.id)
                         AndroidUtils.hideKeyboard(requireView())
 
                         findNavController().navigate(R.id.tabsFragment)
@@ -74,6 +70,7 @@ class EditMyJobFragment : Fragment() {
 
                 }
 
+            }
         }
 
         return binding.root

@@ -9,7 +9,6 @@ import ru.netology.inmedia.enumeration.ActionType
 import ru.netology.inmedia.model.FeedModelState
 import ru.netology.inmedia.repository.JobRepository
 import ru.netology.inmedia.service.SingleLiveEvent
-import ru.netology.inmedia.util.id
 import javax.inject.Inject
 
 private val emptyJob = Job(

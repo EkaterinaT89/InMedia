@@ -29,11 +29,9 @@ import ru.netology.inmedia.auth.AppAuth
 import ru.netology.inmedia.databinding.FragmentMyPageBinding
 import ru.netology.inmedia.dto.Post
 import ru.netology.inmedia.fragment.CardPostFragment.Companion.showPost
-import ru.netology.inmedia.fragment.ListUserOccupationFragment.Companion.showUser
 import ru.netology.inmedia.fragment.NewPostFragment.Companion.textArg
 import ru.netology.inmedia.service.MediaLifecycleObserver
 import ru.netology.inmedia.util.MediaUtils
-import ru.netology.inmedia.util.setId
 import ru.netology.inmedia.viewmodel.PostViewModel
 import ru.netology.inmedia.viewmodel.UserViewModel
 import ru.netology.inmedia.viewmodel.WallViewModel
@@ -48,10 +46,6 @@ class MyPageFragment : Fragment() {
 
     @Inject
     lateinit var auth: AppAuth
-
-    companion object {
-        fun newInstance(id: Int) = MyPageFragment().apply { setId(id) }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -83,8 +77,6 @@ class MyPageFragment : Fragment() {
 
         userViewModel.user.observe(viewLifecycleOwner) { user ->
 
-            userViewModel.saveCurrentUser(user.id)
-
             with(binding) {
                 userName.text = user.name
 
@@ -97,17 +89,11 @@ class MyPageFragment : Fragment() {
                 userName.text = user.name
 
                 getOccupationList.setOnClickListener {
-                    findNavController().navigate(R.id.listMyOccupationFragment,
-                        Bundle().apply {
-                            showUser = user
-                        })
+                    findNavController().navigate(R.id.listMyOccupationFragment)
                 }
 
                 addNewOccupation.setOnClickListener {
-                    findNavController().navigate(R.id.newJobFragment,
-                        Bundle().apply {
-                            showUser = user
-                        })
+                    findNavController().navigate(R.id.newJobFragment)
                 }
 
                 val wallAdapter = PostAdapter(object : OnInteractionListener {

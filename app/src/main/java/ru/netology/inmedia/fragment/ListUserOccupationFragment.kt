@@ -15,17 +15,12 @@ import ru.netology.inmedia.adapter.JobAdapter
 import ru.netology.inmedia.adapter.JobListener
 import ru.netology.inmedia.databinding.FragmentListUserOccupationBinding
 import ru.netology.inmedia.dto.Job
-import ru.netology.inmedia.dto.User
 import ru.netology.inmedia.fragment.UserOccupationDetailsFragment.Companion.showOneJob
-import ru.netology.inmedia.service.UserArg
 import ru.netology.inmedia.viewmodel.JobViewModel
+import ru.netology.inmedia.viewmodel.UserViewModel
 
 @AndroidEntryPoint
 class ListUserOccupationFragment: Fragment() {
-
-    companion object {
-        var Bundle.showUser: User? by UserArg
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,9 +38,13 @@ class ListUserOccupationFragment: Fragment() {
             ownerProducer = ::requireParentFragment
         )
 
-        arguments?.showUser?.let {
+        val userViewModel: UserViewModel by viewModels(
+            ownerProducer = ::requireParentFragment
+        )
+
+        userViewModel.user.observe(viewLifecycleOwner) { user ->
             lifecycleScope.launchWhenCreated {
-                jobViewModel.getAllJobs(it.id)
+                jobViewModel.getAllJobs(user.id)
             }
         }
 
