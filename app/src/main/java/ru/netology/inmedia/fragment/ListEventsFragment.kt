@@ -73,14 +73,6 @@ class ListEventsFragment : Fragment() {
                 }
             }
 
-            override fun onTakePart(event: Event) {
-                eventViewModel.takePartEvent(event.id)
-            }
-
-            override fun onUnTakePart(event: Event) {
-                eventViewModel.unTakePartEvent(event.id)
-            }
-
             override fun onSingleEvent(event: Event) {
                 findNavController().navigate(R.id.cardEventFragment,
                     Bundle().apply
@@ -108,11 +100,11 @@ class ListEventsFragment : Fragment() {
 
         binding.eventsContainer.adapter = eventAdapter
 
-        eventViewModel.data.observe(viewLifecycleOwner, { state ->
+        eventViewModel.data.observe(viewLifecycleOwner) { state ->
             eventAdapter.submitList(state.events)
-        })
+        }
 
-        eventViewModel.dataState.observe(viewLifecycleOwner, { state ->
+        eventViewModel.dataState.observe(viewLifecycleOwner) { state ->
             with(binding) {
                 progress.isVisible = state.loading
                 swiperefresh.isRefreshing = state.refreshing
@@ -124,7 +116,7 @@ class ListEventsFragment : Fragment() {
                     }
                 }
             }
-        })
+        }
 
         with(binding) {
             addNewEvent.setOnClickListener {

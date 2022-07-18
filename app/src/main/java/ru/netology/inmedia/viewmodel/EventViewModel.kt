@@ -53,17 +53,17 @@ class EventViewModel @Inject constructor(
     val dataState: LiveData<FeedModelState>
         get() = _dataState
 
-    val edited = MutableLiveData(emptyEvent)
+    private val edited = MutableLiveData(emptyEvent)
 
     private val _eventCreated = SingleLiveEvent<Unit>()
     val eventCreated: LiveData<Unit>
         get() = _eventCreated
 
-    var currentId: Long? = null
+    private var currentId: Long? = null
 
-    var currentEvent: Event? = null
+    private var currentEvent: Event? = null
 
-    var lastAction: ActionType? = null
+    private var lastAction: ActionType? = null
 
     private val noAttachment = AttachmentModel()
 
@@ -95,18 +95,13 @@ class EventViewModel @Inject constructor(
             ActionType.EDIT -> retryEditEvent()
             ActionType.LIKEBYID -> retryLikeById()
             ActionType.DISLIKEBYID -> retryDisLikeById()
-            ActionType.TAKEPARTEVENT -> retryTakePartEvent()
-            ActionType.UNTAKEPARTEVENT -> retryUnTakePartEvent()
+            ActionType.REMOVEBYID -> retryRemoveEventById()
             else -> retryGetAllEvents()
         }
     }
 
     init {
         getAllEvents()
-    }
-
-    fun invalidateEventDateTime() {
-        _eventDateTime.value = null
     }
 
     fun setEventDateTime(dateTime: String) {
@@ -125,11 +120,10 @@ class EventViewModel @Inject constructor(
         lastAction = null
     }
 
-    fun retryGetAllEvents() {
+    private fun retryGetAllEvents() {
         getAllEvents()
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     fun createNewEventOnLine() {
         lastAction = ActionType.SAVE
         edited.value?.let {
@@ -155,7 +149,6 @@ class EventViewModel @Inject constructor(
         lastAction = null
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     fun createNewEventOffLine() {
         lastAction = ActionType.SAVE
         edited.value?.let {
@@ -182,7 +175,7 @@ class EventViewModel @Inject constructor(
         lastAction = null
     }
 
-    fun getEventById(id: Long) {
+    private fun getEventById(id: Long) {
         lastAction = ActionType.GETBYID
         currentId = id
         viewModelScope.launch {
@@ -198,7 +191,7 @@ class EventViewModel @Inject constructor(
         currentId = null
     }
 
-    fun retryGetEventById() {
+    private fun retryGetEventById() {
         currentId?.let {
             getEventById(it)
         }
@@ -221,7 +214,7 @@ class EventViewModel @Inject constructor(
         currentEvent = null
     }
 
-    fun retryEditEvent() {
+    private fun retryEditEvent() {
         currentEvent?.let {
             editEvent(it)
         }
@@ -249,7 +242,7 @@ class EventViewModel @Inject constructor(
         currentId = null
     }
 
-    fun retryLikeById() {
+    private fun retryLikeById() {
         currentId?.let {
             likeById(it)
         }
@@ -269,7 +262,7 @@ class EventViewModel @Inject constructor(
         currentId = null
     }
 
-    fun retryDisLikeById() {
+    private fun retryDisLikeById() {
         currentId?.let {
             disLikeById(it)
         }
@@ -293,53 +286,9 @@ class EventViewModel @Inject constructor(
         currentId = null
     }
 
-    fun retryRemoveEventById() {
+    private fun retryRemoveEventById() {
         currentId?.let {
             removeEventById(it)
-        }
-    }
-
-    fun takePartEvent(id: Long) {
-        lastAction = ActionType.TAKEPARTEVENT
-        currentId = id
-        viewModelScope.launch {
-            try {
-                _dataState.value = FeedModelState(loading = true)
-                repository.takePartEvent(id)
-                _dataState.value = FeedModelState()
-            } catch (e: Exception) {
-                _dataState.value = FeedModelState(error = true)
-            }
-        }
-        lastAction = null
-        currentId = null
-    }
-
-    fun retryTakePartEvent() {
-        currentId?.let {
-            takePartEvent(it)
-        }
-    }
-
-    fun unTakePartEvent(id: Long) {
-        lastAction = ActionType.UNTAKEPARTEVENT
-        currentId = id
-        viewModelScope.launch {
-            try {
-                _dataState.value = FeedModelState(loading = true)
-                repository.unTakePartEvent(id)
-                _dataState.value = FeedModelState()
-            } catch (e: Exception) {
-                _dataState.value = FeedModelState(error = true)
-            }
-        }
-        lastAction = null
-        currentId = null
-    }
-
-    fun retryUnTakePartEvent() {
-        currentId?.let {
-            unTakePartEvent(it)
         }
     }
 

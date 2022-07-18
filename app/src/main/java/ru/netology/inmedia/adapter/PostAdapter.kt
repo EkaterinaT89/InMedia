@@ -19,7 +19,10 @@ import ru.netology.inmedia.enumeration.AttachmentType
 import ru.netology.inmedia.service.PostService
 import com.google.android.exoplayer2.MediaItem
 import me.saket.bettermovementmethod.BetterLinkMovementMethod
+import ru.netology.inmedia.BuildConfig
 import ru.netology.inmedia.util.MediaUtils
+
+private const val BASE_URL = "${BuildConfig.BASE_URL}api/"
 
 interface OnInteractionListener {
     fun onLike(post: Post)
@@ -54,7 +57,7 @@ class PostViewHolder(
     private val onInteractionListener: OnInteractionListener,
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    val parentView = binding.root
+    private val parentView = binding.root
     val videoThumbnail = binding.videoContainer
     val videoContainer = binding.groupForVideo
     val videoProgressBar = binding.videoProgress
@@ -62,7 +65,6 @@ class PostViewHolder(
     val videoPlayIcon: MaterialButton = binding.playVideo
 
     fun bind(post: Post) {
-        val url = "https://inmediadiploma.herokuapp.com/api"
 
         binding.apply {
             authorName.text = post.author
@@ -71,7 +73,7 @@ class PostViewHolder(
             Linkify.addLinks(contentPost, Linkify.ALL)
             contentPost.movementMethod = BetterLinkMovementMethod.getInstance()
             BetterLinkMovementMethod.linkify(Linkify.WEB_URLS, contentPost)
-                .setOnLinkClickListener { textView, url ->
+                .setOnLinkClickListener { _, url ->
                     onInteractionListener.onLink(url)
                     true
                 }
@@ -102,7 +104,7 @@ class PostViewHolder(
                         imageContainer.visibility = View.VISIBLE
                         groupForVideo.visibility = View.GONE
                         playAudio.visibility = View.GONE
-                        MediaUtils.loadPostImage(imageContainer, url, post)
+                        MediaUtils.loadPostImage(imageContainer, BASE_URL, post)
                     }
                 }
             }
@@ -110,7 +112,7 @@ class PostViewHolder(
             if (post.authorAvatar == null) {
                 avatar.setImageResource(R.drawable.ic_baseline_person_pin_24)
             } else {
-                MediaUtils.loadPostAvatar(avatar, url, post)
+                MediaUtils.loadPostAvatar(avatar, BASE_URL, post)
             }
 
             likes.setOnClickListener {

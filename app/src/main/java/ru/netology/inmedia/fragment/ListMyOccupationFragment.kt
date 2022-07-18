@@ -15,19 +15,13 @@ import ru.netology.inmedia.adapter.MyJobAdapter
 import ru.netology.inmedia.adapter.MyJobListener
 import ru.netology.inmedia.databinding.FragmentListMyOccupationBinding
 import ru.netology.inmedia.dto.Job
-import ru.netology.inmedia.dto.User
 import ru.netology.inmedia.fragment.EditMyJobFragment.Companion.jobArg
-import ru.netology.inmedia.fragment.EditMyJobFragment.Companion.userArg
 import ru.netology.inmedia.fragment.UserOccupationDetailsFragment.Companion.showOneJob
-import ru.netology.inmedia.service.UserArg
 import ru.netology.inmedia.viewmodel.JobViewModel
+import ru.netology.inmedia.viewmodel.UserViewModel
 
 @AndroidEntryPoint
 class ListMyOccupationFragment : Fragment() {
-
-    companion object {
-        var Bundle.showUser: User? by UserArg
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,9 +39,14 @@ class ListMyOccupationFragment : Fragment() {
             ownerProducer = ::requireParentFragment
         )
 
-        arguments?.showUser?.let {
+        val userViewModel: UserViewModel by viewModels(
+            ownerProducer = ::requireParentFragment
+        )
+
+        userViewModel.user.observe(viewLifecycleOwner) { user ->
+
             lifecycleScope.launchWhenCreated {
-                jobViewModel.getAllJobs(it.id)
+                jobViewModel.getAllJobs(user.id)
             }
 
             val jobAdapter = MyJobAdapter(object : MyJobListener {
@@ -67,7 +66,7 @@ class ListMyOccupationFragment : Fragment() {
                         Bundle().apply
                         {
                             jobArg = job
-                            userArg = it
+
                         })
                 }
 
@@ -79,13 +78,13 @@ class ListMyOccupationFragment : Fragment() {
 
             binding.jobsContainer.adapter = jobAdapter
 
-            jobViewModel.data.observe(viewLifecycleOwner, { jobs ->
+            jobViewModel.data.observe(viewLifecycleOwner) { jobs ->
                 jobAdapter.submitList(jobs)
-            })
+            }
 
         }
 
-        jobViewModel.dataState.observe(viewLifecycleOwner, { state ->
+        jobViewModel.dataState.observe(viewLifecycleOwner) { state ->
             with(binding) {
                 progress.isVisible = state.loading
                 swiperefresh.isRefreshing = state.refreshing
@@ -97,7 +96,7 @@ class ListMyOccupationFragment : Fragment() {
                     }
                 }
             }
-        })
+        }
 
         binding.swiperefresh.setOnRefreshListener {
             jobViewModel.retryGetAllJobs()

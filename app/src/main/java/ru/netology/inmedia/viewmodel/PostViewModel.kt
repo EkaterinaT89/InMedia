@@ -1,8 +1,6 @@
 package ru.netology.inmedia.viewmodel
 
 import android.net.Uri
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -82,13 +80,10 @@ class PostViewModel @Inject constructor(
 
     var lastAction: ActionType? = null
 
-    var currentAttachment: AttachmentType? = null
-
     init {
         loadPosts()
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     fun tryAgain() {
         when (lastAction) {
             ActionType.LIKEBYID -> retryLikeById()
@@ -114,20 +109,9 @@ class PostViewModel @Inject constructor(
         lastAction = null
     }
 
-    fun retryLoadPosts() {
+    private fun retryLoadPosts() {
         loadPosts()
     }
-
-    fun getLastTen() =
-        viewModelScope.launch {
-            try {
-                _dataState.value = FeedModelState(loading = true)
-                repository.getLastTen()
-                _dataState.value = FeedModelState()
-            } catch (e: Exception) {
-                _dataState.value = FeedModelState(error = true)
-            }
-        }
 
     fun getById(id: Long) =
         viewModelScope.launch {
@@ -144,7 +128,7 @@ class PostViewModel @Inject constructor(
             currentId = null
         }
 
-    fun retryGetById() {
+    private fun retryGetById() {
         currentId?.let {
             getById(it)
         }
@@ -166,7 +150,7 @@ class PostViewModel @Inject constructor(
             currentPost = null
         }
 
-    fun retryEdit() {
+    private fun retryEdit() {
         currentPost?.let {
             edit(it)
         }
@@ -195,7 +179,7 @@ class PostViewModel @Inject constructor(
         currentId = null
     }
 
-    fun retryLikeById() {
+    private fun retryLikeById() {
         currentId?.let {
             likeById(it)
         }
@@ -216,7 +200,7 @@ class PostViewModel @Inject constructor(
         currentId = null
     }
 
-    fun retryDisLikeById() {
+    private fun retryDisLikeById() {
         currentId?.let {
             disLikeById(it)
         }
@@ -238,36 +222,12 @@ class PostViewModel @Inject constructor(
         currentId = null
     }
 
-    fun retryRemoveById() {
+    private fun retryRemoveById() {
         currentId?.let {
             removeById(it)
         }
     }
 
-    fun getPostNotExist(id: Long) {
-        viewModelScope.launch {
-            try {
-                _dataState.value = FeedModelState()
-                repository.getPostNotExist(id)
-                _dataState.value = FeedModelState()
-            } catch (e: Exception) {
-                _dataState.value = FeedModelState(error = true)
-            }
-        }
-    }
-
-
-    fun refreshPosts() = viewModelScope.launch {
-        try {
-            _dataState.value = FeedModelState(refreshing = true)
-            repository.getAll()
-            _dataState.value = FeedModelState()
-        } catch (e: Exception) {
-            _dataState.value = FeedModelState(error = true)
-        }
-    }
-
-    @RequiresApi(Build.VERSION_CODES.O)
     fun save() {
         lastAction = ActionType.SAVE
         edited.value?.let {
@@ -322,8 +282,7 @@ class PostViewModel @Inject constructor(
         lastAction = null
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun retrySave() {
+    private fun retrySave() {
         save()
     }
 

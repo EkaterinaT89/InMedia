@@ -1,7 +1,7 @@
 package ru.netology.inmedia.dto
 
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Post(
@@ -11,34 +11,11 @@ data class Post(
     val authorAvatar: String?,
     val content: String,
     var published: String,
-    /**
-     * Координаты
-     */
     val coords: Coordinates? = null,
-    /**
-     * Ссылка на связанный ресурс, например:
-     * 1. событие (/events/{id})
-     * 2. пользователя (/users/{id})
-     * 3. другой пост (/posts/{id})
-     * 4. внешний контент (https://youtube.com и т.д.)
-     * 5. и т.д.
-     */
     val link: String? = null,
-    /**
-     * Id'шники тех людей/компаний, которые упоминаются в посте (чтобы можно было перейти в их профили)
-     */
     val mentionIds: Set<Long> = emptySet(),
-    /**
-     * Упомянули ли меня
-     */
     val mentionedMe: Boolean = false,
-    /**
-     * Id'шники залайкавших
-     */
     val likeOwnerIds: Set<Long> = emptySet(),
-    /**
-     * Залайкал ли я
-     */
     val likedByMe: Boolean = false,
     val attachment: Attachment? = null,
     val ownedByMe: Boolean = false

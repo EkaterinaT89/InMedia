@@ -4,12 +4,10 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.*
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.annotation.RequiresApi
 import androidx.core.net.toFile
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -46,7 +44,7 @@ class NewPostFragment : Fragment() {
     private var mediaPlayer: ExoPlayer? = null
 
     private val permissionsRequestCode = 963
-    lateinit var permissionManager: PermissionsManager
+    private lateinit var permissionManager: PermissionsManager
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -64,7 +62,7 @@ class NewPostFragment : Fragment() {
 
         setHasOptionsMenu(true)
 
-        val permissions = listOf<String>(
+        val permissions = listOf(
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
         )
@@ -172,7 +170,7 @@ class NewPostFragment : Fragment() {
                         Snackbar.LENGTH_LONG
                     )
                         .setAnchorView(binding.audio)
-                        .setAction(getString(R.string.everything_fine), {})
+                        .setAction(getString(R.string.everything_fine)) {}
                         .show()
                     return@setOnClickListener
                 }
@@ -195,7 +193,7 @@ class NewPostFragment : Fragment() {
                         getString(R.string.grant_storage_permissions_dialog_message),
                         Snackbar.LENGTH_LONG
                     )
-                        .setAction(getString(R.string.everything_fine), {})
+                        .setAction(getString(R.string.everything_fine)) {}
                         .show()
                     return@setOnClickListener
                 }
@@ -233,6 +231,11 @@ class NewPostFragment : Fragment() {
                             mediaPlayer?.setMediaItem(mediaItem)
                         }
                     }
+                    else -> {
+                        photoContainer.visibility = View.GONE
+                        videoContainer.visibility = View.GONE
+                        audioContainer.visibility = View.GONE
+                    }
                 }
             }
         }
@@ -244,7 +247,6 @@ class NewPostFragment : Fragment() {
         inflater.inflate(R.menu.new_post_menu, menu)
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.save -> {

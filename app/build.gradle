@@ -26,8 +26,14 @@ android {
             manifestPlaceholders.usesCleartextTraffic = false
             buildConfigField "String", "BASE_URL", '"https://inmediadiploma.herokuapp.com/"'
         }
+        debug {
+            manifestPlaceholders.usesCleartextTraffic = true
+            buildConfigField "String", "BASE_URL", '"https://inmediadiploma.herokuapp.com/"'
+        }
     }
     compileOptions {
+        coreLibraryDesugaringEnabled true
+        android.compileOptions.incremental = false
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -68,7 +74,9 @@ dependencies {
     def exoplayer_version = "2.17.1"
     def link_movement_version = "2.2.0"
     def browser_version = "1.4.0"
+    def hilt_navigation_compose = "1.0.0"
 
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
     implementation "androidx.browser:browser:$browser_version"
     implementation "me.saket:better-link-movement-method:$link_movement_version"
     implementation "com.google.android.exoplayer:exoplayer:$exoplayer_version"
@@ -102,7 +110,7 @@ dependencies {
     implementation "com.github.dhaval2404:imagepicker:$imagepicker_version"
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
-    implementation "androidx.hilt:hilt-navigation-compose:1.0.0"
+    implementation "androidx.hilt:hilt-navigation-compose:$hilt_navigation_compose"
 
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation "androidx.test.ext:junit:$ext_junit_version"

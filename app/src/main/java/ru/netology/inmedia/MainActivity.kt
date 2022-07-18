@@ -64,16 +64,16 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                 true
             }
             R.id.sign_out -> {
-                AlertDialog.Builder(this).setMessage("Уверены?")
+                AlertDialog.Builder(this).setMessage(getString(R.string.are_you_sure))
                     .setPositiveButton(
-                        "Выйти"
-                    ) { dialogInterface, i ->
+                        getString(R.string.sign_out_ok)
+                    ) { _, _ ->
                         auth.removeAuth()
                         findNavController(R.id.nav_host_fragment).navigateUp()
                     }
                     .setNegativeButton(
-                        "Остаться"
-                    ) { dialogInterface, i ->
+                        getString(R.string.not_sign_out)
+                    ) { _, _ ->
                         return@setNegativeButton
                     }
                     .show()

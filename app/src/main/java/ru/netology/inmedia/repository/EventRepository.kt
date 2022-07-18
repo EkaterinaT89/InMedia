@@ -23,10 +23,6 @@ interface EventRepository {
 
     suspend fun removeEventById(id: Long)
 
-    suspend fun takePartEvent(id: Long)
-
-    suspend fun unTakePartEvent(id: Long)
-
     suspend fun saveWithAttachment(event: Event, upload: MediaUpload)
 
     suspend fun upload(upload: MediaUpload): Media

@@ -18,7 +18,7 @@ class WallRepositoryImpl @Inject constructor(
     private val apiService: ApiService
 ) : WallRepository {
 
-    val wallList = mutableListOf<Post>()
+    private val wallList = mutableListOf<Post>()
 
     private val _wall = MutableLiveData<List<Post>>()
 
@@ -54,7 +54,7 @@ class WallRepositoryImpl @Inject constructor(
 
     override suspend fun disLikePostsOnWall(authorId: Long, postId: Long) {
         try {
-            val response = apiService.likePostOnWall(authorId, postId)
+            val response = apiService.disLikePostOnWall(authorId, postId)
             val post = response.body() ?: throw ApiException(response.code(), response.message())
             wallList.add(post)
             _wall.value = wallList

@@ -1,7 +1,5 @@
 package ru.netology.inmedia.viewmodel
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -32,7 +30,7 @@ class JobViewModel @Inject constructor(
     val dataState: LiveData<FeedModelState>
         get() = _dataState
 
-    val edited = MutableLiveData(emptyJob)
+    private val edited = MutableLiveData(emptyJob)
 
     private val _jobCreated = SingleLiveEvent<Unit>()
     val jobCreated: LiveData<Unit>
@@ -40,11 +38,11 @@ class JobViewModel @Inject constructor(
 
     val data = repository.data.asLiveData(Dispatchers.Default)
 
-    var currentId: Long? = null
+    private var currentId: Long? = null
 
-    var currentJob: Job? = null
+    private var currentJob: Job? = null
 
-    var lastAction: ActionType? = null
+    private var lastAction: ActionType? = null
 
     fun tryAgain() {
         when (lastAction) {
@@ -74,7 +72,6 @@ class JobViewModel @Inject constructor(
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     fun createNewJob(userId: Long) {
         lastAction = ActionType.SAVE
         currentId = userId
@@ -102,11 +99,14 @@ class JobViewModel @Inject constructor(
         val getStart = start.trim().toLong()
         val getEnd = end.trim().toLong()
         if (edited.value?.name == getCompanyName && edited.value?.position == getPosition
-                    && edited.value?.start == getStart && edited.value?.finish == getEnd) {
+            && edited.value?.start == getStart && edited.value?.finish == getEnd
+        ) {
             return
         }
-        edited.value = edited.value?.copy(name = getCompanyName, position = getPosition,
-                start = getStart, finish = getEnd)
+        edited.value = edited.value?.copy(
+            name = getCompanyName, position = getPosition,
+            start = getStart, finish = getEnd
+        )
     }
 
     fun editJob(job: Job) {
@@ -126,8 +126,8 @@ class JobViewModel @Inject constructor(
         currentJob = null
     }
 
-    fun retryEditJob() {
-        currentId?.let { id ->
+    private fun retryEditJob() {
+        currentId?.let { _ ->
             currentJob?.let { job ->
                 editJob(job)
             }
@@ -150,7 +150,7 @@ class JobViewModel @Inject constructor(
         currentId = null
     }
 
-    fun retryRemoveJobById() {
+    private fun retryRemoveJobById() {
         currentId?.let {
             removeJobById(it)
         }

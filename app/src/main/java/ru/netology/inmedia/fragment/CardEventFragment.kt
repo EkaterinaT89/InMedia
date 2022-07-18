@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
+import ru.netology.inmedia.BuildConfig
 import ru.netology.inmedia.R
 import ru.netology.inmedia.databinding.FragmentCardEventBinding
 import ru.netology.inmedia.dto.Event
@@ -18,6 +19,8 @@ import ru.netology.inmedia.fragment.NewPostFragment.Companion.textArg
 import ru.netology.inmedia.service.EventArg
 import ru.netology.inmedia.service.PostService
 import ru.netology.inmedia.viewmodel.EventViewModel
+
+private const val BASE_URL = "${BuildConfig.BASE_URL}api"
 
 @AndroidEntryPoint
 class CardEventFragment : Fragment() {
@@ -44,8 +47,6 @@ class CardEventFragment : Fragment() {
 
         arguments?.showEvent?.let { event ->
             with(binding) {
-                val url = "https://inmediadiploma.herokuapp.com"
-
                 eventTime.text = event.published
                 eventAuthor.text = event.author
                 eventContent.text = event.content
@@ -66,7 +67,7 @@ class CardEventFragment : Fragment() {
                 }
 
                 Glide.with(imageContainer)
-                    .load("$url/media/${event.attachment?.url}")
+                    .load("$BASE_URL/media/${event.attachment?.url}")
                     .error(R.drawable.ic_error)
                     .placeholder(R.drawable.ic_loading)
                     .timeout(10_000)
@@ -81,13 +82,11 @@ class CardEventFragment : Fragment() {
                 }
 
                 takeAPartButton.setOnClickListener {
-                    eventViewModel.takePartEvent(event.id)
                     takeAPartButton.visibility = View.GONE
                     denyButton.visibility = View.VISIBLE
                 }
 
                 denyButton.setOnClickListener {
-                    eventViewModel.unTakePartEvent(event.id)
                     takeAPartButton.visibility = View.VISIBLE
                     denyButton.visibility = View.GONE
                 }

@@ -34,7 +34,7 @@ class PermissionsManager(val activity: Activity, val list: List<String>, val cod
         val builder = AlertDialog.Builder(activity)
         builder.setTitle(activity.getString(R.string.permissions_needed_title))
         builder.setMessage(activity.getString(R.string.permissions_needed_message))
-        builder.setPositiveButton(activity.getString(R.string.everything_fine)) { dialog, which ->
+        builder.setPositiveButton(activity.getString(R.string.everything_fine)) { _, _ ->
             ActivityCompat.requestPermissions(activity, arrayOf(permission), code)
 
         }

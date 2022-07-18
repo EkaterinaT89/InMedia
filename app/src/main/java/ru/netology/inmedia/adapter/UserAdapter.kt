@@ -5,10 +5,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import ru.netology.inmedia.BuildConfig
 import ru.netology.inmedia.R
 import ru.netology.inmedia.databinding.FragmentCardUserBinding
 import ru.netology.inmedia.dto.User
 import ru.netology.inmedia.util.MediaUtils
+
+private const val BASE_URL = "${BuildConfig.BASE_URL}api/"
 
 interface OnUserListener {
     fun onSingleUser(user: User)
@@ -38,12 +41,10 @@ class UserViewHolder(
         with(binding) {
             userName.text = user.name
 
-            val url = "https://inmediadiploma.herokuapp.com/api"
-
             if (user.avatar == null) {
                 avatarInput.setImageResource(R.drawable.ic_baseline_person_pin_24)
             } else {
-                MediaUtils.loadUserAvatar(avatarInput, url, user)
+                MediaUtils.loadUserAvatar(avatarInput, BASE_URL, user)
             }
 
             cardUser.setOnClickListener {

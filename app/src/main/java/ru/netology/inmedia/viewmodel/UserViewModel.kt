@@ -25,13 +25,13 @@ class UserViewModel @Inject constructor(
     val dataState: LiveData<FeedModelState>
         get() = _dataState
 
-    var lastAction: ActionType? = null
+    private var lastAction: ActionType? = null
 
     val data = repository.data.asLiveData(Dispatchers.Default)
 
     val user = MutableLiveData<User>()
 
-    var lastId: Long? = null
+    private var lastId: Long? = null
 
     private val noAvatar = AvatarModel()
 
@@ -54,7 +54,7 @@ class UserViewModel @Inject constructor(
         getAllUsers()
     }
 
-    fun getAllUsers() = viewModelScope.launch {
+    private fun getAllUsers() = viewModelScope.launch {
         lastAction = ActionType.LOAD
         try {
             _dataState.postValue(FeedModelState(loading = true))
@@ -66,11 +66,11 @@ class UserViewModel @Inject constructor(
         lastAction = null
     }
 
-    fun retryGetAllUsers() {
+    private fun retryGetAllUsers() {
         getAllUsers()
     }
 
-    fun getUserById(id: Long) {
+    private fun getUserById(id: Long) {
         viewModelScope.launch {
             lastAction = ActionType.GETBYID
             lastId = id
@@ -88,7 +88,7 @@ class UserViewModel @Inject constructor(
 
     }
 
-    fun retryGetById() {
+    private fun retryGetById() {
         lastId?.let {
             getUserById(it)
         }
