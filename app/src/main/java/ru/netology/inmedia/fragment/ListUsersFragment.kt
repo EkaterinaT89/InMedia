@@ -47,11 +47,11 @@ class ListUsersFragment : Fragment() {
 
         binding.usersContainer.adapter = userAdapter
 
-        viewModel.data.observe(viewLifecycleOwner, { users ->
+        viewModel.data.observe(viewLifecycleOwner) { users ->
             userAdapter.submitList(users)
-        })
+        }
 
-        viewModel.dataState.observe(viewLifecycleOwner, { state ->
+        viewModel.dataState.observe(viewLifecycleOwner) { state ->
             with(binding) {
                 progress.isVisible = state.loading
                 if (state.error) {
@@ -62,7 +62,7 @@ class ListUsersFragment : Fragment() {
                     }
                 }
             }
-        })
+        }
 
         return binding.root
     }

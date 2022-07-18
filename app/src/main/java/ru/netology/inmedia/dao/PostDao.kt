@@ -4,7 +4,6 @@ import androidx.room.Dao
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 import ru.netology.inmedia.entity.PostEntity
-import ru.netology.inmedia.enumeration.AttachmentType
 
 @Dao
 interface PostDao {
@@ -29,11 +28,4 @@ interface PostDao {
     @Query("DELETE FROM PostEntity")
     suspend fun removeAll()
 
-}
-
-class Converters {
-    @TypeConverter
-    fun toAttachmentType(value: String) = enumValueOf<AttachmentType>(value)
-    @TypeConverter
-    fun fromAttachmentType(value: AttachmentType) = value.name
 }

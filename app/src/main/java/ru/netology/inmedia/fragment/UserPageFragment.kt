@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
+import ru.netology.inmedia.BuildConfig
 import ru.netology.inmedia.R
 import ru.netology.inmedia.adapter.OnInteractionListener
 import ru.netology.inmedia.adapter.PostAdapter
@@ -24,11 +25,10 @@ import ru.netology.inmedia.fragment.NewPostFragment.Companion.textArg
 import ru.netology.inmedia.service.MediaLifecycleObserver
 import ru.netology.inmedia.service.UserArg
 import ru.netology.inmedia.util.MediaUtils
-import ru.netology.inmedia.viewmodel.JobViewModel
 import ru.netology.inmedia.viewmodel.PostViewModel
 import ru.netology.inmedia.viewmodel.WallViewModel
 
-private const val BASE_URL = "https://inmediadiploma.herokuapp.com/api/media"
+private const val BASE_URL = "${BuildConfig.BASE_URL}api/media"
 
 @AndroidEntryPoint
 class UserPageFragment : Fragment() {
@@ -59,24 +59,18 @@ class UserPageFragment : Fragment() {
             ownerProducer = ::requireParentFragment
         )
 
-        val jobViewModel: JobViewModel by viewModels(
-            ownerProducer = ::requireParentFragment
-        )
-
         val mediaObserver = MediaLifecycleObserver()
 
         lifecycle.addObserver(mediaObserver)
 
         arguments?.showUser?.let { user: User ->
             with(binding) {
-                val url = "https://inmediadiploma.herokuapp.com/api"
-
                 userName.text = user.name
 
                 if (user.avatar == null) {
                     avatarInput.setImageResource(R.drawable.ic_baseline_person_pin_24)
                 } else {
-                    MediaUtils.loadUserAvatar(avatarInput, url, user)
+                    MediaUtils.loadUserAvatar(avatarInput, BASE_URL, user)
                 }
 
                 val wallAdapter = PostAdapter(object : OnInteractionListener {
@@ -132,11 +126,11 @@ class UserPageFragment : Fragment() {
 
                 postsContainer.adapter = wallAdapter
 
-                wallViewModel.data.observe(viewLifecycleOwner, { wall ->
+                wallViewModel.data.observe(viewLifecycleOwner) { wall ->
                     wallAdapter.submitList(wall)
-                })
+                }
 
-                wallViewModel.dataState.observe(viewLifecycleOwner, { state ->
+                wallViewModel.dataState.observe(viewLifecycleOwner) { state ->
                     with(binding) {
                         progress.isVisible = state.loading
                         if (state.error) {
@@ -147,7 +141,7 @@ class UserPageFragment : Fragment() {
                             }
                         }
                     }
-                })
+                }
 
                 lifecycleScope.launchWhenCreated {
                     wallViewModel.getWall(user.id)

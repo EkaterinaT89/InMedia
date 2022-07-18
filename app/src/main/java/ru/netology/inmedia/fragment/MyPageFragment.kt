@@ -20,6 +20,7 @@ import com.github.dhaval2404.imagepicker.ImagePicker
 import com.github.dhaval2404.imagepicker.constant.ImageProvider
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import ru.netology.inmedia.BuildConfig
 import ru.netology.inmedia.R
 import ru.netology.inmedia.adapter.OnInteractionListener
 import ru.netology.inmedia.adapter.PostAdapter
@@ -32,12 +33,13 @@ import ru.netology.inmedia.fragment.ListUserOccupationFragment.Companion.showUse
 import ru.netology.inmedia.fragment.NewPostFragment.Companion.textArg
 import ru.netology.inmedia.service.MediaLifecycleObserver
 import ru.netology.inmedia.util.MediaUtils
+import ru.netology.inmedia.util.setId
 import ru.netology.inmedia.viewmodel.PostViewModel
 import ru.netology.inmedia.viewmodel.UserViewModel
 import ru.netology.inmedia.viewmodel.WallViewModel
 import javax.inject.Inject
 
-private const val BASE_URL = "https://inmediadiploma.herokuapp.com/api/media"
+private const val BASE_URL = "${BuildConfig.BASE_URL}api/media"
 
 @AndroidEntryPoint
 class MyPageFragment : Fragment() {
@@ -46,6 +48,10 @@ class MyPageFragment : Fragment() {
 
     @Inject
     lateinit var auth: AppAuth
+
+    companion object {
+        fun newInstance(id: Int) = MyPageFragment().apply { setId(id) }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -76,15 +82,16 @@ class MyPageFragment : Fragment() {
         lifecycle.addObserver(mediaObserver)
 
         userViewModel.user.observe(viewLifecycleOwner) { user ->
-            with(binding) {
-                val url = "https://inmediadiploma.herokuapp.com/api"
 
+            userViewModel.saveCurrentUser(user.id)
+
+            with(binding) {
                 userName.text = user.name
 
                 if (user.avatar == null) {
                     avatarInput.setImageResource(R.drawable.ic_baseline_person_pin_24)
                 } else {
-                    MediaUtils.loadUserAvatar(avatarInput, url, user)
+                    MediaUtils.loadUserAvatar(avatarInput, BASE_URL, user)
                 }
 
                 userName.text = user.name
@@ -160,11 +167,11 @@ class MyPageFragment : Fragment() {
                     wallViewModel.getWall(user.id)
                 }
 
-                wallViewModel.data.observe(viewLifecycleOwner, { wall ->
+                wallViewModel.data.observe(viewLifecycleOwner) { wall ->
                     wallAdapter.submitList(wall)
-                })
+                }
 
-                wallViewModel.dataState.observe(viewLifecycleOwner, { state ->
+                wallViewModel.dataState.observe(viewLifecycleOwner) { state ->
                     with(binding) {
                         progress.isVisible = state.loading
                         if (state.error) {
@@ -175,29 +182,28 @@ class MyPageFragment : Fragment() {
                             }
                         }
                     }
-                })
+                }
 
-                menuButton.setOnClickListener {
+                menuButton.setOnClickListener { it ->
                     PopupMenu(it.context, it).apply {
                         inflate(R.menu.my_page_menu)
                         setOnMenuItemClickListener { item ->
                             when (item.itemId) {
                                 R.id.sign_out -> {
-                                    AlertDialog.Builder(requireContext()).setMessage("Уверены?")
-                                        .setPositiveButton("Выйти"
-                                        ) { dialogInterface, i ->
+                                    AlertDialog.Builder(requireContext()).setMessage(R.string.are_you_sure)
+                                        .setPositiveButton(R.string.sign_out_ok
+                                        ) { _, _ ->
                                             auth.removeAuth()
                                             findNavController().navigate(R.id.tabsFragment)
                                         }
-                                        .setNegativeButton("Остаться"
-                                        ) { dialogInterface, i ->
+                                        .setNegativeButton(R.string.not_sign_out
+                                        ) { _, _ ->
                                             return@setNegativeButton
                                         }
                                         .show()
                                     true
                                 }
                                 R.id.load_avatar -> {
-
                                     val pickPhotoLauncher =
                                         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
                                             when (it.resultCode) {

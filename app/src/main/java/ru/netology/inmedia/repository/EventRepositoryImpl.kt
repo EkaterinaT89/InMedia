@@ -127,32 +127,6 @@ class EventRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun takePartEvent(id: Long) {
-        try {
-            val response = apiService.takePartEvent(id)
-            if (!response.isSuccessful) {
-                throw ApiException(response.code(), response.message())
-            }
-        } catch (e: IOException) {
-            throw NetWorkException
-        } catch (e: Exception) {
-            throw UnknownException
-        }
-    }
-
-    override suspend fun unTakePartEvent(id: Long) {
-        try {
-            val response = apiService.unTakePartEvent(id)
-            if (!response.isSuccessful) {
-                throw ApiException(response.code(), response.message())
-            }
-        } catch (e: IOException) {
-            throw NetWorkException
-        } catch (e: Exception) {
-            throw UnknownException
-        }
-    }
-
     override suspend fun saveWithAttachment(
         event: Event,
         upload: MediaUpload

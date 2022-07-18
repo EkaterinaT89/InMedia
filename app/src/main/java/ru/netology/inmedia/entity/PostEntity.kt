@@ -4,7 +4,6 @@ import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import ru.netology.inmedia.dto.Attachment
-import ru.netology.inmedia.dto.Coordinates
 import ru.netology.inmedia.dto.Post
 import ru.netology.inmedia.enumeration.AttachmentType
 
@@ -17,12 +16,8 @@ data class PostEntity(
     val authorAvatar: String?,
     val content: String,
     val published: String,
-//    @Embedded
-//    val coords: CoordsEmbeddable?,
     val link: String? = null,
-//    val mentionIds: Set<Long> = emptySet(),
     val mentionedMe: Boolean = false,
-//    val likeOwnerIds: Set<Long> = emptySet(),
     val likedByMe: Boolean = false,
 
     @Embedded
@@ -36,11 +31,8 @@ data class PostEntity(
         authorAvatar,
         content,
         published,
-//        coords?.toDto(),
         link = link,
-//        mentionIds,
         mentionedMe = false,
-//        likeOwnerIds,
         likedByMe = false,
         attachment = attachment?.toDto()
     )
@@ -54,11 +46,8 @@ data class PostEntity(
                 dto.authorAvatar,
                 dto.content,
                 dto.published,
-//                CoordsEmbeddable.fromDto(dto.coords),
                 dto.link,
-//                dto.mentionIds,
                 dto.mentionedMe,
-//                dto.likeOwnerIds,
                 dto.likedByMe,
                 AttachmentEmbeddable.fromDto(dto.attachment)
             )
@@ -74,19 +63,6 @@ data class AttachmentEmbeddable(
     companion object {
         fun fromDto(dto: Attachment?) = dto?.let {
             AttachmentEmbeddable(it.url, it.type)
-        }
-    }
-}
-
-data class CoordsEmbeddable(
-    val lat: Double,
-    val long: Double
-) {
-    fun toDto() = Coordinates(lat, long)
-
-    companion object {
-        fun fromDto(dto: Coordinates?) = dto?.let {
-            CoordsEmbeddable(it.lat, it.long)
         }
     }
 }

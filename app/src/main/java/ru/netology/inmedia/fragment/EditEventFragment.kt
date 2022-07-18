@@ -20,7 +20,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import ru.netology.inmedia.R
 import ru.netology.inmedia.databinding.FragmentEditEventBinding
 import ru.netology.inmedia.enumeration.AttachmentType
-import ru.netology.inmedia.enumeration.EventType
 import ru.netology.inmedia.service.AndroidUtils
 import ru.netology.inmedia.service.StringArg
 import ru.netology.inmedia.viewmodel.EventViewModel
@@ -36,7 +35,6 @@ class EditEventFragment : Fragment() {
         ownerProducer = ::requireParentFragment
     )
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

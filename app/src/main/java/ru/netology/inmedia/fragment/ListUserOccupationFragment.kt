@@ -63,11 +63,11 @@ class ListUserOccupationFragment: Fragment() {
 
         binding.jobsContainer.adapter = jobAdapter
 
-        jobViewModel.data.observe(viewLifecycleOwner, { jobs ->
+        jobViewModel.data.observe(viewLifecycleOwner) { jobs ->
             jobAdapter.submitList(jobs)
-        })
+        }
 
-        jobViewModel.dataState.observe(viewLifecycleOwner, { state ->
+        jobViewModel.dataState.observe(viewLifecycleOwner) { state ->
             with(binding) {
                 progress.isVisible = state.loading
                 swiperefresh.isRefreshing = state.refreshing
@@ -79,7 +79,7 @@ class ListUserOccupationFragment: Fragment() {
                     }
                 }
             }
-        })
+        }
 
         binding.swiperefresh.setOnRefreshListener {
             jobViewModel.retryGetAllJobs()

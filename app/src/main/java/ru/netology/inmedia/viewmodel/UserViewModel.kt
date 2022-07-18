@@ -12,12 +12,14 @@ import ru.netology.inmedia.enumeration.ActionType
 import ru.netology.inmedia.model.AvatarModel
 import ru.netology.inmedia.model.FeedModelState
 import ru.netology.inmedia.repository.UserRepository
+import ru.netology.inmedia.util.id
 import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
 class UserViewModel @Inject constructor(
     val repository: UserRepository,
+    private val savedStateHandle: SavedStateHandle,
     auth: AppAuth
 ) : ViewModel() {
 
@@ -25,19 +27,34 @@ class UserViewModel @Inject constructor(
     val dataState: LiveData<FeedModelState>
         get() = _dataState
 
-    var lastAction: ActionType? = null
+    private var lastAction: ActionType? = null
 
     val data = repository.data.asLiveData(Dispatchers.Default)
 
     val user = MutableLiveData<User>()
 
-    var lastId: Long? = null
+    private var lastId: Long? = null
 
     private val noAvatar = AvatarModel()
 
     private val _avatar = MutableLiveData(noAvatar)
     val avatar: LiveData<AvatarModel>
         get() = _avatar
+
+//    val id: Long
+//        get() = savedStateHandle.id
+
+    companion object {
+        private val USER_KEY = "userId"
+    }
+
+    fun saveCurrentUser(userId: Long) {
+        savedStateHandle.set(USER_KEY, userId)
+    }
+
+    fun getCurrentUser(): Long {
+        return savedStateHandle.get(USER_KEY)?: 1
+    }
 
     fun tryAgain() {
         when (lastAction) {
@@ -54,7 +71,7 @@ class UserViewModel @Inject constructor(
         getAllUsers()
     }
 
-    fun getAllUsers() = viewModelScope.launch {
+    private fun getAllUsers() = viewModelScope.launch {
         lastAction = ActionType.LOAD
         try {
             _dataState.postValue(FeedModelState(loading = true))
@@ -66,11 +83,11 @@ class UserViewModel @Inject constructor(
         lastAction = null
     }
 
-    fun retryGetAllUsers() {
+    private fun retryGetAllUsers() {
         getAllUsers()
     }
 
-    fun getUserById(id: Long) {
+    private fun getUserById(id: Long) {
         viewModelScope.launch {
             lastAction = ActionType.GETBYID
             lastId = id
@@ -88,7 +105,7 @@ class UserViewModel @Inject constructor(
 
     }
 
-    fun retryGetById() {
+    private fun retryGetById() {
         lastId?.let {
             getUserById(it)
         }

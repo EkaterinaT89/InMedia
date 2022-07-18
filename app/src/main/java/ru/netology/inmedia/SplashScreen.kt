@@ -5,15 +5,19 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import dagger.hilt.android.AndroidEntryPoint
 
 @SuppressLint("CustomSplashScreen")
 @AndroidEntryPoint
 class SplashScreen : AppCompatActivity() {
-    private var mDelayHandler: Handler? = null
-    private val SPLASH_DELAY: Long = 3000
+    private val delayHandler: Handler = Handler(Looper.getMainLooper())
 
-    internal val mRunnable: Runnable = Runnable {
+    companion object {
+        private const val SPLASH_DELAY: Long = 1000
+    }
+
+    private val runnable: Runnable = Runnable {
         if (!isFinishing) {
             val intent = Intent(applicationContext, MainActivity::class.java)
             startActivity(intent)
@@ -24,15 +28,11 @@ class SplashScreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
-        mDelayHandler = Handler()
-        mDelayHandler!!.postDelayed(mRunnable, SPLASH_DELAY)
+        delayHandler.postDelayed(runnable, SPLASH_DELAY)
     }
 
     public override fun onDestroy() {
-        if (mDelayHandler != null) {
-            mDelayHandler!!.removeCallbacks(mRunnable)
-        }
+        delayHandler.removeCallbacks(runnable)
         super.onDestroy()
     }
-
 }

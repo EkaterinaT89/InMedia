@@ -137,7 +137,6 @@ class NewEventFragment : Fragment() {
         inflater.inflate(R.menu.new_post_menu, menu)
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.save -> {
@@ -172,8 +171,8 @@ class NewEventFragment : Fragment() {
                 viewModel.setEventDateTime(
                     DateFormatter.formatDateToDateTimeString(calendar.time)
                 )
-            }.show(childFragmentManager, "timePicker")
-        }.show(childFragmentManager, "datePicker")
+            }.show(childFragmentManager, getString(R.string.time_picker_tag))
+        }.show(childFragmentManager, getString(R.string.date_picker_tag))
     }
 
 }

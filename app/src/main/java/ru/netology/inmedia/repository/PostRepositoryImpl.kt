@@ -1,7 +1,6 @@
 package ru.netology.inmedia.repository
 
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -62,36 +61,6 @@ class PostRepositoryImpl @Inject constructor(
             throw UnknownException
         }
     }
-
-    override suspend fun getLastTen() {
-        try {
-            val response = apiService.getLastTen()
-            if (!response.isSuccessful) {
-                throw ApiException(response.code(), response.message())
-            }
-            val body = response.body() ?: throw ApiException(response.code(), response.message())
-            dao.insert(body.toEntity())
-        } catch (e: IOException) {
-            throw NetWorkException
-        } catch (e: Exception) {
-            throw UnknownException
-        }
-    }
-
-    override fun getNewerCount(id: Long): Flow<Int> = flow {
-        while (true) {
-            delay(10_000L)
-            val response = apiService.getLastTen()
-            if (!response.isSuccessful) {
-                throw ApiException(response.code(), response.message())
-            }
-            val body = response.body() ?: throw ApiException(response.code(), response.message())
-            dao.insert(body.toEntity())
-            emit(body.size)
-        }
-    }
-        .catch { e -> throw AppError.from(e) }
-        .flowOn(Dispatchers.Default)
 
     override suspend fun getById(id: Long): Post {
         val response = apiService.getById(id)
@@ -157,19 +126,6 @@ class PostRepositoryImpl @Inject constructor(
                 throw ApiException(response.code(), response.message())
             }
             dao.removeById(id)
-        } catch (e: IOException) {
-            throw NetWorkException
-        } catch (e: Exception) {
-            throw UnknownException
-        }
-    }
-
-    override suspend fun getPostNotExist(id: Long) {
-        try {
-            val response = apiService.getPostNotExist(id)
-            if (!response.isSuccessful) {
-                throw ApiException(response.code(), response.message())
-            }
         } catch (e: IOException) {
             throw NetWorkException
         } catch (e: Exception) {

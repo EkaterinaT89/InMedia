@@ -29,7 +29,7 @@ class ImageFragment: Fragment() {
 
         with(binding) {
             arguments?.textArg.let {
-                showImage.imageLoad("${BASE_URL}/media/$it")
+                showImage.imageLoad("${BASE_URL}media/$it")
             }
 
         }

@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.netology.inmedia.R
 import ru.netology.inmedia.databinding.FragmentCardMyOccupationBinding
-import ru.netology.inmedia.databinding.FragmentCardUserOccupationBinding
 import ru.netology.inmedia.dto.Job
 
 interface MyJobListener {
@@ -22,7 +21,11 @@ class MyJobAdapter(private val jobListener: MyJobListener) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyJobViewHolder {
         val binding =
-            FragmentCardMyOccupationBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            FragmentCardMyOccupationBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
         return MyJobViewHolder(binding, jobListener)
     }
 

@@ -1,12 +1,10 @@
 package ru.netology.inmedia.fragment
 
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -31,7 +29,7 @@ private const val BASE_URL = "https://inmediadiploma.herokuapp.com/api/media"
 @AndroidEntryPoint
 class ListPostFragment : Fragment() {
 
-    private lateinit var recyclerView: PostRecyclerView
+    private var recyclerView: PostRecyclerView? = null
 
     private val postViewModel: PostViewModel by viewModels(
         ownerProducer = ::requireParentFragment
@@ -41,7 +39,6 @@ class ListPostFragment : Fragment() {
         ownerProducer = ::requireParentFragment
     )
 
-    @RequiresApi(Build.VERSION_CODES.O)
     @OptIn(ExperimentalCoroutinesApi::class)
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -120,11 +117,11 @@ class ListPostFragment : Fragment() {
 
         binding.postsContainer.adapter = postAdapter
 
-        postViewModel.data.observe(viewLifecycleOwner, { state ->
+        postViewModel.data.observe(viewLifecycleOwner) { state ->
             postAdapter.submitList(state.posts)
-        })
+        }
 
-        postViewModel.dataState.observe(viewLifecycleOwner, { state ->
+        postViewModel.dataState.observe(viewLifecycleOwner) { state ->
             with(binding) {
                 progress.isVisible = state.loading
                 swiperefresh.isRefreshing = state.refreshing
@@ -136,7 +133,7 @@ class ListPostFragment : Fragment() {
                     }
                 }
             }
-        })
+        }
 
         with(binding) {
             swiperefresh.setOnRefreshListener {
@@ -156,19 +153,23 @@ class ListPostFragment : Fragment() {
     }
 
     override fun onResume() {
-        if (::recyclerView.isInitialized) recyclerView.createPlayer()
+        recyclerView?.createPlayer()
         super.onResume()
     }
 
     override fun onPause() {
-        if (::recyclerView.isInitialized) recyclerView.releasePlayer()
+        recyclerView?.releasePlayer()
         super.onPause()
     }
 
-
     override fun onStop() {
-        if (::recyclerView.isInitialized) recyclerView.releasePlayer()
+        recyclerView?.releasePlayer()
         super.onStop()
+    }
+
+    override fun onDestroyView() {
+        recyclerView = null
+        super.onDestroyView()
     }
 
 }

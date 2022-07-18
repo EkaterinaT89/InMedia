@@ -6,9 +6,8 @@ import java.text.DecimalFormat
 object PostService {
 
     fun countPresents(set: Set<Long>): String {
-        val counter = set.size.toLong()
-        return when(counter) {
-            in 0..999 -> "${counter}"
+        return when(val counter = set.size.toLong()) {
+            in 0..999 -> "$counter"
 
             in 1000..1099 -> "1K"
             in 1100..1999 -> counterPrinter(counter.toDouble()) + "K"
@@ -44,7 +43,7 @@ object PostService {
         }
     }
 
-    fun counterPrinter(counterForPrint: Double): String {
+    private fun counterPrinter(counterForPrint: Double): String {
         val df = DecimalFormat("#.#")
         df.roundingMode = RoundingMode.FLOOR
         return df.format(counterForPrint/1000).toDouble().toString()

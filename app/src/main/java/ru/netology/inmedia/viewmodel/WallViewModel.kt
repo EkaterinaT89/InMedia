@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class WallViewModel @Inject constructor(
-    val wallRepository: WallRepository
+    private val wallRepository: WallRepository
 ) : ViewModel() {
 
     val data = wallRepository.data.asLiveData(Dispatchers.Default)
@@ -20,11 +20,11 @@ class WallViewModel @Inject constructor(
     val dataState: LiveData<FeedModelState>
         get() = _dataState
 
-    var lastId: Long? = null
+    private var lastId: Long? = null
 
-    var lastAuthorId: Long? = null
+    private var lastAuthorId: Long? = null
 
-    var lastAction: ActionType? = null
+    private var lastAction: ActionType? = null
 
     fun tryAgain() {
         when (lastAction) {
@@ -86,7 +86,7 @@ class WallViewModel @Inject constructor(
             lastAuthorId = authorId
             try {
                 _dataState.postValue(FeedModelState(loading = true))
-                wallRepository.likePostsOnWall(authorId, postId)
+                wallRepository.disLikePostsOnWall(authorId, postId)
                 _dataState.value = FeedModelState()
             } catch (e: Exception) {
                 _dataState.value = FeedModelState(error = true)

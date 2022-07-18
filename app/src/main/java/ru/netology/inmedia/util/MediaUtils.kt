@@ -54,16 +54,6 @@ object MediaUtils {
             .into(imageView)
     }
 
-    fun loadEventAvatar(imageView: ImageView, url: String, event: Event) {
-        Glide.with(imageView)
-            .load("$url/avatars/${event.authorAvatar}")
-            .error(R.drawable.ic_error)
-            .placeholder(R.drawable.ic_loading)
-            .circleCrop()
-            .timeout(10_000)
-            .into(imageView)
-    }
-
     fun loadUserAvatar(imageView: ImageView, url: String, user: User) {
         Glide.with(imageView)
             .load("$url/avatars/${user.avatar}")

@@ -62,4 +62,27 @@
     <string name="end">Год окончания</string>
     <string name="save_button">Сохранить</string>
     <string name="cancel_button">Отменить</string>
+    <string name="are_you_sure">Уверены?</string>
+    <string name="sign_out_ok">Выйти</string>
+    <string name="not_sign_out">Остаться</string>
+    <string name="from">\"С \"</string>
+    <string name="till">\"По \"</string>
+    <string name="auth_label">Авторизация</string>
+    <string name="sign_up_label">Регистрация</string>
+    <string name="event_label">Событие</string>
+    <string name="post_label">Пост</string>
+    <string name="create_new_post_label">Создание нового поста</string>
+    <string name="edit_post_label">Редактирование поста</string>
+    <string name="image_label">Изображение</string>
+    <string name="edit_event_label">Редактирование события</string>
+    <string name="create_new_event_label">Создание нового события</string>
+    <string name="occupation_label">Место работы</string>
+    <string name="add_new_occupation_label">Добавление нового места работы</string>
+    <string name="my_profile_label">Мой профиль</string>
+    <string name="edit_occupation_label">Редактирование места работы</string>
+    <string name="work_experience_label">Опыт работы</string>
+    <string name="auth_interceptors_name">Authorization</string>
+    <string name="time_picker_tag">timePicker</string>
+    <string name="date_picker_tag">datePicker</string>
+    <string name="error_db">error_db</string>
 </resources>

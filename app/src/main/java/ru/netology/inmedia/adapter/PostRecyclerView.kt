@@ -8,12 +8,11 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.ProgressBar
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.Player
-import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.ui.AspectRatioFrameLayout
 import com.google.android.exoplayer2.ui.PlayerView
 import com.google.android.material.button.MaterialButton
-import ru.netology.inmedia.R
 
 class PostRecyclerView: RecyclerView {
 
@@ -22,11 +21,10 @@ class PostRecyclerView: RecyclerView {
     private var viewHolderParent: View? = null
     private var videoContainer: FrameLayout? = null
     private lateinit var videoSurfaceView: PlayerView
-    private var videoPlayer: SimpleExoPlayer? = null
+    private var videoPlayer: ExoPlayer? = null
     private var playIcon: MaterialButton? = null
 
     private var isVideoViewAdded = false
-
 
     constructor(context: Context) : super(context) {
         init(context)
@@ -41,7 +39,7 @@ class PostRecyclerView: RecyclerView {
         videoSurfaceView.videoSurfaceView
         videoSurfaceView.resizeMode = AspectRatioFrameLayout.RESIZE_MODE_ZOOM
 
-        videoPlayer = SimpleExoPlayer.Builder(context).build()
+        videoPlayer = ExoPlayer.Builder(context).build()
 
         videoSurfaceView.controllerShowTimeoutMs = 2_000
         videoSurfaceView.controllerHideOnTouch = true
@@ -50,7 +48,6 @@ class PostRecyclerView: RecyclerView {
                 videoSurfaceView.useController = true
                 videoSurfaceView.showController()
             }
-
 
         }
         videoSurfaceView.player = videoPlayer
@@ -102,7 +99,6 @@ class PostRecyclerView: RecyclerView {
     }
 
     fun playVideo(view: View) {
-        // video is already playing so return
         if (viewHolderParent != null && viewHolderParent == view) {
             return
         } else {
@@ -130,7 +126,6 @@ class PostRecyclerView: RecyclerView {
         }
     }
 
-    // Remove the old player
     private fun removeVideoView(videoView: PlayerView?) {
         val parent = videoView?.parent as ViewGroup?
         val index = parent?.indexOfChild(videoView)

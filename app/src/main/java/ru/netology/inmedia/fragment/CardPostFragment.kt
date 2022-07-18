@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide
 import com.google.android.exoplayer2.MediaItem
 import dagger.hilt.android.AndroidEntryPoint
 import me.saket.bettermovementmethod.BetterLinkMovementMethod
+import ru.netology.inmedia.BuildConfig
 import ru.netology.inmedia.R
 import ru.netology.inmedia.databinding.FragmentCardPostBinding
 import ru.netology.inmedia.dto.Post
@@ -27,6 +28,8 @@ import ru.netology.inmedia.util.MediaUtils
 import ru.netology.inmedia.viewmodel.AuthViewModel
 import ru.netology.inmedia.viewmodel.PostViewModel
 
+private const val BASE_URL = "${BuildConfig.BASE_URL}api/"
+
 @AndroidEntryPoint
 class CardPostFragment : Fragment() {
 
@@ -38,7 +41,7 @@ class CardPostFragment : Fragment() {
         ownerProducer = ::requireParentFragment
     )
 
-    val authViewModel: AuthViewModel by viewModels(
+    private val authViewModel: AuthViewModel by viewModels(
         ownerProducer = ::requireParentFragment
     )
 
@@ -64,15 +67,13 @@ class CardPostFragment : Fragment() {
                 val parentView = binding.root
                 val videoThumbnail = videoContainer
 
-                val url = "https://inmediadiploma.herokuapp.com/api/"
-
                 authorName.text = post.author
                 date.text = post.published
                 contentPost.text = post.content
                 Linkify.addLinks(contentPost, Linkify.ALL)
                 contentPost.movementMethod = BetterLinkMovementMethod.getInstance()
                 BetterLinkMovementMethod.linkify(Linkify.WEB_URLS, contentPost)
-                    .setOnLinkClickListener { textView, url ->
+                    .setOnLinkClickListener { _, url ->
                         CustomTabsIntent.Builder()
                             .setShowTitle(true)
                             .build()
@@ -107,7 +108,7 @@ class CardPostFragment : Fragment() {
                             imageContainer.visibility = View.VISIBLE
                             groupForVideo.visibility = View.GONE
                             playAudio.visibility = View.GONE
-                            MediaUtils.loadPostImage(imageContainer, url, post)
+                            MediaUtils.loadPostImage(imageContainer, BASE_URL, post)
                         }
                     }
                 }
@@ -125,7 +126,7 @@ class CardPostFragment : Fragment() {
                 playAudio.setOnClickListener {
                     mediaObserver.apply {
                         player?.setDataSource(
-                            "$url/media/${post.attachment?.url}"
+                            "${BASE_URL}media/${post.attachment?.url}"
                         )
                     }.play()
                 }
@@ -133,7 +134,7 @@ class CardPostFragment : Fragment() {
                 if (post.authorAvatar == null) {
                     avatar.setImageResource(R.drawable.ic_baseline_person_pin_24)
                 } else {
-                    MediaUtils.loadPostAvatar(avatar, url, post)
+                    MediaUtils.loadPostAvatar(avatar, BASE_URL, post)
                 }
 
                 imageContainer.setOnClickListener {

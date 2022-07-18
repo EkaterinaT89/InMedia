@@ -4,6 +4,7 @@ import okhttp3.Interceptor
 import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import ru.netology.inmedia.BuildConfig
+import ru.netology.inmedia.R
 import ru.netology.inmedia.auth.AppAuth
 
 fun loggingInterceptor() = HttpLoggingInterceptor()
@@ -16,7 +17,7 @@ fun loggingInterceptor() = HttpLoggingInterceptor()
 fun authInterceptor(auth: AppAuth) = fun(chain: Interceptor.Chain): Response {
     auth.authStateFlow.value.token?.let { token ->
         val newRequest = chain.request().newBuilder()
-            .addHeader("Authorization", token)
+            .addHeader(R.string.auth_interceptors_name.toString(), token)
             .build()
         return chain.proceed(newRequest)
     }

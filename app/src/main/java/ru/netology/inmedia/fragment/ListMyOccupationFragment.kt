@@ -18,9 +18,11 @@ import ru.netology.inmedia.dto.Job
 import ru.netology.inmedia.dto.User
 import ru.netology.inmedia.fragment.EditMyJobFragment.Companion.jobArg
 import ru.netology.inmedia.fragment.EditMyJobFragment.Companion.userArg
+import ru.netology.inmedia.fragment.MyPageFragment.Companion.newInstance
 import ru.netology.inmedia.fragment.UserOccupationDetailsFragment.Companion.showOneJob
 import ru.netology.inmedia.service.UserArg
 import ru.netology.inmedia.viewmodel.JobViewModel
+import ru.netology.inmedia.viewmodel.UserViewModel
 
 @AndroidEntryPoint
 class ListMyOccupationFragment : Fragment() {
@@ -45,47 +47,52 @@ class ListMyOccupationFragment : Fragment() {
             ownerProducer = ::requireParentFragment
         )
 
-        arguments?.showUser?.let {
-            lifecycleScope.launchWhenCreated {
-                jobViewModel.getAllJobs(it.id)
-            }
+        val userViewModel: UserViewModel by viewModels(
+            ownerProducer = ::requireParentFragment
+        )
 
-            val jobAdapter = MyJobAdapter(object : MyJobListener {
-                override fun onSingleJob(job: Job) {
-                    findNavController().navigate(
-                        R.id.cardMyOccupationFragment,
-                        Bundle().apply
-                        {
-                            showOneJob = job
-                        })
-                }
+        val userId = userViewModel.getCurrentUser().toLong()
 
-                override fun onEdit(job: Job) {
-                    jobViewModel.editJob(job)
-                    findNavController().navigate(
-                        R.id.editMyJobFragment,
-                        Bundle().apply
-                        {
-                            jobArg = job
-                            userArg = it
-                        })
-                }
-
-                override fun onDelete(job: Job) {
-                    jobViewModel.removeJobById(job.id)
-                }
-
-            })
-
-            binding.jobsContainer.adapter = jobAdapter
-
-            jobViewModel.data.observe(viewLifecycleOwner, { jobs ->
-                jobAdapter.submitList(jobs)
-            })
-
+        lifecycleScope.launchWhenCreated {
+            jobViewModel.getAllJobs(userId)
         }
 
-        jobViewModel.dataState.observe(viewLifecycleOwner, { state ->
+        val jobAdapter = MyJobAdapter(object : MyJobListener {
+            override fun onSingleJob(job: Job) {
+                findNavController().navigate(
+                    R.id.cardMyOccupationFragment,
+                    Bundle().apply
+                    {
+                        showOneJob = job
+                    })
+            }
+
+            override fun onEdit(job: Job) {
+                jobViewModel.editJob(job)
+                findNavController().navigate(
+                    R.id.editMyJobFragment,
+                    Bundle().apply
+                    {
+                        jobArg = job
+
+                    })
+            }
+
+            override fun onDelete(job: Job) {
+                jobViewModel.removeJobById(job.id)
+            }
+
+        })
+
+        binding.jobsContainer.adapter = jobAdapter
+
+        jobViewModel.data.observe(viewLifecycleOwner) { jobs ->
+            jobAdapter.submitList(jobs)
+        }
+
+
+
+        jobViewModel.dataState.observe(viewLifecycleOwner) { state ->
             with(binding) {
                 progress.isVisible = state.loading
                 swiperefresh.isRefreshing = state.refreshing
@@ -97,7 +104,7 @@ class ListMyOccupationFragment : Fragment() {
                     }
                 }
             }
-        })
+        }
 
         binding.swiperefresh.setOnRefreshListener {
             jobViewModel.retryGetAllJobs()

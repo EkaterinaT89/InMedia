@@ -7,11 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
-import androidx.compose.ui.res.stringResource
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import me.saket.bettermovementmethod.BetterLinkMovementMethod
 import ru.netology.inmedia.R
 import ru.netology.inmedia.databinding.FragmentCardEventBinding
@@ -24,15 +22,11 @@ interface OnEventListener {
     fun onEdit(event: Event)
     fun onLike(event: Event)
     fun onDisLike(event: Event)
-    fun onTakePart(event: Event)
-    fun onUnTakePart(event: Event)
     fun onSingleEvent(event: Event)
     fun onRemove(event: Event)
     fun onFullImage(event: Event)
     fun onLink(url: String)
 }
-
-private const val BASE_URL = "https://inmediadiploma.herokuapp.com/api/"
 
 class EventAdapter(private val onEventListener: OnEventListener) :
     ListAdapter<Event, EventViewHolder>(EventDiffCallback()) {
@@ -66,11 +60,10 @@ class EventViewHolder(
             Linkify.addLinks(eventContent, Linkify.ALL)
             eventContent.movementMethod = BetterLinkMovementMethod.getInstance()
             BetterLinkMovementMethod.linkify(Linkify.WEB_URLS, eventContent)
-                .setOnLinkClickListener { textView, url ->
+                .setOnLinkClickListener { _, url ->
                     onEventListener.onLink(url)
                     true
                 }
-
 
             likesButton.text = PostService.countPresents(event.likeOwnerIds)
 
@@ -83,7 +76,7 @@ class EventViewHolder(
                 MediaUtils.loadEventImage(imageContainer, url, event)
             }
 
-            if(event.type == EventType.ONLINE) {
+            if (event.type == EventType.ONLINE) {
                 eventType.text = itemView.context.getString(R.string.online)
             } else {
                 eventType.text = itemView.context.getString(R.string.offline)
@@ -117,13 +110,11 @@ class EventViewHolder(
             }
 
             takeAPartButton.setOnClickListener {
-                onEventListener.onTakePart(event)
                 takeAPartButton.visibility = View.GONE
                 denyButton.visibility = View.VISIBLE
             }
 
             denyButton.setOnClickListener {
-                onEventListener.onUnTakePart(event)
                 takeAPartButton.visibility = View.VISIBLE
                 denyButton.visibility = View.GONE
             }

@@ -45,10 +45,10 @@ class CardMyOccupationFragment: Fragment() {
             with(binding) {
                 position.text = job.position
                 company.text = job.name
-                start.text = "С " + job.start.toString()
+                start.text = R.string.from.toString() + job.start.toString()
 
                 if(job.finish != null) {
-                    end.text = "По " + job.finish.toString()
+                    end.text = R.string.till.toString() + job.finish.toString()
                 } else {
                     end.visibility = View.GONE
                 }
